@@ -17,6 +17,17 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Use:       "params",
 					Short:     "Shows the parameters of the module",
 				},
+				{
+					RpcMethod: "GameAll",
+					Use:       "list-game",
+					Short:     "List all game",
+				},
+				{
+					RpcMethod:      "Game",
+					Use:            "show-game [id]",
+					Short:          "Shows a game by id",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+				},
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
@@ -27,6 +38,24 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				{
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
+				},
+				{
+					RpcMethod:      "CreateGame",
+					Use:            "create-game [commitmentHash] [duration] [entryFee] [reward]",
+					Short:          "Create game",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "commitmentHash"}, {ProtoField: "duration"}, {ProtoField: "entryFee"}, {ProtoField: "reward"}},
+				},
+				{
+					RpcMethod:      "UpdateGame",
+					Use:            "update-game [id] [commitmentHash] [duration] [entryFee] [reward]",
+					Short:          "Update game",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "commitmentHash"}, {ProtoField: "duration"}, {ProtoField: "entryFee"}, {ProtoField: "reward"}},
+				},
+				{
+					RpcMethod:      "DeleteGame",
+					Use:            "delete-game [id]",
+					Short:          "Delete game",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},

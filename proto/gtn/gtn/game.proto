@@ -1,0 +1,13 @@
+syntax = "proto3";
+package gtn.gtn;
+
+option go_package = "gtn/x/gtn/types";
+
+message Game {
+  uint64 id = 1;
+  string commitmentHash = 2; 
+  uint64 duration = 3; 
+  uint64 entryFee = 4; 
+  uint64 reward = 5; 
+  string creator = 6;
+}

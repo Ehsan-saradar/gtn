@@ -20,7 +20,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName = "/gtn.gtn.Query/Params"
+	Query_Params_FullMethodName  = "/gtn.gtn.Query/Params"
+	Query_Game_FullMethodName    = "/gtn.gtn.Query/Game"
+	Query_GameAll_FullMethodName = "/gtn.gtn.Query/GameAll"
 )
 
 // QueryClient is the client API for Query service.
@@ -29,6 +31,9 @@ const (
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
+	// Queries a list of Game items.
+	Game(ctx context.Context, in *QueryGetGameRequest, opts ...grpc.CallOption) (*QueryGetGameResponse, error)
+	GameAll(ctx context.Context, in *QueryAllGameRequest, opts ...grpc.CallOption) (*QueryAllGameResponse, error)
 }
 
 type queryClient struct {
@@ -48,12 +53,33 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
+func (c *queryClient) Game(ctx context.Context, in *QueryGetGameRequest, opts ...grpc.CallOption) (*QueryGetGameResponse, error) {
+	out := new(QueryGetGameResponse)
+	err := c.cc.Invoke(ctx, Query_Game_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GameAll(ctx context.Context, in *QueryAllGameRequest, opts ...grpc.CallOption) (*QueryAllGameResponse, error) {
+	out := new(QueryAllGameResponse)
+	err := c.cc.Invoke(ctx, Query_GameAll_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
+	// Queries a list of Game items.
+	Game(context.Context, *QueryGetGameRequest) (*QueryGetGameResponse, error)
+	GameAll(context.Context, *QueryAllGameRequest) (*QueryAllGameResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -63,6 +89,12 @@ type UnimplementedQueryServer struct {
 
 func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
+}
+func (UnimplementedQueryServer) Game(context.Context, *QueryGetGameRequest) (*QueryGetGameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Game not implemented")
+}
+func (UnimplementedQueryServer) GameAll(context.Context, *QueryAllGameRequest) (*QueryAllGameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GameAll not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -95,6 +127,42 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Game_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetGameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Game(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Game_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Game(ctx, req.(*QueryGetGameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GameAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllGameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GameAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GameAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GameAll(ctx, req.(*QueryAllGameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -105,6 +173,14 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Params",
 			Handler:    _Query_Params_Handler,
+		},
+		{
+			MethodName: "Game",
+			Handler:    _Query_Game_Handler,
+		},
+		{
+			MethodName: "GameAll",
+			Handler:    _Query_GameAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

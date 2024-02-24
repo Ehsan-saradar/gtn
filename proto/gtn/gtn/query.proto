@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package gtn.gtn;
 
 import "amino/amino.proto";
@@ -6,25 +7,53 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "gtn/gtn/params.proto";
+import "gtn/gtn/game.proto";
 
 option go_package = "gtn/x/gtn/types";
 
 // Query defines the gRPC querier service.
 service Query {
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/gtn/gtn/params";
+  
+  }
+  
+  // Queries a list of Game items.
+  rpc Game    (QueryGetGameRequest) returns (QueryGetGameResponse) {
+    option (google.api.http).get = "/gtn/gtn/game/{id}";
+  
+  }
+  rpc GameAll (QueryAllGameRequest) returns (QueryAllGameResponse) {
+    option (google.api.http).get = "/gtn/gtn/game";
+  
   }
 }
-
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
+  
   // params holds all the parameters of this module.
-  Params params = 1 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
-  ];
+  Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
+
+message QueryGetGameRequest {
+  uint64 id = 1;
+}
+
+message QueryGetGameResponse {
+  Game Game = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllGameRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllGameResponse {
+  repeated Game                                   Game       = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
