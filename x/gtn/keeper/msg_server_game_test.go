@@ -22,26 +22,26 @@ func TestGameMsgServerCreate(t *testing.T) {
 	}
 }
 
-func TestGameMsgServerUpdate(t *testing.T) {
+func TestGameMsgServerReveal(t *testing.T) {
 	creator := "A"
 
 	tests := []struct {
 		desc    string
-		request *types.MsgUpdateGame
+		request *types.MsgRevealGame
 		err     error
 	}{
 		{
 			desc:    "Completed",
-			request: &types.MsgUpdateGame{Creator: creator},
+			request: &types.MsgRevealGame{Creator: creator},
 		},
 		{
 			desc:    "Unauthorized",
-			request: &types.MsgUpdateGame{Creator: "B"},
+			request: &types.MsgRevealGame{Creator: "B"},
 			err:     sdkerrors.ErrUnauthorized,
 		},
 		{
 			desc:    "Unauthorized",
-			request: &types.MsgUpdateGame{Creator: creator, Id: 10},
+			request: &types.MsgRevealGame{Creator: creator, GameId: 10},
 			err:     sdkerrors.ErrKeyNotFound,
 		},
 	}
@@ -53,47 +53,7 @@ func TestGameMsgServerUpdate(t *testing.T) {
 			_, err := srv.CreateGame(wctx, &types.MsgCreateGame{Creator: creator})
 			require.NoError(t, err)
 
-			_, err = srv.UpdateGame(wctx, tc.request)
-			if tc.err != nil {
-				require.ErrorIs(t, err, tc.err)
-			} else {
-				require.NoError(t, err)
-			}
-		})
-	}
-}
-
-func TestGameMsgServerDelete(t *testing.T) {
-	creator := "A"
-
-	tests := []struct {
-		desc    string
-		request *types.MsgDeleteGame
-		err     error
-	}{
-		{
-			desc:    "Completed",
-			request: &types.MsgDeleteGame{Creator: creator},
-		},
-		{
-			desc:    "Unauthorized",
-			request: &types.MsgDeleteGame{Creator: "B"},
-			err:     sdkerrors.ErrUnauthorized,
-		},
-		{
-			desc:    "KeyNotFound",
-			request: &types.MsgDeleteGame{Creator: creator, Id: 10},
-			err:     sdkerrors.ErrKeyNotFound,
-		},
-	}
-	for _, tc := range tests {
-		t.Run(tc.desc, func(t *testing.T) {
-			_, srv, ctx := setupMsgServer(t)
-			wctx := sdk.UnwrapSDKContext(ctx)
-
-			_, err := srv.CreateGame(wctx, &types.MsgCreateGame{Creator: creator})
-			require.NoError(t, err)
-			_, err = srv.DeleteGame(wctx, tc.request)
+			_, err = srv.RevealGame(wctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {

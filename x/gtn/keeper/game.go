@@ -9,6 +9,7 @@ import (
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
 	"github.com/cosmos/cosmos-sdk/runtime"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // GetGameCount get the total number of game
@@ -109,4 +110,8 @@ func GetGameIDBytes(id uint64) []byte {
 	bz = append(bz, []byte("/")...)
 	bz = binary.BigEndian.AppendUint64(bz, id)
 	return bz
+}
+
+func (k Keeper) IsGameExpired(ctx sdk.Context, game types.Game) bool {
+	return game.StartedAtHeight+game.Duration+k.GetGameExpirationDuration(ctx) >= ctx.BlockHeight()
 }

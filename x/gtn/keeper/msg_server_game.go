@@ -1,25 +1,24 @@
 package keeper
 
 import (
+	"bytes"
 	"context"
-	"fmt"
 
 	"gtn/x/gtn/types"
 
-	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var game = types.Game{
-		Creator:        msg.Creator,
-		CommitmentHash: msg.CommitmentHash,
-		Duration:       msg.Duration,
-		EntryFee:       msg.EntryFee,
-		Reward:         msg.Reward,
+		Creator:         msg.Creator,
+		CommitmentHash:  msg.CommitmentHash,
+		StartedAtHeight: ctx.BlockHeight(),
+		Duration:        msg.Duration,
+		EntryFee:        msg.EntryFee,
+		Reward:          msg.Reward,
 	}
 
 	id := k.AppendGame(
@@ -27,54 +26,81 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 		game,
 	)
 
+	// Transfer the reward to the module account
+	if err := k.bankKeeper.SendCoinsFromAccountToModule(
+		ctx,
+		sdk.MustAccAddressFromBech32(msg.Creator),
+		types.ModuleName,
+		sdk.NewCoins(msg.Reward),
+	); err != nil {
+		return nil, err
+	}
+
+	ctx.EventManager().EmitEvent(
+		types.NewCreateGameEvent(
+			id,
+			game.Creator,
+			game.CommitmentHash,
+			game.StartedAtHeight,
+			game.Duration,
+			game.EntryFee,
+			game.Reward,
+		),
+	)
+
 	return &types.MsgCreateGameResponse{
 		Id: id,
 	}, nil
 }
 
-func (k msgServer) UpdateGame(goCtx context.Context, msg *types.MsgUpdateGame) (*types.MsgUpdateGameResponse, error) {
+func (k msgServer) RevealGame(goCtx context.Context, msg *types.MsgRevealGame) (*types.MsgRevealGameResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	var game = types.Game{
-		Creator:        msg.Creator,
-		Id:             msg.Id,
-		CommitmentHash: msg.CommitmentHash,
-		Duration:       msg.Duration,
-		EntryFee:       msg.EntryFee,
-		Reward:         msg.Reward,
-	}
-
-	// Checks that the element exists
-	val, found := k.GetGame(ctx, msg.Id)
+	game, found := k.GetGame(
+		ctx,
+		msg.GameId,
+	)
 	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+		return nil, types.ErrGameNotFound
 	}
 
-	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != val.Creator {
-		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+	if game.Creator != msg.Creator {
+		return nil, types.ErrUnauthorized
 	}
 
-	k.SetGame(ctx, game)
-
-	return &types.MsgUpdateGameResponse{}, nil
-}
-
-func (k msgServer) DeleteGame(goCtx context.Context, msg *types.MsgDeleteGame) (*types.MsgDeleteGameResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
-
-	// Checks that the element exists
-	val, found := k.GetGame(ctx, msg.Id)
-	if !found {
-		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+	if game.Salt != nil {
+		return nil, types.ErrGameAlreadyRevealed
 	}
 
-	// Checks if the msg creator is the same as the current owner
-	if msg.Creator != val.Creator {
-		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+	if game.StartedAtHeight+game.Duration < ctx.BlockHeight() {
+		return nil, types.ErrGameStillRunning
 	}
 
-	k.RemoveGame(ctx, msg.Id)
+	expDur := k.GetGameExpirationDuration(ctx)
+	if game.StartedAtHeight+game.Duration+expDur > ctx.BlockHeight() {
+		return nil, types.ErrGameExpired
+	}
 
-	return &types.MsgDeleteGameResponse{}, nil
+	commitment := types.CalculateCommitmentHash(msg.Salt, msg.Number)
+	if bytes.Equal(commitment, game.CommitmentHash) {
+		return nil, types.ErrInvalidCommitment
+	}
+
+	game.Salt = msg.Salt
+	game.Number = msg.Number
+	k.SetGame(
+		ctx,
+		game,
+	)
+
+	ctx.EventManager().EmitEvent(
+		types.NewRevealGameEvent(
+			game.Id,
+			game.Creator,
+			game.Salt,
+			game.Number,
+		),
+	)
+
+	return &types.MsgRevealGameResponse{}, nil
 }

@@ -1,0 +1,10 @@
+syntax = "proto3";
+package gtn.gtn;
+
+option go_package = "gtn/x/gtn/types";
+
+message Guess {
+  string participant = 1;
+  uint64 game_id = 2; 
+  uint64 number = 3; 
+}

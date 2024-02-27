@@ -2,19 +2,18 @@
 package gtn
 
 import (
-	fmt "fmt"
-	io "io"
-	reflect "reflect"
-	sync "sync"
-
 	_ "cosmossdk.io/api/amino"
 	v1beta1 "cosmossdk.io/api/cosmos/base/query/v1beta1"
+	fmt "fmt"
 	runtime "github.com/cosmos/cosmos-proto/runtime"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoiface "google.golang.org/protobuf/runtime/protoiface"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	io "io"
+	reflect "reflect"
+	sync "sync"
 )
 
 var (
@@ -2135,14 +2134,14 @@ func (x *_QueryAllGameResponse_1_list) IsValid() bool {
 
 var (
 	md_QueryAllGameResponse            protoreflect.MessageDescriptor
-	fd_QueryAllGameResponse_Game       protoreflect.FieldDescriptor
+	fd_QueryAllGameResponse_Games      protoreflect.FieldDescriptor
 	fd_QueryAllGameResponse_pagination protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_gtn_gtn_query_proto_init()
 	md_QueryAllGameResponse = File_gtn_gtn_query_proto.Messages().ByName("QueryAllGameResponse")
-	fd_QueryAllGameResponse_Game = md_QueryAllGameResponse.Fields().ByName("Game")
+	fd_QueryAllGameResponse_Games = md_QueryAllGameResponse.Fields().ByName("Games")
 	fd_QueryAllGameResponse_pagination = md_QueryAllGameResponse.Fields().ByName("pagination")
 }
 
@@ -2211,9 +2210,9 @@ func (x *fastReflection_QueryAllGameResponse) Interface() protoreflect.ProtoMess
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_QueryAllGameResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if len(x.Game) != 0 {
-		value := protoreflect.ValueOfList(&_QueryAllGameResponse_1_list{list: &x.Game})
-		if !f(fd_QueryAllGameResponse_Game, value) {
+	if len(x.Games) != 0 {
+		value := protoreflect.ValueOfList(&_QueryAllGameResponse_1_list{list: &x.Games})
+		if !f(fd_QueryAllGameResponse_Games, value) {
 			return
 		}
 	}
@@ -2238,8 +2237,8 @@ func (x *fastReflection_QueryAllGameResponse) Range(f func(protoreflect.FieldDes
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_QueryAllGameResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "gtn.gtn.QueryAllGameResponse.Game":
-		return len(x.Game) != 0
+	case "gtn.gtn.QueryAllGameResponse.Games":
+		return len(x.Games) != 0
 	case "gtn.gtn.QueryAllGameResponse.pagination":
 		return x.Pagination != nil
 	default:
@@ -2258,8 +2257,8 @@ func (x *fastReflection_QueryAllGameResponse) Has(fd protoreflect.FieldDescripto
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryAllGameResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "gtn.gtn.QueryAllGameResponse.Game":
-		x.Game = nil
+	case "gtn.gtn.QueryAllGameResponse.Games":
+		x.Games = nil
 	case "gtn.gtn.QueryAllGameResponse.pagination":
 		x.Pagination = nil
 	default:
@@ -2278,11 +2277,11 @@ func (x *fastReflection_QueryAllGameResponse) Clear(fd protoreflect.FieldDescrip
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_QueryAllGameResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "gtn.gtn.QueryAllGameResponse.Game":
-		if len(x.Game) == 0 {
+	case "gtn.gtn.QueryAllGameResponse.Games":
+		if len(x.Games) == 0 {
 			return protoreflect.ValueOfList(&_QueryAllGameResponse_1_list{})
 		}
-		listValue := &_QueryAllGameResponse_1_list{list: &x.Game}
+		listValue := &_QueryAllGameResponse_1_list{list: &x.Games}
 		return protoreflect.ValueOfList(listValue)
 	case "gtn.gtn.QueryAllGameResponse.pagination":
 		value := x.Pagination
@@ -2307,10 +2306,10 @@ func (x *fastReflection_QueryAllGameResponse) Get(descriptor protoreflect.FieldD
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryAllGameResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "gtn.gtn.QueryAllGameResponse.Game":
+	case "gtn.gtn.QueryAllGameResponse.Games":
 		lv := value.List()
 		clv := lv.(*_QueryAllGameResponse_1_list)
-		x.Game = *clv.list
+		x.Games = *clv.list
 	case "gtn.gtn.QueryAllGameResponse.pagination":
 		x.Pagination = value.Message().Interface().(*v1beta1.PageResponse)
 	default:
@@ -2333,11 +2332,11 @@ func (x *fastReflection_QueryAllGameResponse) Set(fd protoreflect.FieldDescripto
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_QueryAllGameResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "gtn.gtn.QueryAllGameResponse.Game":
-		if x.Game == nil {
-			x.Game = []*Game{}
+	case "gtn.gtn.QueryAllGameResponse.Games":
+		if x.Games == nil {
+			x.Games = []*Game{}
 		}
-		value := &_QueryAllGameResponse_1_list{list: &x.Game}
+		value := &_QueryAllGameResponse_1_list{list: &x.Games}
 		return protoreflect.ValueOfList(value)
 	case "gtn.gtn.QueryAllGameResponse.pagination":
 		if x.Pagination == nil {
@@ -2357,7 +2356,7 @@ func (x *fastReflection_QueryAllGameResponse) Mutable(fd protoreflect.FieldDescr
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_QueryAllGameResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "gtn.gtn.QueryAllGameResponse.Game":
+	case "gtn.gtn.QueryAllGameResponse.Games":
 		list := []*Game{}
 		return protoreflect.ValueOfList(&_QueryAllGameResponse_1_list{list: &list})
 	case "gtn.gtn.QueryAllGameResponse.pagination":
@@ -2432,8 +2431,8 @@ func (x *fastReflection_QueryAllGameResponse) ProtoMethods() *protoiface.Methods
 		var n int
 		var l int
 		_ = l
-		if len(x.Game) > 0 {
-			for _, e := range x.Game {
+		if len(x.Games) > 0 {
+			for _, e := range x.Games {
 				l = options.Size(e)
 				n += 1 + l + runtime.Sov(uint64(l))
 			}
@@ -2485,9 +2484,9 @@ func (x *fastReflection_QueryAllGameResponse) ProtoMethods() *protoiface.Methods
 			i--
 			dAtA[i] = 0x12
 		}
-		if len(x.Game) > 0 {
-			for iNdEx := len(x.Game) - 1; iNdEx >= 0; iNdEx-- {
-				encoded, err := options.Marshal(x.Game[iNdEx])
+		if len(x.Games) > 0 {
+			for iNdEx := len(x.Games) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Games[iNdEx])
 				if err != nil {
 					return protoiface.MarshalOutput{
 						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2552,7 +2551,7 @@ func (x *fastReflection_QueryAllGameResponse) ProtoMethods() *protoiface.Methods
 			switch fieldNum {
 			case 1:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Game", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Games", wireType)
 				}
 				var msglen int
 				for shift := uint(0); ; shift += 7 {
@@ -2579,8 +2578,1914 @@ func (x *fastReflection_QueryAllGameResponse) ProtoMethods() *protoiface.Methods
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.Game = append(x.Game, &Game{})
-				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Game[len(x.Game)-1]); err != nil {
+				x.Games = append(x.Games, &Game{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Games[len(x.Games)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 2:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.Pagination == nil {
+					x.Pagination = &v1beta1.PageResponse{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Pagination); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_QueryGetGameGuessesRequest         protoreflect.MessageDescriptor
+	fd_QueryGetGameGuessesRequest_game_id protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_gtn_gtn_query_proto_init()
+	md_QueryGetGameGuessesRequest = File_gtn_gtn_query_proto.Messages().ByName("QueryGetGameGuessesRequest")
+	fd_QueryGetGameGuessesRequest_game_id = md_QueryGetGameGuessesRequest.Fields().ByName("game_id")
+}
+
+var _ protoreflect.Message = (*fastReflection_QueryGetGameGuessesRequest)(nil)
+
+type fastReflection_QueryGetGameGuessesRequest QueryGetGameGuessesRequest
+
+func (x *QueryGetGameGuessesRequest) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryGetGameGuessesRequest)(x)
+}
+
+func (x *QueryGetGameGuessesRequest) slowProtoReflect() protoreflect.Message {
+	mi := &file_gtn_gtn_query_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_QueryGetGameGuessesRequest_messageType fastReflection_QueryGetGameGuessesRequest_messageType
+var _ protoreflect.MessageType = fastReflection_QueryGetGameGuessesRequest_messageType{}
+
+type fastReflection_QueryGetGameGuessesRequest_messageType struct{}
+
+func (x fastReflection_QueryGetGameGuessesRequest_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryGetGameGuessesRequest)(nil)
+}
+func (x fastReflection_QueryGetGameGuessesRequest_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryGetGameGuessesRequest)
+}
+func (x fastReflection_QueryGetGameGuessesRequest_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryGetGameGuessesRequest
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_QueryGetGameGuessesRequest) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryGetGameGuessesRequest
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_QueryGetGameGuessesRequest) Type() protoreflect.MessageType {
+	return _fastReflection_QueryGetGameGuessesRequest_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_QueryGetGameGuessesRequest) New() protoreflect.Message {
+	return new(fastReflection_QueryGetGameGuessesRequest)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_QueryGetGameGuessesRequest) Interface() protoreflect.ProtoMessage {
+	return (*QueryGetGameGuessesRequest)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_QueryGetGameGuessesRequest) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.GameId != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.GameId)
+		if !f(fd_QueryGetGameGuessesRequest_game_id, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_QueryGetGameGuessesRequest) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesRequest.game_id":
+		return x.GameId != uint64(0)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryGetGameGuessesRequest) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesRequest.game_id":
+		x.GameId = uint64(0)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_QueryGetGameGuessesRequest) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesRequest.game_id":
+		value := x.GameId
+		return protoreflect.ValueOfUint64(value)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesRequest does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryGetGameGuessesRequest) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesRequest.game_id":
+		x.GameId = value.Uint()
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryGetGameGuessesRequest) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesRequest.game_id":
+		panic(fmt.Errorf("field game_id of message gtn.gtn.QueryGetGameGuessesRequest is not mutable"))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_QueryGetGameGuessesRequest) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesRequest.game_id":
+		return protoreflect.ValueOfUint64(uint64(0))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_QueryGetGameGuessesRequest) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.QueryGetGameGuessesRequest", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_QueryGetGameGuessesRequest) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryGetGameGuessesRequest) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_QueryGetGameGuessesRequest) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_QueryGetGameGuessesRequest) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*QueryGetGameGuessesRequest)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if x.GameId != 0 {
+			n += 1 + runtime.Sov(uint64(x.GameId))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*QueryGetGameGuessesRequest)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.GameId != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.GameId))
+			i--
+			dAtA[i] = 0x8
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*QueryGetGameGuessesRequest)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryGetGameGuessesRequest: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryGetGameGuessesRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field GameId", wireType)
+				}
+				x.GameId = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.GameId |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var _ protoreflect.List = (*_QueryGetGameGuessesResponse_1_list)(nil)
+
+type _QueryGetGameGuessesResponse_1_list struct {
+	list *[]*Guess
+}
+
+func (x *_QueryGetGameGuessesResponse_1_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_QueryGetGameGuessesResponse_1_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_QueryGetGameGuessesResponse_1_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Guess)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_QueryGetGameGuessesResponse_1_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Guess)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_QueryGetGameGuessesResponse_1_list) AppendMutable() protoreflect.Value {
+	v := new(Guess)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_QueryGetGameGuessesResponse_1_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_QueryGetGameGuessesResponse_1_list) NewElement() protoreflect.Value {
+	v := new(Guess)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_QueryGetGameGuessesResponse_1_list) IsValid() bool {
+	return x.list != nil
+}
+
+var (
+	md_QueryGetGameGuessesResponse         protoreflect.MessageDescriptor
+	fd_QueryGetGameGuessesResponse_Guesses protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_gtn_gtn_query_proto_init()
+	md_QueryGetGameGuessesResponse = File_gtn_gtn_query_proto.Messages().ByName("QueryGetGameGuessesResponse")
+	fd_QueryGetGameGuessesResponse_Guesses = md_QueryGetGameGuessesResponse.Fields().ByName("Guesses")
+}
+
+var _ protoreflect.Message = (*fastReflection_QueryGetGameGuessesResponse)(nil)
+
+type fastReflection_QueryGetGameGuessesResponse QueryGetGameGuessesResponse
+
+func (x *QueryGetGameGuessesResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryGetGameGuessesResponse)(x)
+}
+
+func (x *QueryGetGameGuessesResponse) slowProtoReflect() protoreflect.Message {
+	mi := &file_gtn_gtn_query_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_QueryGetGameGuessesResponse_messageType fastReflection_QueryGetGameGuessesResponse_messageType
+var _ protoreflect.MessageType = fastReflection_QueryGetGameGuessesResponse_messageType{}
+
+type fastReflection_QueryGetGameGuessesResponse_messageType struct{}
+
+func (x fastReflection_QueryGetGameGuessesResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryGetGameGuessesResponse)(nil)
+}
+func (x fastReflection_QueryGetGameGuessesResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryGetGameGuessesResponse)
+}
+func (x fastReflection_QueryGetGameGuessesResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryGetGameGuessesResponse
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_QueryGetGameGuessesResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryGetGameGuessesResponse
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_QueryGetGameGuessesResponse) Type() protoreflect.MessageType {
+	return _fastReflection_QueryGetGameGuessesResponse_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_QueryGetGameGuessesResponse) New() protoreflect.Message {
+	return new(fastReflection_QueryGetGameGuessesResponse)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_QueryGetGameGuessesResponse) Interface() protoreflect.ProtoMessage {
+	return (*QueryGetGameGuessesResponse)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_QueryGetGameGuessesResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if len(x.Guesses) != 0 {
+		value := protoreflect.ValueOfList(&_QueryGetGameGuessesResponse_1_list{list: &x.Guesses})
+		if !f(fd_QueryGetGameGuessesResponse_Guesses, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_QueryGetGameGuessesResponse) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesResponse.Guesses":
+		return len(x.Guesses) != 0
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryGetGameGuessesResponse) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesResponse.Guesses":
+		x.Guesses = nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_QueryGetGameGuessesResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesResponse.Guesses":
+		if len(x.Guesses) == 0 {
+			return protoreflect.ValueOfList(&_QueryGetGameGuessesResponse_1_list{})
+		}
+		listValue := &_QueryGetGameGuessesResponse_1_list{list: &x.Guesses}
+		return protoreflect.ValueOfList(listValue)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesResponse does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryGetGameGuessesResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesResponse.Guesses":
+		lv := value.List()
+		clv := lv.(*_QueryGetGameGuessesResponse_1_list)
+		x.Guesses = *clv.list
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryGetGameGuessesResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesResponse.Guesses":
+		if x.Guesses == nil {
+			x.Guesses = []*Guess{}
+		}
+		value := &_QueryGetGameGuessesResponse_1_list{list: &x.Guesses}
+		return protoreflect.ValueOfList(value)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_QueryGetGameGuessesResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryGetGameGuessesResponse.Guesses":
+		list := []*Guess{}
+		return protoreflect.ValueOfList(&_QueryGetGameGuessesResponse_1_list{list: &list})
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryGetGameGuessesResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryGetGameGuessesResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_QueryGetGameGuessesResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.QueryGetGameGuessesResponse", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_QueryGetGameGuessesResponse) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryGetGameGuessesResponse) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_QueryGetGameGuessesResponse) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_QueryGetGameGuessesResponse) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*QueryGetGameGuessesResponse)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if len(x.Guesses) > 0 {
+			for _, e := range x.Guesses {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*QueryGetGameGuessesResponse)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Guesses) > 0 {
+			for iNdEx := len(x.Guesses) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Guesses[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0xa
+			}
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*QueryGetGameGuessesResponse)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryGetGameGuessesResponse: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryGetGameGuessesResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Guesses", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Guesses = append(x.Guesses, &Guess{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Guesses[len(x.Guesses)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_QueryAllGuessRequest            protoreflect.MessageDescriptor
+	fd_QueryAllGuessRequest_pagination protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_gtn_gtn_query_proto_init()
+	md_QueryAllGuessRequest = File_gtn_gtn_query_proto.Messages().ByName("QueryAllGuessRequest")
+	fd_QueryAllGuessRequest_pagination = md_QueryAllGuessRequest.Fields().ByName("pagination")
+}
+
+var _ protoreflect.Message = (*fastReflection_QueryAllGuessRequest)(nil)
+
+type fastReflection_QueryAllGuessRequest QueryAllGuessRequest
+
+func (x *QueryAllGuessRequest) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryAllGuessRequest)(x)
+}
+
+func (x *QueryAllGuessRequest) slowProtoReflect() protoreflect.Message {
+	mi := &file_gtn_gtn_query_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_QueryAllGuessRequest_messageType fastReflection_QueryAllGuessRequest_messageType
+var _ protoreflect.MessageType = fastReflection_QueryAllGuessRequest_messageType{}
+
+type fastReflection_QueryAllGuessRequest_messageType struct{}
+
+func (x fastReflection_QueryAllGuessRequest_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryAllGuessRequest)(nil)
+}
+func (x fastReflection_QueryAllGuessRequest_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryAllGuessRequest)
+}
+func (x fastReflection_QueryAllGuessRequest_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryAllGuessRequest
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_QueryAllGuessRequest) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryAllGuessRequest
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_QueryAllGuessRequest) Type() protoreflect.MessageType {
+	return _fastReflection_QueryAllGuessRequest_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_QueryAllGuessRequest) New() protoreflect.Message {
+	return new(fastReflection_QueryAllGuessRequest)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_QueryAllGuessRequest) Interface() protoreflect.ProtoMessage {
+	return (*QueryAllGuessRequest)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_QueryAllGuessRequest) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Pagination != nil {
+		value := protoreflect.ValueOfMessage(x.Pagination.ProtoReflect())
+		if !f(fd_QueryAllGuessRequest_pagination, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_QueryAllGuessRequest) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryAllGuessRequest.pagination":
+		return x.Pagination != nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryAllGuessRequest) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryAllGuessRequest.pagination":
+		x.Pagination = nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_QueryAllGuessRequest) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "gtn.gtn.QueryAllGuessRequest.pagination":
+		value := x.Pagination
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessRequest does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryAllGuessRequest) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryAllGuessRequest.pagination":
+		x.Pagination = value.Message().Interface().(*v1beta1.PageRequest)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryAllGuessRequest) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryAllGuessRequest.pagination":
+		if x.Pagination == nil {
+			x.Pagination = new(v1beta1.PageRequest)
+		}
+		return protoreflect.ValueOfMessage(x.Pagination.ProtoReflect())
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_QueryAllGuessRequest) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryAllGuessRequest.pagination":
+		m := new(v1beta1.PageRequest)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessRequest"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_QueryAllGuessRequest) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.QueryAllGuessRequest", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_QueryAllGuessRequest) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryAllGuessRequest) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_QueryAllGuessRequest) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_QueryAllGuessRequest) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*QueryAllGuessRequest)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if x.Pagination != nil {
+			l = options.Size(x.Pagination)
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*QueryAllGuessRequest)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.Pagination != nil {
+			encoded, err := options.Marshal(x.Pagination)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0xa
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*QueryAllGuessRequest)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryAllGuessRequest: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryAllGuessRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.Pagination == nil {
+					x.Pagination = &v1beta1.PageRequest{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Pagination); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var _ protoreflect.List = (*_QueryAllGuessResponse_1_list)(nil)
+
+type _QueryAllGuessResponse_1_list struct {
+	list *[]*Guess
+}
+
+func (x *_QueryAllGuessResponse_1_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_QueryAllGuessResponse_1_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_QueryAllGuessResponse_1_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Guess)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_QueryAllGuessResponse_1_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Guess)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_QueryAllGuessResponse_1_list) AppendMutable() protoreflect.Value {
+	v := new(Guess)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_QueryAllGuessResponse_1_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_QueryAllGuessResponse_1_list) NewElement() protoreflect.Value {
+	v := new(Guess)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_QueryAllGuessResponse_1_list) IsValid() bool {
+	return x.list != nil
+}
+
+var (
+	md_QueryAllGuessResponse            protoreflect.MessageDescriptor
+	fd_QueryAllGuessResponse_Guesses    protoreflect.FieldDescriptor
+	fd_QueryAllGuessResponse_pagination protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_gtn_gtn_query_proto_init()
+	md_QueryAllGuessResponse = File_gtn_gtn_query_proto.Messages().ByName("QueryAllGuessResponse")
+	fd_QueryAllGuessResponse_Guesses = md_QueryAllGuessResponse.Fields().ByName("Guesses")
+	fd_QueryAllGuessResponse_pagination = md_QueryAllGuessResponse.Fields().ByName("pagination")
+}
+
+var _ protoreflect.Message = (*fastReflection_QueryAllGuessResponse)(nil)
+
+type fastReflection_QueryAllGuessResponse QueryAllGuessResponse
+
+func (x *QueryAllGuessResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryAllGuessResponse)(x)
+}
+
+func (x *QueryAllGuessResponse) slowProtoReflect() protoreflect.Message {
+	mi := &file_gtn_gtn_query_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_QueryAllGuessResponse_messageType fastReflection_QueryAllGuessResponse_messageType
+var _ protoreflect.MessageType = fastReflection_QueryAllGuessResponse_messageType{}
+
+type fastReflection_QueryAllGuessResponse_messageType struct{}
+
+func (x fastReflection_QueryAllGuessResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryAllGuessResponse)(nil)
+}
+func (x fastReflection_QueryAllGuessResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryAllGuessResponse)
+}
+func (x fastReflection_QueryAllGuessResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryAllGuessResponse
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_QueryAllGuessResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryAllGuessResponse
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_QueryAllGuessResponse) Type() protoreflect.MessageType {
+	return _fastReflection_QueryAllGuessResponse_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_QueryAllGuessResponse) New() protoreflect.Message {
+	return new(fastReflection_QueryAllGuessResponse)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_QueryAllGuessResponse) Interface() protoreflect.ProtoMessage {
+	return (*QueryAllGuessResponse)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_QueryAllGuessResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if len(x.Guesses) != 0 {
+		value := protoreflect.ValueOfList(&_QueryAllGuessResponse_1_list{list: &x.Guesses})
+		if !f(fd_QueryAllGuessResponse_Guesses, value) {
+			return
+		}
+	}
+	if x.Pagination != nil {
+		value := protoreflect.ValueOfMessage(x.Pagination.ProtoReflect())
+		if !f(fd_QueryAllGuessResponse_pagination, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_QueryAllGuessResponse) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryAllGuessResponse.Guesses":
+		return len(x.Guesses) != 0
+	case "gtn.gtn.QueryAllGuessResponse.pagination":
+		return x.Pagination != nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryAllGuessResponse) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryAllGuessResponse.Guesses":
+		x.Guesses = nil
+	case "gtn.gtn.QueryAllGuessResponse.pagination":
+		x.Pagination = nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_QueryAllGuessResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "gtn.gtn.QueryAllGuessResponse.Guesses":
+		if len(x.Guesses) == 0 {
+			return protoreflect.ValueOfList(&_QueryAllGuessResponse_1_list{})
+		}
+		listValue := &_QueryAllGuessResponse_1_list{list: &x.Guesses}
+		return protoreflect.ValueOfList(listValue)
+	case "gtn.gtn.QueryAllGuessResponse.pagination":
+		value := x.Pagination
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessResponse does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryAllGuessResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryAllGuessResponse.Guesses":
+		lv := value.List()
+		clv := lv.(*_QueryAllGuessResponse_1_list)
+		x.Guesses = *clv.list
+	case "gtn.gtn.QueryAllGuessResponse.pagination":
+		x.Pagination = value.Message().Interface().(*v1beta1.PageResponse)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryAllGuessResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryAllGuessResponse.Guesses":
+		if x.Guesses == nil {
+			x.Guesses = []*Guess{}
+		}
+		value := &_QueryAllGuessResponse_1_list{list: &x.Guesses}
+		return protoreflect.ValueOfList(value)
+	case "gtn.gtn.QueryAllGuessResponse.pagination":
+		if x.Pagination == nil {
+			x.Pagination = new(v1beta1.PageResponse)
+		}
+		return protoreflect.ValueOfMessage(x.Pagination.ProtoReflect())
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_QueryAllGuessResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "gtn.gtn.QueryAllGuessResponse.Guesses":
+		list := []*Guess{}
+		return protoreflect.ValueOfList(&_QueryAllGuessResponse_1_list{list: &list})
+	case "gtn.gtn.QueryAllGuessResponse.pagination":
+		m := new(v1beta1.PageResponse)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.QueryAllGuessResponse"))
+		}
+		panic(fmt.Errorf("message gtn.gtn.QueryAllGuessResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_QueryAllGuessResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.QueryAllGuessResponse", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_QueryAllGuessResponse) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryAllGuessResponse) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_QueryAllGuessResponse) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_QueryAllGuessResponse) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*QueryAllGuessResponse)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if len(x.Guesses) > 0 {
+			for _, e := range x.Guesses {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if x.Pagination != nil {
+			l = options.Size(x.Pagination)
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*QueryAllGuessResponse)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.Pagination != nil {
+			encoded, err := options.Marshal(x.Pagination)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x12
+		}
+		if len(x.Guesses) > 0 {
+			for iNdEx := len(x.Guesses) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Guesses[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0xa
+			}
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*QueryAllGuessResponse)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryAllGuessResponse: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryAllGuessResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Guesses", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Guesses = append(x.Guesses, &Guess{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Guesses[len(x.Guesses)-1]); err != nil {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
 				}
 				iNdEx = postIndex
@@ -2842,7 +4747,7 @@ type QueryAllGameResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Game       []*Game               `protobuf:"bytes,1,rep,name=Game,proto3" json:"Game,omitempty"`
+	Games      []*Game               `protobuf:"bytes,1,rep,name=Games,proto3" json:"Games,omitempty"`
 	Pagination *v1beta1.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
@@ -2866,14 +4771,162 @@ func (*QueryAllGameResponse) Descriptor() ([]byte, []int) {
 	return file_gtn_gtn_query_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *QueryAllGameResponse) GetGame() []*Game {
+func (x *QueryAllGameResponse) GetGames() []*Game {
 	if x != nil {
-		return x.Game
+		return x.Games
 	}
 	return nil
 }
 
 func (x *QueryAllGameResponse) GetPagination() *v1beta1.PageResponse {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type QueryGetGameGuessesRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	GameId uint64 `protobuf:"varint,1,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+}
+
+func (x *QueryGetGameGuessesRequest) Reset() {
+	*x = QueryGetGameGuessesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gtn_gtn_query_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QueryGetGameGuessesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryGetGameGuessesRequest) ProtoMessage() {}
+
+// Deprecated: Use QueryGetGameGuessesRequest.ProtoReflect.Descriptor instead.
+func (*QueryGetGameGuessesRequest) Descriptor() ([]byte, []int) {
+	return file_gtn_gtn_query_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *QueryGetGameGuessesRequest) GetGameId() uint64 {
+	if x != nil {
+		return x.GameId
+	}
+	return 0
+}
+
+type QueryGetGameGuessesResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Guesses []*Guess `protobuf:"bytes,1,rep,name=Guesses,proto3" json:"Guesses,omitempty"`
+}
+
+func (x *QueryGetGameGuessesResponse) Reset() {
+	*x = QueryGetGameGuessesResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gtn_gtn_query_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QueryGetGameGuessesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryGetGameGuessesResponse) ProtoMessage() {}
+
+// Deprecated: Use QueryGetGameGuessesResponse.ProtoReflect.Descriptor instead.
+func (*QueryGetGameGuessesResponse) Descriptor() ([]byte, []int) {
+	return file_gtn_gtn_query_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *QueryGetGameGuessesResponse) GetGuesses() []*Guess {
+	if x != nil {
+		return x.Guesses
+	}
+	return nil
+}
+
+type QueryAllGuessRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Pagination *v1beta1.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (x *QueryAllGuessRequest) Reset() {
+	*x = QueryAllGuessRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gtn_gtn_query_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QueryAllGuessRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryAllGuessRequest) ProtoMessage() {}
+
+// Deprecated: Use QueryAllGuessRequest.ProtoReflect.Descriptor instead.
+func (*QueryAllGuessRequest) Descriptor() ([]byte, []int) {
+	return file_gtn_gtn_query_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *QueryAllGuessRequest) GetPagination() *v1beta1.PageRequest {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type QueryAllGuessResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Guesses    []*Guess              `protobuf:"bytes,1,rep,name=Guesses,proto3" json:"Guesses,omitempty"`
+	Pagination *v1beta1.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (x *QueryAllGuessResponse) Reset() {
+	*x = QueryAllGuessResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_gtn_gtn_query_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QueryAllGuessResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryAllGuessResponse) ProtoMessage() {}
+
+// Deprecated: Use QueryAllGuessResponse.ProtoReflect.Descriptor instead.
+func (*QueryAllGuessResponse) Descriptor() ([]byte, []int) {
+	return file_gtn_gtn_query_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *QueryAllGuessResponse) GetGuesses() []*Guess {
+	if x != nil {
+		return x.Guesses
+	}
+	return nil
+}
+
+func (x *QueryAllGuessResponse) GetPagination() *v1beta1.PageResponse {
 	if x != nil {
 		return x.Pagination
 	}
@@ -2894,35 +4947,60 @@ var file_gtn_gtn_query_proto_rawDesc = []byte{
 	0x2f, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x1a, 0x14, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x70, 0x61, 0x72, 0x61, 0x6d,
 	0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x12, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e,
-	0x2f, 0x67, 0x61, 0x6d, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x14, 0x0a, 0x12, 0x51,
-	0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x22, 0x49, 0x0a, 0x13, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61,
-	0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67,
-	0x74, 0x6e, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42, 0x09, 0xc8, 0xde, 0x1f, 0x00, 0xa8,
-	0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x22, 0x25, 0x0a, 0x13,
-	0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52,
-	0x02, 0x69, 0x64, 0x22, 0x3f, 0x0a, 0x14, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x47,
-	0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x04, 0x47,
-	0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x67, 0x74, 0x6e, 0x2e,
-	0x67, 0x74, 0x6e, 0x2e, 0x47, 0x61, 0x6d, 0x65, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x04,
-	0x47, 0x61, 0x6d, 0x65, 0x22, 0x5d, 0x0a, 0x13, 0x51, 0x75, 0x65, 0x72, 0x79, 0x41, 0x6c, 0x6c,
-	0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x46, 0x0a, 0x0a, 0x70,
-	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x26, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x71, 0x75,
-	0x65, 0x72, 0x79, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x65,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x22, 0x88, 0x01, 0x0a, 0x14, 0x51, 0x75, 0x65, 0x72, 0x79, 0x41, 0x6c, 0x6c,
-	0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x04,
-	0x47, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x67, 0x74, 0x6e,
-	0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x47, 0x61, 0x6d, 0x65, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52,
-	0x04, 0x47, 0x61, 0x6d, 0x65, 0x12, 0x47, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
+	0x2f, 0x67, 0x61, 0x6d, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x13, 0x67, 0x74, 0x6e,
+	0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x75, 0x65, 0x73, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x22, 0x14, 0x0a, 0x12, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x49, 0x0a, 0x13, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50,
+	0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a,
+	0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e,
+	0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42, 0x09,
+	0xc8, 0xde, 0x1f, 0x00, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d,
+	0x73, 0x22, 0x25, 0x0a, 0x13, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x47, 0x61, 0x6d,
+	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0x3f, 0x0a, 0x14, 0x51, 0x75, 0x65, 0x72,
+	0x79, 0x47, 0x65, 0x74, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x27, 0x0a, 0x04, 0x47, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d,
+	0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x47, 0x61, 0x6d, 0x65, 0x42, 0x04, 0xc8,
+	0xde, 0x1f, 0x00, 0x52, 0x04, 0x47, 0x61, 0x6d, 0x65, 0x22, 0x5d, 0x0a, 0x13, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x41, 0x6c, 0x6c, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x46, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61,
+	0x73, 0x65, 0x2e, 0x71, 0x75, 0x65, 0x72, 0x79, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31,
+	0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x0a, 0x70, 0x61,
+	0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x8a, 0x01, 0x0a, 0x14, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x41, 0x6c, 0x6c, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x29, 0x0a, 0x05, 0x47, 0x61, 0x6d, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x0d, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x47, 0x61, 0x6d, 0x65, 0x42,
+	0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x05, 0x47, 0x61, 0x6d, 0x65, 0x73, 0x12, 0x47, 0x0a, 0x0a,
+	0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x27, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x71,
+	0x75, 0x65, 0x72, 0x79, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x50, 0x61, 0x67,
+	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x35, 0x0a, 0x1a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65,
+	0x74, 0x47, 0x61, 0x6d, 0x65, 0x47, 0x75, 0x65, 0x73, 0x73, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x67, 0x61, 0x6d, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x67, 0x61, 0x6d, 0x65, 0x49, 0x64, 0x22, 0x4d, 0x0a, 0x1b,
+	0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x47, 0x61, 0x6d, 0x65, 0x47, 0x75, 0x65, 0x73,
+	0x73, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2e, 0x0a, 0x07, 0x47,
+	0x75, 0x65, 0x73, 0x73, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x67,
+	0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x47, 0x75, 0x65, 0x73, 0x73, 0x42, 0x04, 0xc8, 0xde,
+	0x1f, 0x00, 0x52, 0x07, 0x47, 0x75, 0x65, 0x73, 0x73, 0x65, 0x73, 0x22, 0x5e, 0x0a, 0x14, 0x51,
+	0x75, 0x65, 0x72, 0x79, 0x41, 0x6c, 0x6c, 0x47, 0x75, 0x65, 0x73, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x46, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
+	0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x71, 0x75, 0x65, 0x72, 0x79, 0x2e, 0x76, 0x31, 0x62, 0x65,
+	0x74, 0x61, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52,
+	0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x90, 0x01, 0x0a, 0x15,
+	0x51, 0x75, 0x65, 0x72, 0x79, 0x41, 0x6c, 0x6c, 0x47, 0x75, 0x65, 0x73, 0x73, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2e, 0x0a, 0x07, 0x47, 0x75, 0x65, 0x73, 0x73, 0x65, 0x73,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e,
+	0x2e, 0x47, 0x75, 0x65, 0x73, 0x73, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x07, 0x47, 0x75,
+	0x65, 0x73, 0x73, 0x65, 0x73, 0x12, 0x47, 0x0a, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
 	0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x63, 0x6f, 0x73, 0x6d,
 	0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x71, 0x75, 0x65, 0x72, 0x79, 0x2e, 0x76, 0x31,
 	0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x32, 0xa5,
-	0x02, 0x0a, 0x05, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x5c, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61,
+	0x73, 0x65, 0x52, 0x0a, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x32, 0x84,
+	0x04, 0x0a, 0x05, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x5c, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61,
 	0x6d, 0x73, 0x12, 0x1b, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x51, 0x75, 0x65,
 	0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
 	0x1c, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50,
@@ -2940,14 +5018,28 @@ var file_gtn_gtn_query_proto_rawDesc = []byte{
 	0x1a, 0x1d, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
 	0x41, 0x6c, 0x6c, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
 	0x15, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x0f, 0x12, 0x0d, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74,
-	0x6e, 0x2f, 0x67, 0x61, 0x6d, 0x65, 0x42, 0x70, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x74,
-	0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x42, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x72, 0x6f, 0x74,
-	0x6f, 0x50, 0x01, 0x5a, 0x18, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69,
-	0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e, 0xa2, 0x02, 0x03,
-	0x47, 0x47, 0x58, 0xaa, 0x02, 0x07, 0x47, 0x74, 0x6e, 0x2e, 0x47, 0x74, 0x6e, 0xca, 0x02, 0x07,
-	0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e, 0xe2, 0x02, 0x13, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74,
-	0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x08,
-	0x47, 0x74, 0x6e, 0x3a, 0x3a, 0x47, 0x74, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6e, 0x2f, 0x67, 0x61, 0x6d, 0x65, 0x12, 0x7a, 0x0a, 0x0b, 0x47, 0x61, 0x6d, 0x65, 0x47, 0x75,
+	0x65, 0x73, 0x73, 0x65, 0x73, 0x12, 0x23, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e,
+	0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x47, 0x61, 0x6d, 0x65, 0x47, 0x75, 0x65, 0x73,
+	0x73, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x24, 0x2e, 0x67, 0x74, 0x6e,
+	0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74, 0x47, 0x61, 0x6d,
+	0x65, 0x47, 0x75, 0x65, 0x73, 0x73, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x20, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1a, 0x12, 0x18, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67,
+	0x74, 0x6e, 0x2f, 0x67, 0x75, 0x65, 0x73, 0x73, 0x2f, 0x7b, 0x67, 0x61, 0x6d, 0x65, 0x5f, 0x69,
+	0x64, 0x7d, 0x12, 0x61, 0x0a, 0x08, 0x47, 0x75, 0x65, 0x73, 0x73, 0x41, 0x6c, 0x6c, 0x12, 0x1d,
+	0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x41, 0x6c,
+	0x6c, 0x47, 0x75, 0x65, 0x73, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1e, 0x2e,
+	0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x41, 0x6c, 0x6c,
+	0x47, 0x75, 0x65, 0x73, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x16, 0x82,
+	0xd3, 0xe4, 0x93, 0x02, 0x10, 0x12, 0x0e, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e, 0x2f,
+	0x67, 0x75, 0x65, 0x73, 0x73, 0x42, 0x70, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x74, 0x6e,
+	0x2e, 0x67, 0x74, 0x6e, 0x42, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x72, 0x6f, 0x74, 0x6f,
+	0x50, 0x01, 0x5a, 0x18, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f,
+	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e, 0xa2, 0x02, 0x03, 0x47,
+	0x47, 0x58, 0xaa, 0x02, 0x07, 0x47, 0x74, 0x6e, 0x2e, 0x47, 0x74, 0x6e, 0xca, 0x02, 0x07, 0x47,
+	0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e, 0xe2, 0x02, 0x13, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e,
+	0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x08, 0x47,
+	0x74, 0x6e, 0x3a, 0x3a, 0x47, 0x74, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2962,36 +5054,49 @@ func file_gtn_gtn_query_proto_rawDescGZIP() []byte {
 	return file_gtn_gtn_query_proto_rawDescData
 }
 
-var file_gtn_gtn_query_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_gtn_gtn_query_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_gtn_gtn_query_proto_goTypes = []interface{}{
-	(*QueryParamsRequest)(nil),   // 0: gtn.gtn.QueryParamsRequest
-	(*QueryParamsResponse)(nil),  // 1: gtn.gtn.QueryParamsResponse
-	(*QueryGetGameRequest)(nil),  // 2: gtn.gtn.QueryGetGameRequest
-	(*QueryGetGameResponse)(nil), // 3: gtn.gtn.QueryGetGameResponse
-	(*QueryAllGameRequest)(nil),  // 4: gtn.gtn.QueryAllGameRequest
-	(*QueryAllGameResponse)(nil), // 5: gtn.gtn.QueryAllGameResponse
-	(*Params)(nil),               // 6: gtn.gtn.Params
-	(*Game)(nil),                 // 7: gtn.gtn.Game
-	(*v1beta1.PageRequest)(nil),  // 8: cosmos.base.query.v1beta1.PageRequest
-	(*v1beta1.PageResponse)(nil), // 9: cosmos.base.query.v1beta1.PageResponse
+	(*QueryParamsRequest)(nil),          // 0: gtn.gtn.QueryParamsRequest
+	(*QueryParamsResponse)(nil),         // 1: gtn.gtn.QueryParamsResponse
+	(*QueryGetGameRequest)(nil),         // 2: gtn.gtn.QueryGetGameRequest
+	(*QueryGetGameResponse)(nil),        // 3: gtn.gtn.QueryGetGameResponse
+	(*QueryAllGameRequest)(nil),         // 4: gtn.gtn.QueryAllGameRequest
+	(*QueryAllGameResponse)(nil),        // 5: gtn.gtn.QueryAllGameResponse
+	(*QueryGetGameGuessesRequest)(nil),  // 6: gtn.gtn.QueryGetGameGuessesRequest
+	(*QueryGetGameGuessesResponse)(nil), // 7: gtn.gtn.QueryGetGameGuessesResponse
+	(*QueryAllGuessRequest)(nil),        // 8: gtn.gtn.QueryAllGuessRequest
+	(*QueryAllGuessResponse)(nil),       // 9: gtn.gtn.QueryAllGuessResponse
+	(*Params)(nil),                      // 10: gtn.gtn.Params
+	(*Game)(nil),                        // 11: gtn.gtn.Game
+	(*v1beta1.PageRequest)(nil),         // 12: cosmos.base.query.v1beta1.PageRequest
+	(*v1beta1.PageResponse)(nil),        // 13: cosmos.base.query.v1beta1.PageResponse
+	(*Guess)(nil),                       // 14: gtn.gtn.Guess
 }
 var file_gtn_gtn_query_proto_depIdxs = []int32{
-	6, // 0: gtn.gtn.QueryParamsResponse.params:type_name -> gtn.gtn.Params
-	7, // 1: gtn.gtn.QueryGetGameResponse.Game:type_name -> gtn.gtn.Game
-	8, // 2: gtn.gtn.QueryAllGameRequest.pagination:type_name -> cosmos.base.query.v1beta1.PageRequest
-	7, // 3: gtn.gtn.QueryAllGameResponse.Game:type_name -> gtn.gtn.Game
-	9, // 4: gtn.gtn.QueryAllGameResponse.pagination:type_name -> cosmos.base.query.v1beta1.PageResponse
-	0, // 5: gtn.gtn.Query.Params:input_type -> gtn.gtn.QueryParamsRequest
-	2, // 6: gtn.gtn.Query.Game:input_type -> gtn.gtn.QueryGetGameRequest
-	4, // 7: gtn.gtn.Query.GameAll:input_type -> gtn.gtn.QueryAllGameRequest
-	1, // 8: gtn.gtn.Query.Params:output_type -> gtn.gtn.QueryParamsResponse
-	3, // 9: gtn.gtn.Query.Game:output_type -> gtn.gtn.QueryGetGameResponse
-	5, // 10: gtn.gtn.Query.GameAll:output_type -> gtn.gtn.QueryAllGameResponse
-	8, // [8:11] is the sub-list for method output_type
-	5, // [5:8] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	10, // 0: gtn.gtn.QueryParamsResponse.params:type_name -> gtn.gtn.Params
+	11, // 1: gtn.gtn.QueryGetGameResponse.Game:type_name -> gtn.gtn.Game
+	12, // 2: gtn.gtn.QueryAllGameRequest.pagination:type_name -> cosmos.base.query.v1beta1.PageRequest
+	11, // 3: gtn.gtn.QueryAllGameResponse.Games:type_name -> gtn.gtn.Game
+	13, // 4: gtn.gtn.QueryAllGameResponse.pagination:type_name -> cosmos.base.query.v1beta1.PageResponse
+	14, // 5: gtn.gtn.QueryGetGameGuessesResponse.Guesses:type_name -> gtn.gtn.Guess
+	12, // 6: gtn.gtn.QueryAllGuessRequest.pagination:type_name -> cosmos.base.query.v1beta1.PageRequest
+	14, // 7: gtn.gtn.QueryAllGuessResponse.Guesses:type_name -> gtn.gtn.Guess
+	13, // 8: gtn.gtn.QueryAllGuessResponse.pagination:type_name -> cosmos.base.query.v1beta1.PageResponse
+	0,  // 9: gtn.gtn.Query.Params:input_type -> gtn.gtn.QueryParamsRequest
+	2,  // 10: gtn.gtn.Query.Game:input_type -> gtn.gtn.QueryGetGameRequest
+	4,  // 11: gtn.gtn.Query.GameAll:input_type -> gtn.gtn.QueryAllGameRequest
+	6,  // 12: gtn.gtn.Query.GameGuesses:input_type -> gtn.gtn.QueryGetGameGuessesRequest
+	8,  // 13: gtn.gtn.Query.GuessAll:input_type -> gtn.gtn.QueryAllGuessRequest
+	1,  // 14: gtn.gtn.Query.Params:output_type -> gtn.gtn.QueryParamsResponse
+	3,  // 15: gtn.gtn.Query.Game:output_type -> gtn.gtn.QueryGetGameResponse
+	5,  // 16: gtn.gtn.Query.GameAll:output_type -> gtn.gtn.QueryAllGameResponse
+	7,  // 17: gtn.gtn.Query.GameGuesses:output_type -> gtn.gtn.QueryGetGameGuessesResponse
+	9,  // 18: gtn.gtn.Query.GuessAll:output_type -> gtn.gtn.QueryAllGuessResponse
+	14, // [14:19] is the sub-list for method output_type
+	9,  // [9:14] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_gtn_gtn_query_proto_init() }
@@ -3001,6 +5106,7 @@ func file_gtn_gtn_query_proto_init() {
 	}
 	file_gtn_gtn_params_proto_init()
 	file_gtn_gtn_game_proto_init()
+	file_gtn_gtn_guess_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_gtn_gtn_query_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryParamsRequest); i {
@@ -3074,6 +5180,54 @@ func file_gtn_gtn_query_proto_init() {
 				return nil
 			}
 		}
+		file_gtn_gtn_query_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QueryGetGameGuessesRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gtn_gtn_query_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QueryGetGameGuessesResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gtn_gtn_query_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QueryAllGuessRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_gtn_gtn_query_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QueryAllGuessResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -3081,7 +5235,7 @@ func file_gtn_gtn_query_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_gtn_gtn_query_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

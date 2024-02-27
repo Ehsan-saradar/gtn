@@ -151,7 +151,35 @@ func (am AppModule) BeginBlock(_ context.Context) error {
 
 // EndBlock contains the logic that is automatically triggered at the end of each block.
 // The end block implementation is optional.
-func (am AppModule) EndBlock(_ context.Context) error {
+func (am AppModule) EndBlock(goCtx context.Context) error {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	// Iterate over all the games and check if they are expired or revealed
+	games := am.keeper.GetAllGame(ctx)
+	for _, game := range games {
+		if am.keeper.IsGameExpired(ctx, game) {
+			guesses := am.keeper.GetGameGuesses(ctx, game.Id)
+			am.keeper.ShareRewards(ctx, game, guesses)
+
+			ctx.EventManager().EmitEvent(
+				types.NewGameExpiredEvent(
+					game.Id,
+				),
+			)
+		} else if game.IsReveald() {
+			guesses := am.keeper.GetGameGuesses(ctx, game.Id)
+			winners, losers := game.SplitWinnersAndLosers(guesses, am.keeper.GetMinDistanceToWin(ctx))
+			am.keeper.ShareRewards(ctx, game, winners)
+			am.keeper.FundCreator(ctx, game, len(losers))
+		} else {
+			continue
+		}
+
+		// Remove game and all it's guesses from the store
+		am.keeper.RemoveGame(ctx, game.Id)
+		am.keeper.RemoveGameGuesses(ctx, game.Id)
+	}
+
 	return nil
 }
 
@@ -200,8 +228,9 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 	k := keeper.NewKeeper(
 		in.Cdc,
 		in.StoreService,
-		in.Logger,
 		authority.String(),
+		in.BankKeeper,
+		in.Logger,
 	)
 	m := NewAppModule(
 		in.Cdc,

@@ -6,11 +6,8 @@ package types
 import (
 	context "context"
 	fmt "fmt"
-	io "io"
-	math "math"
-	math_bits "math/bits"
-
 	_ "github.com/cosmos/cosmos-proto"
+	types "github.com/cosmos/cosmos-sdk/types"
 	_ "github.com/cosmos/cosmos-sdk/types/msgservice"
 	_ "github.com/cosmos/cosmos-sdk/types/tx/amino"
 	_ "github.com/cosmos/gogoproto/gogoproto"
@@ -19,6 +16,9 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	io "io"
+	math "math"
+	math_bits "math/bits"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -126,11 +126,11 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
 type MsgCreateGame struct {
-	Creator        string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CommitmentHash string `protobuf:"bytes,2,opt,name=commitmentHash,proto3" json:"commitmentHash,omitempty"`
-	Duration       uint64 `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
-	EntryFee       uint64 `protobuf:"varint,4,opt,name=entryFee,proto3" json:"entryFee,omitempty"`
-	Reward         uint64 `protobuf:"varint,5,opt,name=reward,proto3" json:"reward,omitempty"`
+	Creator        string     `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	CommitmentHash []byte     `protobuf:"bytes,2,opt,name=commitment_hash,json=commitmentHash,proto3" json:"commitment_hash,omitempty"`
+	Duration       int64      `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
+	EntryFee       types.Coin `protobuf:"bytes,5,opt,name=entry_fee,json=entryFee,proto3" json:"entry_fee"`
+	Reward         types.Coin `protobuf:"bytes,6,opt,name=reward,proto3" json:"reward"`
 }
 
 func (m *MsgCreateGame) Reset()         { *m = MsgCreateGame{} }
@@ -173,32 +173,32 @@ func (m *MsgCreateGame) GetCreator() string {
 	return ""
 }
 
-func (m *MsgCreateGame) GetCommitmentHash() string {
+func (m *MsgCreateGame) GetCommitmentHash() []byte {
 	if m != nil {
 		return m.CommitmentHash
 	}
-	return ""
+	return nil
 }
 
-func (m *MsgCreateGame) GetDuration() uint64 {
+func (m *MsgCreateGame) GetDuration() int64 {
 	if m != nil {
 		return m.Duration
 	}
 	return 0
 }
 
-func (m *MsgCreateGame) GetEntryFee() uint64 {
+func (m *MsgCreateGame) GetEntryFee() types.Coin {
 	if m != nil {
 		return m.EntryFee
 	}
-	return 0
+	return types.Coin{}
 }
 
-func (m *MsgCreateGame) GetReward() uint64 {
+func (m *MsgCreateGame) GetReward() types.Coin {
 	if m != nil {
 		return m.Reward
 	}
-	return 0
+	return types.Coin{}
 }
 
 type MsgCreateGameResponse struct {
@@ -245,27 +245,25 @@ func (m *MsgCreateGameResponse) GetId() uint64 {
 	return 0
 }
 
-type MsgUpdateGame struct {
-	Creator        string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id             uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
-	CommitmentHash string `protobuf:"bytes,3,opt,name=commitmentHash,proto3" json:"commitmentHash,omitempty"`
-	Duration       uint64 `protobuf:"varint,4,opt,name=duration,proto3" json:"duration,omitempty"`
-	EntryFee       uint64 `protobuf:"varint,5,opt,name=entryFee,proto3" json:"entryFee,omitempty"`
-	Reward         uint64 `protobuf:"varint,6,opt,name=reward,proto3" json:"reward,omitempty"`
+type MsgRevealGame struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	GameId  uint64 `protobuf:"varint,2,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+	Salt    []byte `protobuf:"bytes,3,opt,name=salt,proto3" json:"salt,omitempty"`
+	Number  uint64 `protobuf:"varint,4,opt,name=number,proto3" json:"number,omitempty"`
 }
 
-func (m *MsgUpdateGame) Reset()         { *m = MsgUpdateGame{} }
-func (m *MsgUpdateGame) String() string { return proto.CompactTextString(m) }
-func (*MsgUpdateGame) ProtoMessage()    {}
-func (*MsgUpdateGame) Descriptor() ([]byte, []int) {
+func (m *MsgRevealGame) Reset()         { *m = MsgRevealGame{} }
+func (m *MsgRevealGame) String() string { return proto.CompactTextString(m) }
+func (*MsgRevealGame) ProtoMessage()    {}
+func (*MsgRevealGame) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e49fa2b86f38875e, []int{4}
 }
-func (m *MsgUpdateGame) XXX_Unmarshal(b []byte) error {
+func (m *MsgRevealGame) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgUpdateGame) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRevealGame) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgUpdateGame.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRevealGame.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -275,75 +273,61 @@ func (m *MsgUpdateGame) XXX_Marshal(b []byte, deterministic bool) ([]byte, error
 		return b[:n], nil
 	}
 }
-func (m *MsgUpdateGame) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgUpdateGame.Merge(m, src)
+func (m *MsgRevealGame) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRevealGame.Merge(m, src)
 }
-func (m *MsgUpdateGame) XXX_Size() int {
+func (m *MsgRevealGame) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgUpdateGame) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgUpdateGame.DiscardUnknown(m)
+func (m *MsgRevealGame) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRevealGame.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgUpdateGame proto.InternalMessageInfo
+var xxx_messageInfo_MsgRevealGame proto.InternalMessageInfo
 
-func (m *MsgUpdateGame) GetCreator() string {
+func (m *MsgRevealGame) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgUpdateGame) GetId() uint64 {
+func (m *MsgRevealGame) GetGameId() uint64 {
 	if m != nil {
-		return m.Id
+		return m.GameId
 	}
 	return 0
 }
 
-func (m *MsgUpdateGame) GetCommitmentHash() string {
+func (m *MsgRevealGame) GetSalt() []byte {
 	if m != nil {
-		return m.CommitmentHash
+		return m.Salt
 	}
-	return ""
+	return nil
 }
 
-func (m *MsgUpdateGame) GetDuration() uint64 {
+func (m *MsgRevealGame) GetNumber() uint64 {
 	if m != nil {
-		return m.Duration
-	}
-	return 0
-}
-
-func (m *MsgUpdateGame) GetEntryFee() uint64 {
-	if m != nil {
-		return m.EntryFee
+		return m.Number
 	}
 	return 0
 }
 
-func (m *MsgUpdateGame) GetReward() uint64 {
-	if m != nil {
-		return m.Reward
-	}
-	return 0
+type MsgRevealGameResponse struct {
 }
 
-type MsgUpdateGameResponse struct {
-}
-
-func (m *MsgUpdateGameResponse) Reset()         { *m = MsgUpdateGameResponse{} }
-func (m *MsgUpdateGameResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgUpdateGameResponse) ProtoMessage()    {}
-func (*MsgUpdateGameResponse) Descriptor() ([]byte, []int) {
+func (m *MsgRevealGameResponse) Reset()         { *m = MsgRevealGameResponse{} }
+func (m *MsgRevealGameResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgRevealGameResponse) ProtoMessage()    {}
+func (*MsgRevealGameResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e49fa2b86f38875e, []int{5}
 }
-func (m *MsgUpdateGameResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgRevealGameResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgUpdateGameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRevealGameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgUpdateGameResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRevealGameResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -353,35 +337,36 @@ func (m *MsgUpdateGameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byt
 		return b[:n], nil
 	}
 }
-func (m *MsgUpdateGameResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgUpdateGameResponse.Merge(m, src)
+func (m *MsgRevealGameResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRevealGameResponse.Merge(m, src)
 }
-func (m *MsgUpdateGameResponse) XXX_Size() int {
+func (m *MsgRevealGameResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgUpdateGameResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgUpdateGameResponse.DiscardUnknown(m)
+func (m *MsgRevealGameResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRevealGameResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgUpdateGameResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgRevealGameResponse proto.InternalMessageInfo
 
-type MsgDeleteGame struct {
-	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+type MsgSubmitGuess struct {
+	Participant string `protobuf:"bytes,1,opt,name=participant,proto3" json:"participant,omitempty"`
+	GameId      uint64 `protobuf:"varint,2,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+	Number      uint64 `protobuf:"varint,3,opt,name=number,proto3" json:"number,omitempty"`
 }
 
-func (m *MsgDeleteGame) Reset()         { *m = MsgDeleteGame{} }
-func (m *MsgDeleteGame) String() string { return proto.CompactTextString(m) }
-func (*MsgDeleteGame) ProtoMessage()    {}
-func (*MsgDeleteGame) Descriptor() ([]byte, []int) {
+func (m *MsgSubmitGuess) Reset()         { *m = MsgSubmitGuess{} }
+func (m *MsgSubmitGuess) String() string { return proto.CompactTextString(m) }
+func (*MsgSubmitGuess) ProtoMessage()    {}
+func (*MsgSubmitGuess) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e49fa2b86f38875e, []int{6}
 }
-func (m *MsgDeleteGame) XXX_Unmarshal(b []byte) error {
+func (m *MsgSubmitGuess) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgDeleteGame) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgSubmitGuess) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgDeleteGame.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgSubmitGuess.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -391,47 +376,54 @@ func (m *MsgDeleteGame) XXX_Marshal(b []byte, deterministic bool) ([]byte, error
 		return b[:n], nil
 	}
 }
-func (m *MsgDeleteGame) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgDeleteGame.Merge(m, src)
+func (m *MsgSubmitGuess) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSubmitGuess.Merge(m, src)
 }
-func (m *MsgDeleteGame) XXX_Size() int {
+func (m *MsgSubmitGuess) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgDeleteGame) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgDeleteGame.DiscardUnknown(m)
+func (m *MsgSubmitGuess) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSubmitGuess.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgDeleteGame proto.InternalMessageInfo
+var xxx_messageInfo_MsgSubmitGuess proto.InternalMessageInfo
 
-func (m *MsgDeleteGame) GetCreator() string {
+func (m *MsgSubmitGuess) GetParticipant() string {
 	if m != nil {
-		return m.Creator
+		return m.Participant
 	}
 	return ""
 }
 
-func (m *MsgDeleteGame) GetId() uint64 {
+func (m *MsgSubmitGuess) GetGameId() uint64 {
 	if m != nil {
-		return m.Id
+		return m.GameId
 	}
 	return 0
 }
 
-type MsgDeleteGameResponse struct {
+func (m *MsgSubmitGuess) GetNumber() uint64 {
+	if m != nil {
+		return m.Number
+	}
+	return 0
 }
 
-func (m *MsgDeleteGameResponse) Reset()         { *m = MsgDeleteGameResponse{} }
-func (m *MsgDeleteGameResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgDeleteGameResponse) ProtoMessage()    {}
-func (*MsgDeleteGameResponse) Descriptor() ([]byte, []int) {
+type MsgSubmitGuessResponse struct {
+}
+
+func (m *MsgSubmitGuessResponse) Reset()         { *m = MsgSubmitGuessResponse{} }
+func (m *MsgSubmitGuessResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgSubmitGuessResponse) ProtoMessage()    {}
+func (*MsgSubmitGuessResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e49fa2b86f38875e, []int{7}
 }
-func (m *MsgDeleteGameResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgSubmitGuessResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgDeleteGameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgSubmitGuessResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgDeleteGameResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgSubmitGuessResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -441,67 +433,75 @@ func (m *MsgDeleteGameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byt
 		return b[:n], nil
 	}
 }
-func (m *MsgDeleteGameResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgDeleteGameResponse.Merge(m, src)
+func (m *MsgSubmitGuessResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSubmitGuessResponse.Merge(m, src)
 }
-func (m *MsgDeleteGameResponse) XXX_Size() int {
+func (m *MsgSubmitGuessResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgDeleteGameResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgDeleteGameResponse.DiscardUnknown(m)
+func (m *MsgSubmitGuessResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSubmitGuessResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgDeleteGameResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgSubmitGuessResponse proto.InternalMessageInfo
 
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "gtn.gtn.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "gtn.gtn.MsgUpdateParamsResponse")
 	proto.RegisterType((*MsgCreateGame)(nil), "gtn.gtn.MsgCreateGame")
 	proto.RegisterType((*MsgCreateGameResponse)(nil), "gtn.gtn.MsgCreateGameResponse")
-	proto.RegisterType((*MsgUpdateGame)(nil), "gtn.gtn.MsgUpdateGame")
-	proto.RegisterType((*MsgUpdateGameResponse)(nil), "gtn.gtn.MsgUpdateGameResponse")
-	proto.RegisterType((*MsgDeleteGame)(nil), "gtn.gtn.MsgDeleteGame")
-	proto.RegisterType((*MsgDeleteGameResponse)(nil), "gtn.gtn.MsgDeleteGameResponse")
+	proto.RegisterType((*MsgRevealGame)(nil), "gtn.gtn.MsgRevealGame")
+	proto.RegisterType((*MsgRevealGameResponse)(nil), "gtn.gtn.MsgRevealGameResponse")
+	proto.RegisterType((*MsgSubmitGuess)(nil), "gtn.gtn.MsgSubmitGuess")
+	proto.RegisterType((*MsgSubmitGuessResponse)(nil), "gtn.gtn.MsgSubmitGuessResponse")
 }
 
 func init() { proto.RegisterFile("gtn/gtn/tx.proto", fileDescriptor_e49fa2b86f38875e) }
 
 var fileDescriptor_e49fa2b86f38875e = []byte{
-	// 544 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x94, 0x39, 0x6f, 0x13, 0x41,
-	0x14, 0xc7, 0x3d, 0xbe, 0x82, 0x87, 0x10, 0xc3, 0x28, 0xd8, 0xeb, 0x2d, 0x16, 0xcb, 0x05, 0x18,
-	0x0b, 0xbc, 0xc2, 0x48, 0x14, 0xe9, 0x30, 0x11, 0x41, 0x48, 0x96, 0xd0, 0x22, 0x1a, 0x1a, 0x34,
-	0x78, 0x47, 0x93, 0x95, 0xd8, 0x9d, 0xd5, 0xcc, 0x04, 0xe2, 0x0e, 0x51, 0x52, 0xf1, 0x31, 0x10,
-	0x14, 0xb8, 0xa0, 0xa7, 0x4d, 0x19, 0x51, 0x51, 0x21, 0x64, 0x17, 0xfe, 0x1a, 0x68, 0x67, 0xf6,
-	0xf2, 0x91, 0x44, 0x29, 0x7c, 0xbc, 0xff, 0x7b, 0xfb, 0x7f, 0xef, 0x37, 0xc7, 0xc2, 0xeb, 0x54,
-	0x06, 0x76, 0xf4, 0x91, 0xc7, 0xfd, 0x90, 0x33, 0xc9, 0xd0, 0x16, 0x95, 0x41, 0x9f, 0xca, 0xc0,
-	0xbc, 0x81, 0x7d, 0x2f, 0x60, 0xb6, 0xfa, 0xd6, 0x39, 0xb3, 0x39, 0x66, 0xc2, 0x67, 0xc2, 0xf6,
-	0x05, 0xb5, 0xdf, 0x3f, 0x88, 0x7e, 0xe2, 0x44, 0x4b, 0x27, 0xde, 0xa8, 0xc8, 0xd6, 0x41, 0x9c,
-	0xda, 0xa5, 0x8c, 0x32, 0xad, 0x47, 0xff, 0x52, 0x35, 0xee, 0x1b, 0x62, 0x8e, 0xfd, 0xa4, 0x16,
-	0x25, 0x2a, 0xc5, 0x3e, 0xd1, 0x5a, 0xe7, 0x3b, 0x80, 0xf5, 0x91, 0xa0, 0xaf, 0x42, 0x17, 0x4b,
-	0xf2, 0x42, 0x55, 0xa3, 0x47, 0xb0, 0x86, 0x8f, 0xe4, 0x21, 0xe3, 0x9e, 0x9c, 0x18, 0xa0, 0x0d,
-	0xba, 0xb5, 0xa1, 0xf1, 0xfb, 0xe7, 0xfd, 0xdd, 0xb8, 0xf1, 0x63, 0xd7, 0xe5, 0x44, 0x88, 0x97,
-	0x92, 0x7b, 0x01, 0x75, 0xb2, 0x52, 0x34, 0x80, 0x55, 0xdd, 0xcf, 0x28, 0xb6, 0x41, 0xf7, 0xea,
-	0xa0, 0xde, 0x8f, 0x61, 0xfb, 0xda, 0x78, 0x58, 0x3b, 0xf9, 0x7b, 0xab, 0xf0, 0x75, 0x31, 0xed,
-	0x01, 0x27, 0xae, 0xdc, 0xbb, 0xf7, 0x69, 0x31, 0xed, 0x65, 0x1e, 0x9f, 0x17, 0xd3, 0x5e, 0x2b,
-	0x1a, 0xf1, 0x58, 0x0d, 0xba, 0x32, 0x59, 0xa7, 0x05, 0x9b, 0x2b, 0x92, 0x43, 0x44, 0xc8, 0x02,
-	0x41, 0x3a, 0x3f, 0x00, 0xbc, 0x36, 0x12, 0xf4, 0x09, 0x27, 0x58, 0x92, 0x03, 0xec, 0x13, 0x64,
-	0xc0, 0xad, 0x71, 0x14, 0x31, 0xae, 0x21, 0x9c, 0x24, 0x44, 0xb7, 0xe1, 0xce, 0x98, 0xf9, 0xbe,
-	0x27, 0x7d, 0x12, 0xc8, 0x67, 0x58, 0x1c, 0xaa, 0x81, 0x6b, 0xce, 0x8a, 0x8a, 0x4c, 0x78, 0xc5,
-	0x3d, 0xe2, 0x58, 0x7a, 0x2c, 0x30, 0x4a, 0x6d, 0xd0, 0x2d, 0x3b, 0x69, 0x1c, 0xe5, 0x48, 0x20,
-	0xf9, 0xe4, 0x29, 0x21, 0x46, 0x59, 0xe7, 0x92, 0x18, 0x35, 0x60, 0x95, 0x93, 0x0f, 0x98, 0xbb,
-	0x46, 0x45, 0x65, 0xe2, 0x68, 0x6f, 0x3b, 0x82, 0x4d, 0xa6, 0xe8, 0xdc, 0x81, 0x37, 0x97, 0x06,
-	0x4e, 0x50, 0xd0, 0x0e, 0x2c, 0x7a, 0xae, 0x9a, 0xb9, 0xec, 0x14, 0x3d, 0xb7, 0xf3, 0x4b, 0xa3,
-	0x69, 0xec, 0x0b, 0xd0, 0xf4, 0xb3, 0xc5, 0xe4, 0xd9, 0x0d, 0xa8, 0xa5, 0x0b, 0x51, 0xcb, 0xe7,
-	0xa0, 0x56, 0xce, 0x44, 0xad, 0x9e, 0x83, 0xda, 0x54, 0xa8, 0x19, 0x40, 0xba, 0x6b, 0x07, 0x8a,
-	0x6c, 0x9f, 0xbc, 0x23, 0x97, 0x25, 0xdb, 0xd8, 0x21, 0x33, 0x4a, 0x3a, 0x0c, 0xbe, 0x15, 0x61,
-	0x69, 0x24, 0x28, 0x7a, 0x0e, 0xb7, 0x97, 0x0e, 0xb9, 0x91, 0x1e, 0xce, 0x95, 0x13, 0x65, 0xb6,
-	0xcf, 0xca, 0xa4, 0x1b, 0xb4, 0x0f, 0x61, 0xee, 0x9c, 0x35, 0xf2, 0xf5, 0x99, 0x6e, 0x5a, 0x9b,
-	0xf5, 0xbc, 0x4b, 0x6e, 0x4b, 0x1b, 0xeb, 0x5d, 0xd7, 0x5d, 0xd6, 0x57, 0x30, 0x72, 0xc9, 0x2d,
-	0xdf, 0x92, 0x4b, 0xa6, 0x2f, 0xbb, 0xac, 0xaf, 0x92, 0x59, 0xf9, 0x18, 0xdd, 0xca, 0xe1, 0xdd,
-	0x93, 0x99, 0x05, 0x4e, 0x67, 0x16, 0xf8, 0x37, 0xb3, 0xc0, 0x97, 0xb9, 0x55, 0x38, 0x9d, 0x5b,
-	0x85, 0x3f, 0x73, 0xab, 0xf0, 0xba, 0x9e, 0x5d, 0x4a, 0x39, 0x09, 0x89, 0x78, 0x5b, 0x55, 0xef,
-	0x8f, 0x87, 0xff, 0x03, 0x00, 0x00, 0xff, 0xff, 0x9b, 0x5c, 0xd9, 0x53, 0xe3, 0x04, 0x00, 0x00,
+	// 666 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x54, 0xc1, 0x6e, 0xd3, 0x4a,
+	0x14, 0x8d, 0x93, 0x34, 0x6d, 0xa6, 0x79, 0x4d, 0xdf, 0xbc, 0xbe, 0xc6, 0xf1, 0xc2, 0x8d, 0xb2,
+	0x69, 0x5f, 0xf5, 0xb0, 0xd5, 0x22, 0x81, 0x54, 0xb1, 0x21, 0x45, 0x14, 0x90, 0x22, 0x21, 0x57,
+	0x6c, 0xd8, 0x44, 0x93, 0x78, 0x70, 0x46, 0xaa, 0x67, 0xac, 0x99, 0x49, 0x69, 0x25, 0x16, 0x88,
+	0x25, 0x2b, 0x3e, 0x03, 0x09, 0x21, 0x75, 0xc1, 0x47, 0x74, 0x59, 0xb1, 0x62, 0x85, 0x50, 0xbb,
+	0xe8, 0x07, 0xf0, 0x03, 0x68, 0xc6, 0xe3, 0xd8, 0x09, 0x54, 0xb0, 0x48, 0xe2, 0x7b, 0xee, 0x9d,
+	0xe3, 0x73, 0xcf, 0xbd, 0x13, 0xb0, 0x1a, 0x49, 0xea, 0xab, 0x8f, 0x3c, 0xf1, 0x12, 0xce, 0x24,
+	0x83, 0x8b, 0x91, 0xa4, 0x5e, 0x24, 0xa9, 0xf3, 0x37, 0x8a, 0x09, 0x65, 0xbe, 0xfe, 0x4e, 0x73,
+	0x4e, 0x6b, 0xc4, 0x44, 0xcc, 0x84, 0x1f, 0x8b, 0xc8, 0x3f, 0xde, 0x51, 0x3f, 0x26, 0xd1, 0x4e,
+	0x13, 0x03, 0x1d, 0xf9, 0x69, 0x60, 0x52, 0xae, 0x39, 0x33, 0x44, 0x02, 0xfb, 0xc7, 0x3b, 0x43,
+	0x2c, 0xd1, 0x8e, 0x3f, 0x62, 0x84, 0x9a, 0xfc, 0x5a, 0xc4, 0x22, 0x96, 0x9e, 0x53, 0x4f, 0x53,
+	0xd4, 0xe8, 0x4a, 0x10, 0x47, 0x71, 0xc6, 0x05, 0x33, 0x34, 0x42, 0x31, 0x36, 0xd8, 0x3f, 0x53,
+	0x6c, 0x82, 0x85, 0x29, 0xec, 0x7e, 0xb0, 0x40, 0xb3, 0x2f, 0xa2, 0x67, 0x49, 0x88, 0x24, 0x7e,
+	0xaa, 0x29, 0xe0, 0x1d, 0x50, 0x47, 0x13, 0x39, 0x66, 0x9c, 0xc8, 0x53, 0xdb, 0xea, 0x58, 0x5b,
+	0xf5, 0x9e, 0xfd, 0xf9, 0xd3, 0xad, 0x35, 0xa3, 0xf6, 0x7e, 0x18, 0x72, 0x2c, 0xc4, 0xa1, 0xe4,
+	0x84, 0x46, 0x41, 0x5e, 0x0a, 0x77, 0x41, 0x2d, 0x15, 0x61, 0x97, 0x3b, 0xd6, 0xd6, 0xf2, 0x6e,
+	0xd3, 0x33, 0x0e, 0x79, 0x29, 0x71, 0xaf, 0x7e, 0xfe, 0x75, 0xa3, 0xf4, 0xfe, 0xfa, 0x6c, 0xdb,
+	0x0a, 0x4c, 0xe5, 0xde, 0xff, 0x6f, 0xae, 0xcf, 0xb6, 0x73, 0x8e, 0xb7, 0xd7, 0x67, 0xdb, 0x6d,
+	0xa5, 0xf1, 0x44, 0x2b, 0x9d, 0x53, 0xd6, 0x6d, 0x83, 0xd6, 0x1c, 0x14, 0x60, 0x91, 0x30, 0x2a,
+	0x70, 0xf7, 0xbb, 0x05, 0xfe, 0xea, 0x8b, 0x68, 0x9f, 0x63, 0x24, 0xf1, 0x01, 0x8a, 0x31, 0xb4,
+	0xc1, 0xe2, 0x48, 0x45, 0x8c, 0xa7, 0x4d, 0x04, 0x59, 0x08, 0x37, 0x41, 0x73, 0xc4, 0xe2, 0x98,
+	0xc8, 0x18, 0x53, 0x39, 0x18, 0x23, 0x31, 0xd6, 0x8a, 0x1b, 0xc1, 0x4a, 0x0e, 0x3f, 0x42, 0x62,
+	0x0c, 0x1d, 0xb0, 0x14, 0x4e, 0x38, 0x92, 0x84, 0x51, 0xbb, 0xd2, 0xb1, 0xb6, 0x2a, 0xc1, 0x34,
+	0x86, 0xf7, 0x40, 0x1d, 0x53, 0xc9, 0x4f, 0x07, 0x2f, 0x30, 0xb6, 0x17, 0x74, 0xc3, 0x6d, 0xcf,
+	0x58, 0xa4, 0x46, 0xe8, 0x99, 0x11, 0x7a, 0xfb, 0x8c, 0xd0, 0x5e, 0x55, 0xb5, 0x1e, 0x2c, 0xe9,
+	0x13, 0x0f, 0x31, 0x86, 0x77, 0x41, 0x8d, 0xe3, 0x97, 0x88, 0x87, 0x76, 0xed, 0xcf, 0x8e, 0x9a,
+	0xf2, 0xbd, 0x86, 0x32, 0x2c, 0xeb, 0xa4, 0xbb, 0x09, 0xfe, 0x9d, 0x69, 0x3a, 0xb3, 0x03, 0xae,
+	0x80, 0x32, 0x09, 0x75, 0xdf, 0xd5, 0xa0, 0x4c, 0xc2, 0xee, 0x2b, 0xed, 0x4e, 0x80, 0x8f, 0x31,
+	0x3a, 0xfa, 0x8d, 0x3b, 0x2d, 0xb0, 0xa8, 0xb6, 0x66, 0x40, 0x42, 0xed, 0x4a, 0x35, 0xa8, 0xa9,
+	0xf0, 0x71, 0x08, 0x21, 0xa8, 0x0a, 0x74, 0x24, 0xb5, 0x13, 0x8d, 0x40, 0x3f, 0xc3, 0x75, 0x50,
+	0xa3, 0x93, 0x78, 0x88, 0xb9, 0x5d, 0x4d, 0x6b, 0xd3, 0x68, 0x4e, 0x66, 0x4b, 0xcb, 0xcc, 0xdf,
+	0x3e, 0x9d, 0xda, 0x04, 0xac, 0xf4, 0x45, 0x74, 0x38, 0x19, 0xc6, 0x44, 0x1e, 0xa8, 0xb5, 0x84,
+	0x1d, 0xb0, 0x9c, 0x20, 0x2e, 0xc9, 0x88, 0x24, 0x88, 0x4a, 0xa3, 0xad, 0x08, 0xdd, 0xac, 0x2f,
+	0xd7, 0x52, 0x99, 0xd1, 0xb2, 0xaa, 0xb4, 0x14, 0x29, 0xba, 0x36, 0x58, 0x9f, 0x7d, 0x6d, 0x26,
+	0x68, 0xf7, 0x63, 0x19, 0x54, 0xfa, 0x22, 0x82, 0x4f, 0x40, 0x63, 0xe6, 0x4e, 0xd8, 0xd3, 0x5d,
+	0x9e, 0x5b, 0x40, 0xa7, 0x73, 0x53, 0x66, 0x3a, 0x8b, 0x07, 0x00, 0x14, 0xd6, 0x72, 0xbd, 0x58,
+	0x9f, 0xe3, 0x8e, 0xfb, 0x6b, 0xbc, 0xc8, 0x52, 0x18, 0xdf, 0x0c, 0x4b, 0x8e, 0xcf, 0xb2, 0xfc,
+	0x6c, 0x38, 0x3c, 0x00, 0xcb, 0x45, 0xb7, 0x5b, 0xc5, 0xf2, 0x42, 0xc2, 0xd9, 0xb8, 0x21, 0x91,
+	0x11, 0x39, 0x0b, 0xaf, 0xd5, 0x3d, 0xee, 0xfd, 0x77, 0x7e, 0xe9, 0x5a, 0x17, 0x97, 0xae, 0xf5,
+	0xed, 0xd2, 0xb5, 0xde, 0x5d, 0xb9, 0xa5, 0x8b, 0x2b, 0xb7, 0xf4, 0xe5, 0xca, 0x2d, 0x3d, 0x6f,
+	0xe6, 0xd7, 0x58, 0x9e, 0x26, 0x58, 0x0c, 0x6b, 0xfa, 0x1f, 0xe7, 0xf6, 0x8f, 0x00, 0x00, 0x00,
+	0xff, 0xff, 0xcb, 0x89, 0xe8, 0x76, 0x4a, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -520,8 +520,8 @@ type MsgClient interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	CreateGame(ctx context.Context, in *MsgCreateGame, opts ...grpc.CallOption) (*MsgCreateGameResponse, error)
-	UpdateGame(ctx context.Context, in *MsgUpdateGame, opts ...grpc.CallOption) (*MsgUpdateGameResponse, error)
-	DeleteGame(ctx context.Context, in *MsgDeleteGame, opts ...grpc.CallOption) (*MsgDeleteGameResponse, error)
+	RevealGame(ctx context.Context, in *MsgRevealGame, opts ...grpc.CallOption) (*MsgRevealGameResponse, error)
+	SubmitGuess(ctx context.Context, in *MsgSubmitGuess, opts ...grpc.CallOption) (*MsgSubmitGuessResponse, error)
 }
 
 type msgClient struct {
@@ -550,18 +550,18 @@ func (c *msgClient) CreateGame(ctx context.Context, in *MsgCreateGame, opts ...g
 	return out, nil
 }
 
-func (c *msgClient) UpdateGame(ctx context.Context, in *MsgUpdateGame, opts ...grpc.CallOption) (*MsgUpdateGameResponse, error) {
-	out := new(MsgUpdateGameResponse)
-	err := c.cc.Invoke(ctx, "/gtn.gtn.Msg/UpdateGame", in, out, opts...)
+func (c *msgClient) RevealGame(ctx context.Context, in *MsgRevealGame, opts ...grpc.CallOption) (*MsgRevealGameResponse, error) {
+	out := new(MsgRevealGameResponse)
+	err := c.cc.Invoke(ctx, "/gtn.gtn.Msg/RevealGame", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) DeleteGame(ctx context.Context, in *MsgDeleteGame, opts ...grpc.CallOption) (*MsgDeleteGameResponse, error) {
-	out := new(MsgDeleteGameResponse)
-	err := c.cc.Invoke(ctx, "/gtn.gtn.Msg/DeleteGame", in, out, opts...)
+func (c *msgClient) SubmitGuess(ctx context.Context, in *MsgSubmitGuess, opts ...grpc.CallOption) (*MsgSubmitGuessResponse, error) {
+	out := new(MsgSubmitGuessResponse)
+	err := c.cc.Invoke(ctx, "/gtn.gtn.Msg/SubmitGuess", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -574,8 +574,8 @@ type MsgServer interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	CreateGame(context.Context, *MsgCreateGame) (*MsgCreateGameResponse, error)
-	UpdateGame(context.Context, *MsgUpdateGame) (*MsgUpdateGameResponse, error)
-	DeleteGame(context.Context, *MsgDeleteGame) (*MsgDeleteGameResponse, error)
+	RevealGame(context.Context, *MsgRevealGame) (*MsgRevealGameResponse, error)
+	SubmitGuess(context.Context, *MsgSubmitGuess) (*MsgSubmitGuessResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -588,11 +588,11 @@ func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateP
 func (*UnimplementedMsgServer) CreateGame(ctx context.Context, req *MsgCreateGame) (*MsgCreateGameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGame not implemented")
 }
-func (*UnimplementedMsgServer) UpdateGame(ctx context.Context, req *MsgUpdateGame) (*MsgUpdateGameResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateGame not implemented")
+func (*UnimplementedMsgServer) RevealGame(ctx context.Context, req *MsgRevealGame) (*MsgRevealGameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RevealGame not implemented")
 }
-func (*UnimplementedMsgServer) DeleteGame(ctx context.Context, req *MsgDeleteGame) (*MsgDeleteGameResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteGame not implemented")
+func (*UnimplementedMsgServer) SubmitGuess(ctx context.Context, req *MsgSubmitGuess) (*MsgSubmitGuessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitGuess not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -635,38 +635,38 @@ func _Msg_CreateGame_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_UpdateGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUpdateGame)
+func _Msg_RevealGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRevealGame)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).UpdateGame(ctx, in)
+		return srv.(MsgServer).RevealGame(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gtn.gtn.Msg/UpdateGame",
+		FullMethod: "/gtn.gtn.Msg/RevealGame",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UpdateGame(ctx, req.(*MsgUpdateGame))
+		return srv.(MsgServer).RevealGame(ctx, req.(*MsgRevealGame))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_DeleteGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgDeleteGame)
+func _Msg_SubmitGuess_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSubmitGuess)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).DeleteGame(ctx, in)
+		return srv.(MsgServer).SubmitGuess(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/gtn.gtn.Msg/DeleteGame",
+		FullMethod: "/gtn.gtn.Msg/SubmitGuess",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).DeleteGame(ctx, req.(*MsgDeleteGame))
+		return srv.(MsgServer).SubmitGuess(ctx, req.(*MsgSubmitGuess))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -684,12 +684,12 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_CreateGame_Handler,
 		},
 		{
-			MethodName: "UpdateGame",
-			Handler:    _Msg_UpdateGame_Handler,
+			MethodName: "RevealGame",
+			Handler:    _Msg_RevealGame_Handler,
 		},
 		{
-			MethodName: "DeleteGame",
-			Handler:    _Msg_DeleteGame_Handler,
+			MethodName: "SubmitGuess",
+			Handler:    _Msg_SubmitGuess_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -779,16 +779,26 @@ func (m *MsgCreateGame) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Reward != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Reward))
-		i--
-		dAtA[i] = 0x28
+	{
+		size, err := m.Reward.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintTx(dAtA, i, uint64(size))
 	}
-	if m.EntryFee != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.EntryFee))
-		i--
-		dAtA[i] = 0x20
+	i--
+	dAtA[i] = 0x32
+	{
+		size, err := m.EntryFee.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintTx(dAtA, i, uint64(size))
 	}
+	i--
+	dAtA[i] = 0x2a
 	if m.Duration != 0 {
 		i = encodeVarintTx(dAtA, i, uint64(m.Duration))
 		i--
@@ -839,7 +849,7 @@ func (m *MsgCreateGameResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgUpdateGame) Marshal() (dAtA []byte, err error) {
+func (m *MsgRevealGame) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -849,40 +859,30 @@ func (m *MsgUpdateGame) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgUpdateGame) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRevealGame) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgUpdateGame) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRevealGame) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if m.Reward != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Reward))
-		i--
-		dAtA[i] = 0x30
-	}
-	if m.EntryFee != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.EntryFee))
-		i--
-		dAtA[i] = 0x28
-	}
-	if m.Duration != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Duration))
+	if m.Number != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Number))
 		i--
 		dAtA[i] = 0x20
 	}
-	if len(m.CommitmentHash) > 0 {
-		i -= len(m.CommitmentHash)
-		copy(dAtA[i:], m.CommitmentHash)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.CommitmentHash)))
+	if len(m.Salt) > 0 {
+		i -= len(m.Salt)
+		copy(dAtA[i:], m.Salt)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Salt)))
 		i--
 		dAtA[i] = 0x1a
 	}
-	if m.Id != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+	if m.GameId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.GameId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -896,7 +896,7 @@ func (m *MsgUpdateGame) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgUpdateGameResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgRevealGameResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -906,12 +906,12 @@ func (m *MsgUpdateGameResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgUpdateGameResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRevealGameResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgUpdateGameResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRevealGameResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -919,7 +919,7 @@ func (m *MsgUpdateGameResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgDeleteGame) Marshal() (dAtA []byte, err error) {
+func (m *MsgSubmitGuess) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -929,32 +929,37 @@ func (m *MsgDeleteGame) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgDeleteGame) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgSubmitGuess) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgDeleteGame) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgSubmitGuess) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if m.Id != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+	if m.Number != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Number))
+		i--
+		dAtA[i] = 0x18
+	}
+	if m.GameId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.GameId))
 		i--
 		dAtA[i] = 0x10
 	}
-	if len(m.Creator) > 0 {
-		i -= len(m.Creator)
-		copy(dAtA[i:], m.Creator)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+	if len(m.Participant) > 0 {
+		i -= len(m.Participant)
+		copy(dAtA[i:], m.Participant)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Participant)))
 		i--
 		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgDeleteGameResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgSubmitGuessResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -964,12 +969,12 @@ func (m *MsgDeleteGameResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgDeleteGameResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgSubmitGuessResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgDeleteGameResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgSubmitGuessResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1029,12 +1034,10 @@ func (m *MsgCreateGame) Size() (n int) {
 	if m.Duration != 0 {
 		n += 1 + sovTx(uint64(m.Duration))
 	}
-	if m.EntryFee != 0 {
-		n += 1 + sovTx(uint64(m.EntryFee))
-	}
-	if m.Reward != 0 {
-		n += 1 + sovTx(uint64(m.Reward))
-	}
+	l = m.EntryFee.Size()
+	n += 1 + l + sovTx(uint64(l))
+	l = m.Reward.Size()
+	n += 1 + l + sovTx(uint64(l))
 	return n
 }
 
@@ -1050,7 +1053,7 @@ func (m *MsgCreateGameResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgUpdateGame) Size() (n int) {
+func (m *MsgRevealGame) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1060,26 +1063,20 @@ func (m *MsgUpdateGame) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Id != 0 {
-		n += 1 + sovTx(uint64(m.Id))
+	if m.GameId != 0 {
+		n += 1 + sovTx(uint64(m.GameId))
 	}
-	l = len(m.CommitmentHash)
+	l = len(m.Salt)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Duration != 0 {
-		n += 1 + sovTx(uint64(m.Duration))
-	}
-	if m.EntryFee != 0 {
-		n += 1 + sovTx(uint64(m.EntryFee))
-	}
-	if m.Reward != 0 {
-		n += 1 + sovTx(uint64(m.Reward))
+	if m.Number != 0 {
+		n += 1 + sovTx(uint64(m.Number))
 	}
 	return n
 }
 
-func (m *MsgUpdateGameResponse) Size() (n int) {
+func (m *MsgRevealGameResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1088,23 +1085,26 @@ func (m *MsgUpdateGameResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgDeleteGame) Size() (n int) {
+func (m *MsgSubmitGuess) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.Creator)
+	l = len(m.Participant)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Id != 0 {
-		n += 1 + sovTx(uint64(m.Id))
+	if m.GameId != 0 {
+		n += 1 + sovTx(uint64(m.GameId))
+	}
+	if m.Number != 0 {
+		n += 1 + sovTx(uint64(m.Number))
 	}
 	return n
 }
 
-func (m *MsgDeleteGameResponse) Size() (n int) {
+func (m *MsgSubmitGuessResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1349,7 +1349,7 @@ func (m *MsgCreateGame) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CommitmentHash", wireType)
 			}
-			var stringLen uint64
+			var byteLen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -1359,23 +1359,25 @@ func (m *MsgCreateGame) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				byteLen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if byteLen < 0 {
 				return ErrInvalidLengthTx
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + byteLen
 			if postIndex < 0 {
 				return ErrInvalidLengthTx
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.CommitmentHash = string(dAtA[iNdEx:postIndex])
+			m.CommitmentHash = append(m.CommitmentHash[:0], dAtA[iNdEx:postIndex]...)
+			if m.CommitmentHash == nil {
+				m.CommitmentHash = []byte{}
+			}
 			iNdEx = postIndex
 		case 3:
 			if wireType != 0 {
@@ -1391,35 +1393,16 @@ func (m *MsgCreateGame) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Duration |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 4:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EntryFee", wireType)
-			}
-			m.EntryFee = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.EntryFee |= uint64(b&0x7F) << shift
+				m.Duration |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 5:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EntryFee", wireType)
 			}
-			m.Reward = 0
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -1429,11 +1412,58 @@ func (m *MsgCreateGame) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Reward |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.EntryFee.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Reward.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
@@ -1524,7 +1554,7 @@ func (m *MsgCreateGameResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgUpdateGame) Unmarshal(dAtA []byte) error {
+func (m *MsgRevealGame) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1547,10 +1577,10 @@ func (m *MsgUpdateGame) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgUpdateGame: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRevealGame: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgUpdateGame: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRevealGame: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1587,9 +1617,9 @@ func (m *MsgUpdateGame) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field GameId", wireType)
 			}
-			m.Id = 0
+			m.GameId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -1599,16 +1629,16 @@ func (m *MsgUpdateGame) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Id |= uint64(b&0x7F) << shift
+				m.GameId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CommitmentHash", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Salt", wireType)
 			}
-			var stringLen uint64
+			var byteLen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -1618,29 +1648,31 @@ func (m *MsgUpdateGame) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				byteLen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if byteLen < 0 {
 				return ErrInvalidLengthTx
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + byteLen
 			if postIndex < 0 {
 				return ErrInvalidLengthTx
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.CommitmentHash = string(dAtA[iNdEx:postIndex])
+			m.Salt = append(m.Salt[:0], dAtA[iNdEx:postIndex]...)
+			if m.Salt == nil {
+				m.Salt = []byte{}
+			}
 			iNdEx = postIndex
 		case 4:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Duration", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Number", wireType)
 			}
-			m.Duration = 0
+			m.Number = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -1650,45 +1682,7 @@ func (m *MsgUpdateGame) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Duration |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 5:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EntryFee", wireType)
-			}
-			m.EntryFee = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.EntryFee |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 6:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
-			}
-			m.Reward = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Reward |= uint64(b&0x7F) << shift
+				m.Number |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1714,7 +1708,7 @@ func (m *MsgUpdateGame) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgUpdateGameResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgRevealGameResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1737,10 +1731,10 @@ func (m *MsgUpdateGameResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgUpdateGameResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRevealGameResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgUpdateGameResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRevealGameResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -1764,7 +1758,7 @@ func (m *MsgUpdateGameResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgDeleteGame) Unmarshal(dAtA []byte) error {
+func (m *MsgSubmitGuess) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1787,15 +1781,15 @@ func (m *MsgDeleteGame) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgDeleteGame: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgSubmitGuess: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgDeleteGame: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgSubmitGuess: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Participant", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1823,13 +1817,13 @@ func (m *MsgDeleteGame) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Creator = string(dAtA[iNdEx:postIndex])
+			m.Participant = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field GameId", wireType)
 			}
-			m.Id = 0
+			m.GameId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -1839,7 +1833,26 @@ func (m *MsgDeleteGame) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Id |= uint64(b&0x7F) << shift
+				m.GameId |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Number", wireType)
+			}
+			m.Number = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Number |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1865,7 +1878,7 @@ func (m *MsgDeleteGame) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgDeleteGameResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgSubmitGuessResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1888,10 +1901,10 @@ func (m *MsgDeleteGameResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgDeleteGameResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgSubmitGuessResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgDeleteGameResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgSubmitGuessResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

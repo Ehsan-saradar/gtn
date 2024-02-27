@@ -2,35 +2,44 @@
 package gtn
 
 import (
+	v1beta1 "cosmossdk.io/api/cosmos/base/v1beta1"
 	fmt "fmt"
-	io "io"
-	reflect "reflect"
-	sync "sync"
-
 	runtime "github.com/cosmos/cosmos-proto/runtime"
+	_ "github.com/cosmos/gogoproto/gogoproto"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoiface "google.golang.org/protobuf/runtime/protoiface"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	io "io"
+	reflect "reflect"
+	sync "sync"
 )
 
 var (
-	md_Game                protoreflect.MessageDescriptor
-	fd_Game_id             protoreflect.FieldDescriptor
-	fd_Game_commitmentHash protoreflect.FieldDescriptor
-	fd_Game_duration       protoreflect.FieldDescriptor
-	fd_Game_entryFee       protoreflect.FieldDescriptor
-	fd_Game_reward         protoreflect.FieldDescriptor
-	fd_Game_creator        protoreflect.FieldDescriptor
+	md_Game                    protoreflect.MessageDescriptor
+	fd_Game_id                 protoreflect.FieldDescriptor
+	fd_Game_commitment_hash    protoreflect.FieldDescriptor
+	fd_Game_started_at_height  protoreflect.FieldDescriptor
+	fd_Game_duration           protoreflect.FieldDescriptor
+	fd_Game_entry_fee          protoreflect.FieldDescriptor
+	fd_Game_reward             protoreflect.FieldDescriptor
+	fd_Game_participants_count protoreflect.FieldDescriptor
+	fd_Game_salt               protoreflect.FieldDescriptor
+	fd_Game_number             protoreflect.FieldDescriptor
+	fd_Game_creator            protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_gtn_gtn_game_proto_init()
 	md_Game = File_gtn_gtn_game_proto.Messages().ByName("Game")
 	fd_Game_id = md_Game.Fields().ByName("id")
-	fd_Game_commitmentHash = md_Game.Fields().ByName("commitmentHash")
+	fd_Game_commitment_hash = md_Game.Fields().ByName("commitment_hash")
+	fd_Game_started_at_height = md_Game.Fields().ByName("started_at_height")
 	fd_Game_duration = md_Game.Fields().ByName("duration")
-	fd_Game_entryFee = md_Game.Fields().ByName("entryFee")
+	fd_Game_entry_fee = md_Game.Fields().ByName("entry_fee")
 	fd_Game_reward = md_Game.Fields().ByName("reward")
+	fd_Game_participants_count = md_Game.Fields().ByName("participants_count")
+	fd_Game_salt = md_Game.Fields().ByName("salt")
+	fd_Game_number = md_Game.Fields().ByName("number")
 	fd_Game_creator = md_Game.Fields().ByName("creator")
 }
 
@@ -105,27 +114,51 @@ func (x *fastReflection_Game) Range(f func(protoreflect.FieldDescriptor, protore
 			return
 		}
 	}
-	if x.CommitmentHash != "" {
-		value := protoreflect.ValueOfString(x.CommitmentHash)
-		if !f(fd_Game_commitmentHash, value) {
+	if len(x.CommitmentHash) != 0 {
+		value := protoreflect.ValueOfBytes(x.CommitmentHash)
+		if !f(fd_Game_commitment_hash, value) {
 			return
 		}
 	}
-	if x.Duration != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Duration)
+	if x.StartedAtHeight != int64(0) {
+		value := protoreflect.ValueOfInt64(x.StartedAtHeight)
+		if !f(fd_Game_started_at_height, value) {
+			return
+		}
+	}
+	if x.Duration != int64(0) {
+		value := protoreflect.ValueOfInt64(x.Duration)
 		if !f(fd_Game_duration, value) {
 			return
 		}
 	}
-	if x.EntryFee != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.EntryFee)
-		if !f(fd_Game_entryFee, value) {
+	if x.EntryFee != nil {
+		value := protoreflect.ValueOfMessage(x.EntryFee.ProtoReflect())
+		if !f(fd_Game_entry_fee, value) {
 			return
 		}
 	}
-	if x.Reward != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Reward)
+	if x.Reward != nil {
+		value := protoreflect.ValueOfMessage(x.Reward.ProtoReflect())
 		if !f(fd_Game_reward, value) {
+			return
+		}
+	}
+	if x.ParticipantsCount != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.ParticipantsCount)
+		if !f(fd_Game_participants_count, value) {
+			return
+		}
+	}
+	if len(x.Salt) != 0 {
+		value := protoreflect.ValueOfBytes(x.Salt)
+		if !f(fd_Game_salt, value) {
+			return
+		}
+	}
+	if x.Number != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.Number)
+		if !f(fd_Game_number, value) {
 			return
 		}
 	}
@@ -152,14 +185,22 @@ func (x *fastReflection_Game) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	case "gtn.gtn.Game.id":
 		return x.Id != uint64(0)
-	case "gtn.gtn.Game.commitmentHash":
-		return x.CommitmentHash != ""
+	case "gtn.gtn.Game.commitment_hash":
+		return len(x.CommitmentHash) != 0
+	case "gtn.gtn.Game.started_at_height":
+		return x.StartedAtHeight != int64(0)
 	case "gtn.gtn.Game.duration":
-		return x.Duration != uint64(0)
-	case "gtn.gtn.Game.entryFee":
-		return x.EntryFee != uint64(0)
+		return x.Duration != int64(0)
+	case "gtn.gtn.Game.entry_fee":
+		return x.EntryFee != nil
 	case "gtn.gtn.Game.reward":
-		return x.Reward != uint64(0)
+		return x.Reward != nil
+	case "gtn.gtn.Game.participants_count":
+		return x.ParticipantsCount != uint64(0)
+	case "gtn.gtn.Game.salt":
+		return len(x.Salt) != 0
+	case "gtn.gtn.Game.number":
+		return x.Number != uint64(0)
 	case "gtn.gtn.Game.creator":
 		return x.Creator != ""
 	default:
@@ -180,14 +221,22 @@ func (x *fastReflection_Game) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "gtn.gtn.Game.id":
 		x.Id = uint64(0)
-	case "gtn.gtn.Game.commitmentHash":
-		x.CommitmentHash = ""
+	case "gtn.gtn.Game.commitment_hash":
+		x.CommitmentHash = nil
+	case "gtn.gtn.Game.started_at_height":
+		x.StartedAtHeight = int64(0)
 	case "gtn.gtn.Game.duration":
-		x.Duration = uint64(0)
-	case "gtn.gtn.Game.entryFee":
-		x.EntryFee = uint64(0)
+		x.Duration = int64(0)
+	case "gtn.gtn.Game.entry_fee":
+		x.EntryFee = nil
 	case "gtn.gtn.Game.reward":
-		x.Reward = uint64(0)
+		x.Reward = nil
+	case "gtn.gtn.Game.participants_count":
+		x.ParticipantsCount = uint64(0)
+	case "gtn.gtn.Game.salt":
+		x.Salt = nil
+	case "gtn.gtn.Game.number":
+		x.Number = uint64(0)
 	case "gtn.gtn.Game.creator":
 		x.Creator = ""
 	default:
@@ -209,17 +258,29 @@ func (x *fastReflection_Game) Get(descriptor protoreflect.FieldDescriptor) proto
 	case "gtn.gtn.Game.id":
 		value := x.Id
 		return protoreflect.ValueOfUint64(value)
-	case "gtn.gtn.Game.commitmentHash":
+	case "gtn.gtn.Game.commitment_hash":
 		value := x.CommitmentHash
-		return protoreflect.ValueOfString(value)
+		return protoreflect.ValueOfBytes(value)
+	case "gtn.gtn.Game.started_at_height":
+		value := x.StartedAtHeight
+		return protoreflect.ValueOfInt64(value)
 	case "gtn.gtn.Game.duration":
 		value := x.Duration
-		return protoreflect.ValueOfUint64(value)
-	case "gtn.gtn.Game.entryFee":
+		return protoreflect.ValueOfInt64(value)
+	case "gtn.gtn.Game.entry_fee":
 		value := x.EntryFee
-		return protoreflect.ValueOfUint64(value)
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	case "gtn.gtn.Game.reward":
 		value := x.Reward
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "gtn.gtn.Game.participants_count":
+		value := x.ParticipantsCount
+		return protoreflect.ValueOfUint64(value)
+	case "gtn.gtn.Game.salt":
+		value := x.Salt
+		return protoreflect.ValueOfBytes(value)
+	case "gtn.gtn.Game.number":
+		value := x.Number
 		return protoreflect.ValueOfUint64(value)
 	case "gtn.gtn.Game.creator":
 		value := x.Creator
@@ -246,14 +307,22 @@ func (x *fastReflection_Game) Set(fd protoreflect.FieldDescriptor, value protore
 	switch fd.FullName() {
 	case "gtn.gtn.Game.id":
 		x.Id = value.Uint()
-	case "gtn.gtn.Game.commitmentHash":
-		x.CommitmentHash = value.Interface().(string)
+	case "gtn.gtn.Game.commitment_hash":
+		x.CommitmentHash = value.Bytes()
+	case "gtn.gtn.Game.started_at_height":
+		x.StartedAtHeight = value.Int()
 	case "gtn.gtn.Game.duration":
-		x.Duration = value.Uint()
-	case "gtn.gtn.Game.entryFee":
-		x.EntryFee = value.Uint()
+		x.Duration = value.Int()
+	case "gtn.gtn.Game.entry_fee":
+		x.EntryFee = value.Message().Interface().(*v1beta1.Coin)
 	case "gtn.gtn.Game.reward":
-		x.Reward = value.Uint()
+		x.Reward = value.Message().Interface().(*v1beta1.Coin)
+	case "gtn.gtn.Game.participants_count":
+		x.ParticipantsCount = value.Uint()
+	case "gtn.gtn.Game.salt":
+		x.Salt = value.Bytes()
+	case "gtn.gtn.Game.number":
+		x.Number = value.Uint()
 	case "gtn.gtn.Game.creator":
 		x.Creator = value.Interface().(string)
 	default:
@@ -276,16 +345,30 @@ func (x *fastReflection_Game) Set(fd protoreflect.FieldDescriptor, value protore
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Game) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
+	case "gtn.gtn.Game.entry_fee":
+		if x.EntryFee == nil {
+			x.EntryFee = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.EntryFee.ProtoReflect())
+	case "gtn.gtn.Game.reward":
+		if x.Reward == nil {
+			x.Reward = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.Reward.ProtoReflect())
 	case "gtn.gtn.Game.id":
 		panic(fmt.Errorf("field id of message gtn.gtn.Game is not mutable"))
-	case "gtn.gtn.Game.commitmentHash":
-		panic(fmt.Errorf("field commitmentHash of message gtn.gtn.Game is not mutable"))
+	case "gtn.gtn.Game.commitment_hash":
+		panic(fmt.Errorf("field commitment_hash of message gtn.gtn.Game is not mutable"))
+	case "gtn.gtn.Game.started_at_height":
+		panic(fmt.Errorf("field started_at_height of message gtn.gtn.Game is not mutable"))
 	case "gtn.gtn.Game.duration":
 		panic(fmt.Errorf("field duration of message gtn.gtn.Game is not mutable"))
-	case "gtn.gtn.Game.entryFee":
-		panic(fmt.Errorf("field entryFee of message gtn.gtn.Game is not mutable"))
-	case "gtn.gtn.Game.reward":
-		panic(fmt.Errorf("field reward of message gtn.gtn.Game is not mutable"))
+	case "gtn.gtn.Game.participants_count":
+		panic(fmt.Errorf("field participants_count of message gtn.gtn.Game is not mutable"))
+	case "gtn.gtn.Game.salt":
+		panic(fmt.Errorf("field salt of message gtn.gtn.Game is not mutable"))
+	case "gtn.gtn.Game.number":
+		panic(fmt.Errorf("field number of message gtn.gtn.Game is not mutable"))
 	case "gtn.gtn.Game.creator":
 		panic(fmt.Errorf("field creator of message gtn.gtn.Game is not mutable"))
 	default:
@@ -303,13 +386,23 @@ func (x *fastReflection_Game) NewField(fd protoreflect.FieldDescriptor) protoref
 	switch fd.FullName() {
 	case "gtn.gtn.Game.id":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "gtn.gtn.Game.commitmentHash":
-		return protoreflect.ValueOfString("")
+	case "gtn.gtn.Game.commitment_hash":
+		return protoreflect.ValueOfBytes(nil)
+	case "gtn.gtn.Game.started_at_height":
+		return protoreflect.ValueOfInt64(int64(0))
 	case "gtn.gtn.Game.duration":
-		return protoreflect.ValueOfUint64(uint64(0))
-	case "gtn.gtn.Game.entryFee":
-		return protoreflect.ValueOfUint64(uint64(0))
+		return protoreflect.ValueOfInt64(int64(0))
+	case "gtn.gtn.Game.entry_fee":
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	case "gtn.gtn.Game.reward":
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "gtn.gtn.Game.participants_count":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "gtn.gtn.Game.salt":
+		return protoreflect.ValueOfBytes(nil)
+	case "gtn.gtn.Game.number":
 		return protoreflect.ValueOfUint64(uint64(0))
 	case "gtn.gtn.Game.creator":
 		return protoreflect.ValueOfString("")
@@ -389,14 +482,29 @@ func (x *fastReflection_Game) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
+		if x.StartedAtHeight != 0 {
+			n += 1 + runtime.Sov(uint64(x.StartedAtHeight))
+		}
 		if x.Duration != 0 {
 			n += 1 + runtime.Sov(uint64(x.Duration))
 		}
-		if x.EntryFee != 0 {
-			n += 1 + runtime.Sov(uint64(x.EntryFee))
+		if x.EntryFee != nil {
+			l = options.Size(x.EntryFee)
+			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		if x.Reward != 0 {
-			n += 1 + runtime.Sov(uint64(x.Reward))
+		if x.Reward != nil {
+			l = options.Size(x.Reward)
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.ParticipantsCount != 0 {
+			n += 1 + runtime.Sov(uint64(x.ParticipantsCount))
+		}
+		l = len(x.Salt)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.Number != 0 {
+			n += 1 + runtime.Sov(uint64(x.Number))
 		}
 		l = len(x.Creator)
 		if l > 0 {
@@ -436,20 +544,60 @@ func (x *fastReflection_Game) ProtoMethods() *protoiface.Methods {
 			copy(dAtA[i:], x.Creator)
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Creator)))
 			i--
+			dAtA[i] = 0x52
+		}
+		if x.Number != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Number))
+			i--
+			dAtA[i] = 0x48
+		}
+		if len(x.Salt) > 0 {
+			i -= len(x.Salt)
+			copy(dAtA[i:], x.Salt)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Salt)))
+			i--
+			dAtA[i] = 0x42
+		}
+		if x.ParticipantsCount != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.ParticipantsCount))
+			i--
+			dAtA[i] = 0x38
+		}
+		if x.Reward != nil {
+			encoded, err := options.Marshal(x.Reward)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
 			dAtA[i] = 0x32
 		}
-		if x.Reward != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Reward))
+		if x.EntryFee != nil {
+			encoded, err := options.Marshal(x.EntryFee)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
 			i--
-			dAtA[i] = 0x28
-		}
-		if x.EntryFee != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.EntryFee))
-			i--
-			dAtA[i] = 0x20
+			dAtA[i] = 0x2a
 		}
 		if x.Duration != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.Duration))
+			i--
+			dAtA[i] = 0x20
+		}
+		if x.StartedAtHeight != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.StartedAtHeight))
 			i--
 			dAtA[i] = 0x18
 		}
@@ -537,7 +685,7 @@ func (x *fastReflection_Game) ProtoMethods() *protoiface.Methods {
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field CommitmentHash", wireType)
 				}
-				var stringLen uint64
+				var byteLen int
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -547,25 +695,46 @@ func (x *fastReflection_Game) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
+					byteLen |= int(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
+				if byteLen < 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
 				}
-				postIndex := iNdEx + intStringLen
+				postIndex := iNdEx + byteLen
 				if postIndex < 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
 				}
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.CommitmentHash = string(dAtA[iNdEx:postIndex])
+				x.CommitmentHash = append(x.CommitmentHash[:0], dAtA[iNdEx:postIndex]...)
+				if x.CommitmentHash == nil {
+					x.CommitmentHash = []byte{}
+				}
 				iNdEx = postIndex
 			case 3:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field StartedAtHeight", wireType)
+				}
+				x.StartedAtHeight = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.StartedAtHeight |= int64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 4:
 				if wireType != 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Duration", wireType)
 				}
@@ -579,35 +748,16 @@ func (x *fastReflection_Game) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.Duration |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-			case 4:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EntryFee", wireType)
-				}
-				x.EntryFee = 0
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					x.EntryFee |= uint64(b&0x7F) << shift
+					x.Duration |= int64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
 			case 5:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EntryFee", wireType)
 				}
-				x.Reward = 0
+				var msglen int
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -617,12 +767,137 @@ func (x *fastReflection_Game) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.Reward |= uint64(b&0x7F) << shift
+					msglen |= int(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.EntryFee == nil {
+					x.EntryFee = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.EntryFee); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
 			case 6:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.Reward == nil {
+					x.Reward = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Reward); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 7:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field ParticipantsCount", wireType)
+				}
+				x.ParticipantsCount = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.ParticipantsCount |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 8:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Salt", wireType)
+				}
+				var byteLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					byteLen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if byteLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + byteLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Salt = append(x.Salt[:0], dAtA[iNdEx:postIndex]...)
+				if x.Salt == nil {
+					x.Salt = []byte{}
+				}
+				iNdEx = postIndex
+			case 9:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Number", wireType)
+				}
+				x.Number = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.Number |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 10:
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
 				}
@@ -707,12 +982,16 @@ type Game struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id             uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	CommitmentHash string `protobuf:"bytes,2,opt,name=commitmentHash,proto3" json:"commitmentHash,omitempty"`
-	Duration       uint64 `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
-	EntryFee       uint64 `protobuf:"varint,4,opt,name=entryFee,proto3" json:"entryFee,omitempty"`
-	Reward         uint64 `protobuf:"varint,5,opt,name=reward,proto3" json:"reward,omitempty"`
-	Creator        string `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id                uint64        `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CommitmentHash    []byte        `protobuf:"bytes,2,opt,name=commitment_hash,json=commitmentHash,proto3" json:"commitment_hash,omitempty"`
+	StartedAtHeight   int64         `protobuf:"varint,3,opt,name=started_at_height,json=startedAtHeight,proto3" json:"started_at_height,omitempty"`
+	Duration          int64         `protobuf:"varint,4,opt,name=duration,proto3" json:"duration,omitempty"`
+	EntryFee          *v1beta1.Coin `protobuf:"bytes,5,opt,name=entry_fee,json=entryFee,proto3" json:"entry_fee,omitempty"`
+	Reward            *v1beta1.Coin `protobuf:"bytes,6,opt,name=reward,proto3" json:"reward,omitempty"`
+	ParticipantsCount uint64        `protobuf:"varint,7,opt,name=participants_count,json=participantsCount,proto3" json:"participants_count,omitempty"`
+	Salt              []byte        `protobuf:"bytes,8,opt,name=salt,proto3" json:"salt,omitempty"`
+	Number            uint64        `protobuf:"varint,9,opt,name=number,proto3" json:"number,omitempty"`
+	Creator           string        `protobuf:"bytes,10,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (x *Game) Reset() {
@@ -742,30 +1021,58 @@ func (x *Game) GetId() uint64 {
 	return 0
 }
 
-func (x *Game) GetCommitmentHash() string {
+func (x *Game) GetCommitmentHash() []byte {
 	if x != nil {
 		return x.CommitmentHash
 	}
-	return ""
+	return nil
 }
 
-func (x *Game) GetDuration() uint64 {
+func (x *Game) GetStartedAtHeight() int64 {
+	if x != nil {
+		return x.StartedAtHeight
+	}
+	return 0
+}
+
+func (x *Game) GetDuration() int64 {
 	if x != nil {
 		return x.Duration
 	}
 	return 0
 }
 
-func (x *Game) GetEntryFee() uint64 {
+func (x *Game) GetEntryFee() *v1beta1.Coin {
 	if x != nil {
 		return x.EntryFee
+	}
+	return nil
+}
+
+func (x *Game) GetReward() *v1beta1.Coin {
+	if x != nil {
+		return x.Reward
+	}
+	return nil
+}
+
+func (x *Game) GetParticipantsCount() uint64 {
+	if x != nil {
+		return x.ParticipantsCount
 	}
 	return 0
 }
 
-func (x *Game) GetReward() uint64 {
+func (x *Game) GetSalt() []byte {
 	if x != nil {
-		return x.Reward
+		return x.Salt
+	}
+	return nil
+}
+
+func (x *Game) GetNumber() uint64 {
+	if x != nil {
+		return x.Number
 	}
 	return 0
 }
@@ -781,26 +1088,42 @@ var File_gtn_gtn_game_proto protoreflect.FileDescriptor
 
 var file_gtn_gtn_game_proto_rawDesc = []byte{
 	0x0a, 0x12, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x61, 0x6d, 0x65, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x07, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x22, 0xa8, 0x01,
-	0x0a, 0x04, 0x47, 0x61, 0x6d, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6d, 0x6d, 0x69, 0x74,
-	0x6d, 0x65, 0x6e, 0x74, 0x48, 0x61, 0x73, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e,
-	0x63, 0x6f, 0x6d, 0x6d, 0x69, 0x74, 0x6d, 0x65, 0x6e, 0x74, 0x48, 0x61, 0x73, 0x68, 0x12, 0x1a,
-	0x0a, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04,
-	0x52, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x6e,
-	0x74, 0x72, 0x79, 0x46, 0x65, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x65, 0x6e,
-	0x74, 0x72, 0x79, 0x46, 0x65, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64,
-	0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x12, 0x18,
-	0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x42, 0x6f, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x2e,
-	0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x42, 0x09, 0x47, 0x61, 0x6d, 0x65, 0x50, 0x72, 0x6f,
-	0x74, 0x6f, 0x50, 0x01, 0x5a, 0x18, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e,
-	0x69, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e, 0xa2, 0x02,
-	0x03, 0x47, 0x47, 0x58, 0xaa, 0x02, 0x07, 0x47, 0x74, 0x6e, 0x2e, 0x47, 0x74, 0x6e, 0xca, 0x02,
-	0x07, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e, 0xe2, 0x02, 0x13, 0x47, 0x74, 0x6e, 0x5c, 0x47,
-	0x74, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02,
-	0x08, 0x47, 0x74, 0x6e, 0x3a, 0x3a, 0x47, 0x74, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x07, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x1a, 0x14, 0x67,
+	0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x62, 0x61, 0x73, 0x65,
+	0x2f, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2f, 0x63, 0x6f, 0x69, 0x6e, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x22, 0xf3, 0x02, 0x0a, 0x04, 0x47, 0x61, 0x6d, 0x65, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x27, 0x0a, 0x0f,
+	0x63, 0x6f, 0x6d, 0x6d, 0x69, 0x74, 0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x68, 0x61, 0x73, 0x68, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x0e, 0x63, 0x6f, 0x6d, 0x6d, 0x69, 0x74, 0x6d, 0x65, 0x6e,
+	0x74, 0x48, 0x61, 0x73, 0x68, 0x12, 0x2a, 0x0a, 0x11, 0x73, 0x74, 0x61, 0x72, 0x74, 0x65, 0x64,
+	0x5f, 0x61, 0x74, 0x5f, 0x68, 0x65, 0x69, 0x67, 0x68, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x0f, 0x73, 0x74, 0x61, 0x72, 0x74, 0x65, 0x64, 0x41, 0x74, 0x48, 0x65, 0x69, 0x67, 0x68,
+	0x74, 0x12, 0x1a, 0x0a, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x3c, 0x0a,
+	0x09, 0x65, 0x6e, 0x74, 0x72, 0x79, 0x5f, 0x66, 0x65, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76,
+	0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f,
+	0x00, 0x52, 0x08, 0x65, 0x6e, 0x74, 0x72, 0x79, 0x46, 0x65, 0x65, 0x12, 0x37, 0x0a, 0x06, 0x72,
+	0x65, 0x77, 0x61, 0x72, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f,
+	0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61,
+	0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x06, 0x72, 0x65,
+	0x77, 0x61, 0x72, 0x64, 0x12, 0x2d, 0x0a, 0x12, 0x70, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70,
+	0x61, 0x6e, 0x74, 0x73, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x07, 0x20, 0x01, 0x28, 0x04,
+	0x52, 0x11, 0x70, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x6e, 0x74, 0x73, 0x43, 0x6f,
+	0x75, 0x6e, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x61, 0x6c, 0x74, 0x18, 0x08, 0x20, 0x01, 0x28,
+	0x0c, 0x52, 0x04, 0x73, 0x61, 0x6c, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65,
+	0x72, 0x18, 0x09, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x12,
+	0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x42, 0x6f, 0x0a, 0x0b, 0x63, 0x6f, 0x6d,
+	0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x42, 0x09, 0x47, 0x61, 0x6d, 0x65, 0x50, 0x72,
+	0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x18, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b,
+	0x2e, 0x69, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e, 0xa2,
+	0x02, 0x03, 0x47, 0x47, 0x58, 0xaa, 0x02, 0x07, 0x47, 0x74, 0x6e, 0x2e, 0x47, 0x74, 0x6e, 0xca,
+	0x02, 0x07, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e, 0xe2, 0x02, 0x13, 0x47, 0x74, 0x6e, 0x5c,
+	0x47, 0x74, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea,
+	0x02, 0x08, 0x47, 0x74, 0x6e, 0x3a, 0x3a, 0x47, 0x74, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -817,14 +1140,17 @@ func file_gtn_gtn_game_proto_rawDescGZIP() []byte {
 
 var file_gtn_gtn_game_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_gtn_gtn_game_proto_goTypes = []interface{}{
-	(*Game)(nil), // 0: gtn.gtn.Game
+	(*Game)(nil),         // 0: gtn.gtn.Game
+	(*v1beta1.Coin)(nil), // 1: cosmos.base.v1beta1.Coin
 }
 var file_gtn_gtn_game_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1, // 0: gtn.gtn.Game.entry_fee:type_name -> cosmos.base.v1beta1.Coin
+	1, // 1: gtn.gtn.Game.reward:type_name -> cosmos.base.v1beta1.Coin
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_gtn_gtn_game_proto_init() }

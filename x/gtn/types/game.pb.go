@@ -5,11 +5,12 @@ package types
 
 import (
 	fmt "fmt"
+	types "github.com/cosmos/cosmos-sdk/types"
+	_ "github.com/cosmos/gogoproto/gogoproto"
+	proto "github.com/cosmos/gogoproto/proto"
 	io "io"
 	math "math"
 	math_bits "math/bits"
-
-	proto "github.com/cosmos/gogoproto/proto"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -24,12 +25,16 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Game struct {
-	Id             uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	CommitmentHash string `protobuf:"bytes,2,opt,name=commitmentHash,proto3" json:"commitmentHash,omitempty"`
-	Duration       uint64 `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
-	EntryFee       uint64 `protobuf:"varint,4,opt,name=entryFee,proto3" json:"entryFee,omitempty"`
-	Reward         uint64 `protobuf:"varint,5,opt,name=reward,proto3" json:"reward,omitempty"`
-	Creator        string `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id                uint64     `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CommitmentHash    []byte     `protobuf:"bytes,2,opt,name=commitment_hash,json=commitmentHash,proto3" json:"commitment_hash,omitempty"`
+	StartedAtHeight   int64      `protobuf:"varint,3,opt,name=started_at_height,json=startedAtHeight,proto3" json:"started_at_height,omitempty"`
+	Duration          int64      `protobuf:"varint,4,opt,name=duration,proto3" json:"duration,omitempty"`
+	EntryFee          types.Coin `protobuf:"bytes,5,opt,name=entry_fee,json=entryFee,proto3" json:"entry_fee"`
+	Reward            types.Coin `protobuf:"bytes,6,opt,name=reward,proto3" json:"reward"`
+	ParticipantsCount uint64     `protobuf:"varint,7,opt,name=participants_count,json=participantsCount,proto3" json:"participants_count,omitempty"`
+	Salt              []byte     `protobuf:"bytes,8,opt,name=salt,proto3" json:"salt,omitempty"`
+	Number            uint64     `protobuf:"varint,9,opt,name=number,proto3" json:"number,omitempty"`
+	Creator           string     `protobuf:"bytes,10,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *Game) Reset()         { *m = Game{} }
@@ -72,30 +77,58 @@ func (m *Game) GetId() uint64 {
 	return 0
 }
 
-func (m *Game) GetCommitmentHash() string {
+func (m *Game) GetCommitmentHash() []byte {
 	if m != nil {
 		return m.CommitmentHash
 	}
-	return ""
+	return nil
 }
 
-func (m *Game) GetDuration() uint64 {
+func (m *Game) GetStartedAtHeight() int64 {
+	if m != nil {
+		return m.StartedAtHeight
+	}
+	return 0
+}
+
+func (m *Game) GetDuration() int64 {
 	if m != nil {
 		return m.Duration
 	}
 	return 0
 }
 
-func (m *Game) GetEntryFee() uint64 {
+func (m *Game) GetEntryFee() types.Coin {
 	if m != nil {
 		return m.EntryFee
+	}
+	return types.Coin{}
+}
+
+func (m *Game) GetReward() types.Coin {
+	if m != nil {
+		return m.Reward
+	}
+	return types.Coin{}
+}
+
+func (m *Game) GetParticipantsCount() uint64 {
+	if m != nil {
+		return m.ParticipantsCount
 	}
 	return 0
 }
 
-func (m *Game) GetReward() uint64 {
+func (m *Game) GetSalt() []byte {
 	if m != nil {
-		return m.Reward
+		return m.Salt
+	}
+	return nil
+}
+
+func (m *Game) GetNumber() uint64 {
+	if m != nil {
+		return m.Number
 	}
 	return 0
 }
@@ -114,21 +147,30 @@ func init() {
 func init() { proto.RegisterFile("gtn/gtn/game.proto", fileDescriptor_8285eddab4fa593f) }
 
 var fileDescriptor_8285eddab4fa593f = []byte{
-	// 213 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4a, 0x2f, 0xc9, 0xd3,
-	0x07, 0xe3, 0xc4, 0xdc, 0x54, 0xbd, 0x82, 0xa2, 0xfc, 0x92, 0x7c, 0x21, 0xf6, 0xf4, 0x92, 0x3c,
-	0xbd, 0xf4, 0x92, 0x3c, 0xa5, 0x15, 0x8c, 0x5c, 0x2c, 0xee, 0x89, 0xb9, 0xa9, 0x42, 0x7c, 0x5c,
-	0x4c, 0x99, 0x29, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0x2c, 0x41, 0x4c, 0x99, 0x29, 0x42, 0x6a, 0x5c,
-	0x7c, 0xc9, 0xf9, 0xb9, 0xb9, 0x99, 0x25, 0xb9, 0xa9, 0x79, 0x25, 0x1e, 0x89, 0xc5, 0x19, 0x12,
-	0x4c, 0x0a, 0x8c, 0x1a, 0x9c, 0x41, 0x68, 0xa2, 0x42, 0x52, 0x5c, 0x1c, 0x29, 0xa5, 0x45, 0x89,
-	0x25, 0x99, 0xf9, 0x79, 0x12, 0xcc, 0x60, 0xdd, 0x70, 0x3e, 0x48, 0x2e, 0x35, 0xaf, 0xa4, 0xa8,
-	0xd2, 0x2d, 0x35, 0x55, 0x82, 0x05, 0x22, 0x07, 0xe3, 0x0b, 0x89, 0x71, 0xb1, 0x15, 0xa5, 0x96,
-	0x27, 0x16, 0xa5, 0x48, 0xb0, 0x82, 0x65, 0xa0, 0x3c, 0x21, 0x09, 0x2e, 0xf6, 0xe4, 0xa2, 0xd4,
-	0xc4, 0x92, 0xfc, 0x22, 0x09, 0x36, 0xb0, 0x85, 0x30, 0xae, 0x93, 0xe6, 0x89, 0x47, 0x72, 0x8c,
-	0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38, 0xe1, 0xb1, 0x1c, 0xc3, 0x85, 0xc7, 0x72,
-	0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0xf1, 0x83, 0x7c, 0x57, 0x01, 0xf6, 0x63, 0x49, 0x65, 0x41,
-	0x6a, 0x71, 0x12, 0x1b, 0xd8, 0x97, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0xc7, 0x13, 0x73,
-	0xe3, 0xfb, 0x00, 0x00, 0x00,
+	// 366 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x51, 0x3d, 0x0f, 0xd3, 0x30,
+	0x10, 0x8d, 0xd3, 0x90, 0xb6, 0x06, 0xb5, 0xaa, 0x85, 0x90, 0xe9, 0x10, 0x22, 0x16, 0x02, 0x12,
+	0x89, 0x0a, 0x03, 0x0b, 0x0b, 0xad, 0x04, 0x9d, 0x33, 0xb2, 0x44, 0x4e, 0x72, 0x24, 0x96, 0x88,
+	0x1d, 0xd9, 0x57, 0xa0, 0xff, 0x82, 0x9f, 0xd5, 0xb1, 0x23, 0x13, 0x42, 0xed, 0x4f, 0xe0, 0x0f,
+	0xa0, 0xb8, 0xe1, 0x63, 0x64, 0x38, 0xe9, 0xde, 0x7b, 0xf7, 0xa4, 0xa7, 0x7b, 0x94, 0x35, 0xa8,
+	0x32, 0x37, 0xa2, 0x83, 0xb4, 0x37, 0x1a, 0x35, 0x9b, 0x36, 0xa8, 0xd2, 0x06, 0xd5, 0xfa, 0x7e,
+	0xa3, 0x1b, 0xed, 0xb8, 0x6c, 0xd8, 0x6e, 0xf2, 0x3a, 0xaa, 0xb4, 0xed, 0xb4, 0xcd, 0x4a, 0x61,
+	0x21, 0xfb, 0xb4, 0x29, 0x01, 0xc5, 0x26, 0xab, 0xb4, 0x54, 0x37, 0xfd, 0xf1, 0x4f, 0x9f, 0x06,
+	0xef, 0x44, 0x07, 0x6c, 0x41, 0x7d, 0x59, 0x73, 0x12, 0x93, 0x24, 0xc8, 0x7d, 0x59, 0xb3, 0x27,
+	0x74, 0x59, 0xe9, 0xae, 0x93, 0xd8, 0x81, 0xc2, 0xa2, 0x15, 0xb6, 0xe5, 0x7e, 0x4c, 0x92, 0x7b,
+	0xf9, 0xe2, 0x2f, 0xbd, 0x17, 0xb6, 0x65, 0xcf, 0xe8, 0xca, 0xa2, 0x30, 0x08, 0x75, 0x21, 0xb0,
+	0x68, 0x41, 0x36, 0x2d, 0xf2, 0x49, 0x4c, 0x92, 0x49, 0xbe, 0x1c, 0x85, 0x37, 0xb8, 0x77, 0x34,
+	0x5b, 0xd3, 0x59, 0x7d, 0x30, 0x02, 0xa5, 0x56, 0x3c, 0x70, 0x27, 0x7f, 0x30, 0x7b, 0x4d, 0xe7,
+	0xa0, 0xd0, 0x1c, 0x8b, 0x0f, 0x00, 0xfc, 0x4e, 0x4c, 0x92, 0xbb, 0x2f, 0x1e, 0xa6, 0xb7, 0xf4,
+	0xe9, 0x90, 0x3e, 0x1d, 0xd3, 0xa7, 0x3b, 0x2d, 0xd5, 0x36, 0x38, 0x7d, 0x7f, 0xe4, 0xe5, 0x33,
+	0xe7, 0x78, 0x0b, 0xc0, 0x5e, 0xd1, 0xd0, 0xc0, 0x67, 0x61, 0x6a, 0x1e, 0xfe, 0x9f, 0x75, 0x3c,
+	0x67, 0xcf, 0x29, 0xeb, 0x85, 0x41, 0x59, 0xc9, 0x5e, 0x28, 0xb4, 0x45, 0xa5, 0x0f, 0x0a, 0xf9,
+	0xd4, 0xfd, 0x61, 0xf5, 0xaf, 0xb2, 0x1b, 0x04, 0xc6, 0x68, 0x60, 0xc5, 0x47, 0xe4, 0x33, 0xf7,
+	0x0b, 0xb7, 0xb3, 0x07, 0x34, 0x54, 0x87, 0xae, 0x04, 0xc3, 0xe7, 0xce, 0x36, 0x22, 0xc6, 0xe9,
+	0xb4, 0x32, 0x20, 0x50, 0x1b, 0x4e, 0x63, 0x92, 0xcc, 0xf3, 0xdf, 0x70, 0xfb, 0xf4, 0x74, 0x89,
+	0xc8, 0xf9, 0x12, 0x91, 0x1f, 0x97, 0x88, 0x7c, 0xbd, 0x46, 0xde, 0xf9, 0x1a, 0x79, 0xdf, 0xae,
+	0x91, 0xf7, 0x7e, 0x39, 0xd4, 0xfb, 0xc5, 0x95, 0x8c, 0xc7, 0x1e, 0x6c, 0x19, 0xba, 0x9e, 0x5e,
+	0xfe, 0x0a, 0x00, 0x00, 0xff, 0xff, 0x04, 0xca, 0xcb, 0x7b, 0xfc, 0x01, 0x00, 0x00,
 }
 
 func (m *Game) Marshal() (dAtA []byte, err error) {
@@ -156,20 +198,52 @@ func (m *Game) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		copy(dAtA[i:], m.Creator)
 		i = encodeVarintGame(dAtA, i, uint64(len(m.Creator)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x52
 	}
-	if m.Reward != 0 {
-		i = encodeVarintGame(dAtA, i, uint64(m.Reward))
+	if m.Number != 0 {
+		i = encodeVarintGame(dAtA, i, uint64(m.Number))
 		i--
-		dAtA[i] = 0x28
+		dAtA[i] = 0x48
 	}
-	if m.EntryFee != 0 {
-		i = encodeVarintGame(dAtA, i, uint64(m.EntryFee))
+	if len(m.Salt) > 0 {
+		i -= len(m.Salt)
+		copy(dAtA[i:], m.Salt)
+		i = encodeVarintGame(dAtA, i, uint64(len(m.Salt)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if m.ParticipantsCount != 0 {
+		i = encodeVarintGame(dAtA, i, uint64(m.ParticipantsCount))
+		i--
+		dAtA[i] = 0x38
+	}
+	{
+		size, err := m.Reward.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintGame(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x32
+	{
+		size, err := m.EntryFee.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintGame(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x2a
+	if m.Duration != 0 {
+		i = encodeVarintGame(dAtA, i, uint64(m.Duration))
 		i--
 		dAtA[i] = 0x20
 	}
-	if m.Duration != 0 {
-		i = encodeVarintGame(dAtA, i, uint64(m.Duration))
+	if m.StartedAtHeight != 0 {
+		i = encodeVarintGame(dAtA, i, uint64(m.StartedAtHeight))
 		i--
 		dAtA[i] = 0x18
 	}
@@ -212,14 +286,25 @@ func (m *Game) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovGame(uint64(l))
 	}
+	if m.StartedAtHeight != 0 {
+		n += 1 + sovGame(uint64(m.StartedAtHeight))
+	}
 	if m.Duration != 0 {
 		n += 1 + sovGame(uint64(m.Duration))
 	}
-	if m.EntryFee != 0 {
-		n += 1 + sovGame(uint64(m.EntryFee))
+	l = m.EntryFee.Size()
+	n += 1 + l + sovGame(uint64(l))
+	l = m.Reward.Size()
+	n += 1 + l + sovGame(uint64(l))
+	if m.ParticipantsCount != 0 {
+		n += 1 + sovGame(uint64(m.ParticipantsCount))
 	}
-	if m.Reward != 0 {
-		n += 1 + sovGame(uint64(m.Reward))
+	l = len(m.Salt)
+	if l > 0 {
+		n += 1 + l + sovGame(uint64(l))
+	}
+	if m.Number != 0 {
+		n += 1 + sovGame(uint64(m.Number))
 	}
 	l = len(m.Creator)
 	if l > 0 {
@@ -286,7 +371,7 @@ func (m *Game) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CommitmentHash", wireType)
 			}
-			var stringLen uint64
+			var byteLen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGame
@@ -296,25 +381,46 @@ func (m *Game) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				byteLen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if byteLen < 0 {
 				return ErrInvalidLengthGame
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + byteLen
 			if postIndex < 0 {
 				return ErrInvalidLengthGame
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.CommitmentHash = string(dAtA[iNdEx:postIndex])
+			m.CommitmentHash = append(m.CommitmentHash[:0], dAtA[iNdEx:postIndex]...)
+			if m.CommitmentHash == nil {
+				m.CommitmentHash = []byte{}
+			}
 			iNdEx = postIndex
 		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StartedAtHeight", wireType)
+			}
+			m.StartedAtHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGame
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.StartedAtHeight |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Duration", wireType)
 			}
@@ -328,35 +434,16 @@ func (m *Game) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Duration |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 4:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EntryFee", wireType)
-			}
-			m.EntryFee = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowGame
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.EntryFee |= uint64(b&0x7F) << shift
+				m.Duration |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 5:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EntryFee", wireType)
 			}
-			m.Reward = 0
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGame
@@ -366,12 +453,131 @@ func (m *Game) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Reward |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			if msglen < 0 {
+				return ErrInvalidLengthGame
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGame
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.EntryFee.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGame
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGame
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGame
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Reward.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParticipantsCount", wireType)
+			}
+			m.ParticipantsCount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGame
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ParticipantsCount |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Salt", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGame
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthGame
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGame
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Salt = append(m.Salt[:0], dAtA[iNdEx:postIndex]...)
+			if m.Salt == nil {
+				m.Salt = []byte{}
+			}
+			iNdEx = postIndex
+		case 9:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Number", wireType)
+			}
+			m.Number = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGame
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Number |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 10:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
 			}

@@ -6,6 +6,7 @@ import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 import "gtn/gtn/params.proto";
 import "gtn/gtn/game.proto";
+import "gtn/gtn/guess.proto";
 
 option go_package = "gtn/x/gtn/types";
 
@@ -13,8 +14,6 @@ option go_package = "gtn/x/gtn/types";
 message GenesisState {
   
   // params defines all the parameters of the module.
-           Params params    = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
-  repeated Game   gameList  = 2 [(gogoproto.nullable) = false] ;
-           uint64 gameCount = 3;
+           Params params     = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
 

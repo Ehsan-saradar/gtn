@@ -2,26 +2,31 @@
 package gtn
 
 import (
-	fmt "fmt"
-	io "io"
-	reflect "reflect"
-	sync "sync"
-
 	_ "cosmossdk.io/api/amino"
+	fmt "fmt"
 	runtime "github.com/cosmos/cosmos-proto/runtime"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoiface "google.golang.org/protobuf/runtime/protoiface"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	io "io"
+	reflect "reflect"
+	sync "sync"
 )
 
 var (
-	md_Params protoreflect.MessageDescriptor
+	md_Params                          protoreflect.MessageDescriptor
+	fd_Params_max_players_per_game     protoreflect.FieldDescriptor
+	fd_Params_min_distance_to_win      protoreflect.FieldDescriptor
+	fd_Params_game_expiration_duration protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_gtn_gtn_params_proto_init()
 	md_Params = File_gtn_gtn_params_proto.Messages().ByName("Params")
+	fd_Params_max_players_per_game = md_Params.Fields().ByName("max_players_per_game")
+	fd_Params_min_distance_to_win = md_Params.Fields().ByName("min_distance_to_win")
+	fd_Params_game_expiration_duration = md_Params.Fields().ByName("game_expiration_duration")
 }
 
 var _ protoreflect.Message = (*fastReflection_Params)(nil)
@@ -89,6 +94,24 @@ func (x *fastReflection_Params) Interface() protoreflect.ProtoMessage {
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_Params) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.MaxPlayersPerGame != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.MaxPlayersPerGame)
+		if !f(fd_Params_max_players_per_game, value) {
+			return
+		}
+	}
+	if x.MinDistanceToWin != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.MinDistanceToWin)
+		if !f(fd_Params_min_distance_to_win, value) {
+			return
+		}
+	}
+	if x.GameExpirationDuration != int64(0) {
+		value := protoreflect.ValueOfInt64(x.GameExpirationDuration)
+		if !f(fd_Params_game_expiration_duration, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -104,6 +127,12 @@ func (x *fastReflection_Params) Range(f func(protoreflect.FieldDescriptor, proto
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_Params) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
+	case "gtn.gtn.Params.max_players_per_game":
+		return x.MaxPlayersPerGame != uint64(0)
+	case "gtn.gtn.Params.min_distance_to_win":
+		return x.MinDistanceToWin != uint64(0)
+	case "gtn.gtn.Params.game_expiration_duration":
+		return x.GameExpirationDuration != int64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.Params"))
@@ -120,6 +149,12 @@ func (x *fastReflection_Params) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Params) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
+	case "gtn.gtn.Params.max_players_per_game":
+		x.MaxPlayersPerGame = uint64(0)
+	case "gtn.gtn.Params.min_distance_to_win":
+		x.MinDistanceToWin = uint64(0)
+	case "gtn.gtn.Params.game_expiration_duration":
+		x.GameExpirationDuration = int64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.Params"))
@@ -136,6 +171,15 @@ func (x *fastReflection_Params) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_Params) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
+	case "gtn.gtn.Params.max_players_per_game":
+		value := x.MaxPlayersPerGame
+		return protoreflect.ValueOfUint64(value)
+	case "gtn.gtn.Params.min_distance_to_win":
+		value := x.MinDistanceToWin
+		return protoreflect.ValueOfUint64(value)
+	case "gtn.gtn.Params.game_expiration_duration":
+		value := x.GameExpirationDuration
+		return protoreflect.ValueOfInt64(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.Params"))
@@ -156,6 +200,12 @@ func (x *fastReflection_Params) Get(descriptor protoreflect.FieldDescriptor) pro
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Params) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
+	case "gtn.gtn.Params.max_players_per_game":
+		x.MaxPlayersPerGame = value.Uint()
+	case "gtn.gtn.Params.min_distance_to_win":
+		x.MinDistanceToWin = value.Uint()
+	case "gtn.gtn.Params.game_expiration_duration":
+		x.GameExpirationDuration = value.Int()
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.Params"))
@@ -176,6 +226,12 @@ func (x *fastReflection_Params) Set(fd protoreflect.FieldDescriptor, value proto
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Params) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
+	case "gtn.gtn.Params.max_players_per_game":
+		panic(fmt.Errorf("field max_players_per_game of message gtn.gtn.Params is not mutable"))
+	case "gtn.gtn.Params.min_distance_to_win":
+		panic(fmt.Errorf("field min_distance_to_win of message gtn.gtn.Params is not mutable"))
+	case "gtn.gtn.Params.game_expiration_duration":
+		panic(fmt.Errorf("field game_expiration_duration of message gtn.gtn.Params is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.Params"))
@@ -189,6 +245,12 @@ func (x *fastReflection_Params) Mutable(fd protoreflect.FieldDescriptor) protore
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_Params) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
+	case "gtn.gtn.Params.max_players_per_game":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "gtn.gtn.Params.min_distance_to_win":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "gtn.gtn.Params.game_expiration_duration":
+		return protoreflect.ValueOfInt64(int64(0))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.Params"))
@@ -258,6 +320,15 @@ func (x *fastReflection_Params) ProtoMethods() *protoiface.Methods {
 		var n int
 		var l int
 		_ = l
+		if x.MaxPlayersPerGame != 0 {
+			n += 1 + runtime.Sov(uint64(x.MaxPlayersPerGame))
+		}
+		if x.MinDistanceToWin != 0 {
+			n += 1 + runtime.Sov(uint64(x.MinDistanceToWin))
+		}
+		if x.GameExpirationDuration != 0 {
+			n += 1 + runtime.Sov(uint64(x.GameExpirationDuration))
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -286,6 +357,21 @@ func (x *fastReflection_Params) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.GameExpirationDuration != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.GameExpirationDuration))
+			i--
+			dAtA[i] = 0x18
+		}
+		if x.MinDistanceToWin != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.MinDistanceToWin))
+			i--
+			dAtA[i] = 0x10
+		}
+		if x.MaxPlayersPerGame != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.MaxPlayersPerGame))
+			i--
+			dAtA[i] = 0x8
 		}
 		if input.Buf != nil {
 			input.Buf = append(input.Buf, dAtA...)
@@ -336,6 +422,63 @@ func (x *fastReflection_Params) ProtoMethods() *protoiface.Methods {
 				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: Params: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
+			case 1:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field MaxPlayersPerGame", wireType)
+				}
+				x.MaxPlayersPerGame = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.MaxPlayersPerGame |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 2:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field MinDistanceToWin", wireType)
+				}
+				x.MinDistanceToWin = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.MinDistanceToWin |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 3:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field GameExpirationDuration", wireType)
+				}
+				x.GameExpirationDuration = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.GameExpirationDuration |= int64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -389,6 +532,10 @@ type Params struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	MaxPlayersPerGame      uint64 `protobuf:"varint,1,opt,name=max_players_per_game,json=maxPlayersPerGame,proto3" json:"max_players_per_game,omitempty"`
+	MinDistanceToWin       uint64 `protobuf:"varint,2,opt,name=min_distance_to_win,json=minDistanceToWin,proto3" json:"min_distance_to_win,omitempty"`
+	GameExpirationDuration int64  `protobuf:"varint,3,opt,name=game_expiration_duration,json=gameExpirationDuration,proto3" json:"game_expiration_duration,omitempty"`
 }
 
 func (x *Params) Reset() {
@@ -411,6 +558,27 @@ func (*Params) Descriptor() ([]byte, []int) {
 	return file_gtn_gtn_params_proto_rawDescGZIP(), []int{0}
 }
 
+func (x *Params) GetMaxPlayersPerGame() uint64 {
+	if x != nil {
+		return x.MaxPlayersPerGame
+	}
+	return 0
+}
+
+func (x *Params) GetMinDistanceToWin() uint64 {
+	if x != nil {
+		return x.MinDistanceToWin
+	}
+	return 0
+}
+
+func (x *Params) GetGameExpirationDuration() int64 {
+	if x != nil {
+		return x.GameExpirationDuration
+	}
+	return 0
+}
+
 var File_gtn_gtn_params_proto protoreflect.FileDescriptor
 
 var file_gtn_gtn_params_proto_rawDesc = []byte{
@@ -418,17 +586,27 @@ var file_gtn_gtn_params_proto_rawDesc = []byte{
 	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x07, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x1a,
 	0x11, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2f, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f,
-	0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x23, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61,
-	0x6d, 0x73, 0x3a, 0x19, 0xe8, 0xa0, 0x1f, 0x01, 0x8a, 0xe7, 0xb0, 0x2a, 0x10, 0x67, 0x74, 0x6e,
-	0x2f, 0x78, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42, 0x71, 0x0a,
-	0x0b, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x42, 0x0b, 0x50, 0x61,
-	0x72, 0x61, 0x6d, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x18, 0x63, 0x6f, 0x73,
-	0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x67, 0x74,
-	0x6e, 0x2f, 0x67, 0x74, 0x6e, 0xa2, 0x02, 0x03, 0x47, 0x47, 0x58, 0xaa, 0x02, 0x07, 0x47, 0x74,
-	0x6e, 0x2e, 0x47, 0x74, 0x6e, 0xca, 0x02, 0x07, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e, 0xe2,
-	0x02, 0x13, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74,
-	0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x08, 0x47, 0x74, 0x6e, 0x3a, 0x3a, 0x47, 0x74, 0x6e,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xbd, 0x01, 0x0a, 0x06, 0x50, 0x61, 0x72,
+	0x61, 0x6d, 0x73, 0x12, 0x2f, 0x0a, 0x14, 0x6d, 0x61, 0x78, 0x5f, 0x70, 0x6c, 0x61, 0x79, 0x65,
+	0x72, 0x73, 0x5f, 0x70, 0x65, 0x72, 0x5f, 0x67, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x04, 0x52, 0x11, 0x6d, 0x61, 0x78, 0x50, 0x6c, 0x61, 0x79, 0x65, 0x72, 0x73, 0x50, 0x65, 0x72,
+	0x47, 0x61, 0x6d, 0x65, 0x12, 0x2d, 0x0a, 0x13, 0x6d, 0x69, 0x6e, 0x5f, 0x64, 0x69, 0x73, 0x74,
+	0x61, 0x6e, 0x63, 0x65, 0x5f, 0x74, 0x6f, 0x5f, 0x77, 0x69, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x04, 0x52, 0x10, 0x6d, 0x69, 0x6e, 0x44, 0x69, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x54, 0x6f,
+	0x57, 0x69, 0x6e, 0x12, 0x38, 0x0a, 0x18, 0x67, 0x61, 0x6d, 0x65, 0x5f, 0x65, 0x78, 0x70, 0x69,
+	0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x16, 0x67, 0x61, 0x6d, 0x65, 0x45, 0x78, 0x70, 0x69, 0x72,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x3a, 0x19, 0xe8,
+	0xa0, 0x1f, 0x01, 0x8a, 0xe7, 0xb0, 0x2a, 0x10, 0x67, 0x74, 0x6e, 0x2f, 0x78, 0x2f, 0x67, 0x74,
+	0x6e, 0x2f, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42, 0x71, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x2e,
+	0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x42, 0x0b, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x50,
+	0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x18, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64,
+	0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e,
+	0xa2, 0x02, 0x03, 0x47, 0x47, 0x58, 0xaa, 0x02, 0x07, 0x47, 0x74, 0x6e, 0x2e, 0x47, 0x74, 0x6e,
+	0xca, 0x02, 0x07, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e, 0xe2, 0x02, 0x13, 0x47, 0x74, 0x6e,
+	0x5c, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
+	0xea, 0x02, 0x08, 0x47, 0x74, 0x6e, 0x3a, 0x3a, 0x47, 0x74, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (

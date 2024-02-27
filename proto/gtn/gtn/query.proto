@@ -8,6 +8,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "gtn/gtn/params.proto";
 import "gtn/gtn/game.proto";
+import "gtn/gtn/guess.proto";
 
 option go_package = "gtn/x/gtn/types";
 
@@ -21,12 +22,22 @@ service Query {
   }
   
   // Queries a list of Game items.
-  rpc Game    (QueryGetGameRequest) returns (QueryGetGameResponse) {
+  rpc Game (QueryGetGameRequest) returns (QueryGetGameResponse) {
     option (google.api.http).get = "/gtn/gtn/game/{id}";
   
   }
   rpc GameAll (QueryAllGameRequest) returns (QueryAllGameResponse) {
     option (google.api.http).get = "/gtn/gtn/game";
+  
+  }
+  
+  // Queries a list of Guess items.
+  rpc GameGuesses (QueryGetGameGuessesRequest) returns (QueryGetGameGuessesResponse) {
+    option (google.api.http).get = "/gtn/gtn/guess/{game_id}";
+  
+  }
+  rpc GuessAll (QueryAllGuessRequest) returns (QueryAllGuessResponse) {
+    option (google.api.http).get = "/gtn/gtn/guess";
   
   }
 }
@@ -53,7 +64,24 @@ message QueryAllGameRequest {
 }
 
 message QueryAllGameResponse {
-  repeated Game                                   Game       = 1 [(gogoproto.nullable) = false];
+  repeated Game                                   Games       = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetGameGuessesRequest {
+  uint64 game_id = 1;
+}
+
+message QueryGetGameGuessesResponse {
+  repeated Guess Guesses = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllGuessRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllGuessResponse {
+  repeated Guess                                  Guesses      = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

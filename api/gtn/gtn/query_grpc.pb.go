@@ -8,7 +8,6 @@ package gtn
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -20,9 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName  = "/gtn.gtn.Query/Params"
-	Query_Game_FullMethodName    = "/gtn.gtn.Query/Game"
-	Query_GameAll_FullMethodName = "/gtn.gtn.Query/GameAll"
+	Query_Params_FullMethodName      = "/gtn.gtn.Query/Params"
+	Query_Game_FullMethodName        = "/gtn.gtn.Query/Game"
+	Query_GameAll_FullMethodName     = "/gtn.gtn.Query/GameAll"
+	Query_GameGuesses_FullMethodName = "/gtn.gtn.Query/GameGuesses"
+	Query_GuessAll_FullMethodName    = "/gtn.gtn.Query/GuessAll"
 )
 
 // QueryClient is the client API for Query service.
@@ -34,6 +35,9 @@ type QueryClient interface {
 	// Queries a list of Game items.
 	Game(ctx context.Context, in *QueryGetGameRequest, opts ...grpc.CallOption) (*QueryGetGameResponse, error)
 	GameAll(ctx context.Context, in *QueryAllGameRequest, opts ...grpc.CallOption) (*QueryAllGameResponse, error)
+	// Queries a list of Guess items.
+	GameGuesses(ctx context.Context, in *QueryGetGameGuessesRequest, opts ...grpc.CallOption) (*QueryGetGameGuessesResponse, error)
+	GuessAll(ctx context.Context, in *QueryAllGuessRequest, opts ...grpc.CallOption) (*QueryAllGuessResponse, error)
 }
 
 type queryClient struct {
@@ -71,6 +75,24 @@ func (c *queryClient) GameAll(ctx context.Context, in *QueryAllGameRequest, opts
 	return out, nil
 }
 
+func (c *queryClient) GameGuesses(ctx context.Context, in *QueryGetGameGuessesRequest, opts ...grpc.CallOption) (*QueryGetGameGuessesResponse, error) {
+	out := new(QueryGetGameGuessesResponse)
+	err := c.cc.Invoke(ctx, Query_GameGuesses_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GuessAll(ctx context.Context, in *QueryAllGuessRequest, opts ...grpc.CallOption) (*QueryAllGuessResponse, error) {
+	out := new(QueryAllGuessResponse)
+	err := c.cc.Invoke(ctx, Query_GuessAll_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -80,6 +102,9 @@ type QueryServer interface {
 	// Queries a list of Game items.
 	Game(context.Context, *QueryGetGameRequest) (*QueryGetGameResponse, error)
 	GameAll(context.Context, *QueryAllGameRequest) (*QueryAllGameResponse, error)
+	// Queries a list of Guess items.
+	GameGuesses(context.Context, *QueryGetGameGuessesRequest) (*QueryGetGameGuessesResponse, error)
+	GuessAll(context.Context, *QueryAllGuessRequest) (*QueryAllGuessResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -95,6 +120,12 @@ func (UnimplementedQueryServer) Game(context.Context, *QueryGetGameRequest) (*Qu
 }
 func (UnimplementedQueryServer) GameAll(context.Context, *QueryAllGameRequest) (*QueryAllGameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GameAll not implemented")
+}
+func (UnimplementedQueryServer) GameGuesses(context.Context, *QueryGetGameGuessesRequest) (*QueryGetGameGuessesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GameGuesses not implemented")
+}
+func (UnimplementedQueryServer) GuessAll(context.Context, *QueryAllGuessRequest) (*QueryAllGuessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GuessAll not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -163,6 +194,42 @@ func _Query_GameAll_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_GameGuesses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetGameGuessesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GameGuesses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GameGuesses_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GameGuesses(ctx, req.(*QueryGetGameGuessesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GuessAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllGuessRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GuessAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GuessAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GuessAll(ctx, req.(*QueryAllGuessRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -181,6 +248,14 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GameAll",
 			Handler:    _Query_GameAll_Handler,
+		},
+		{
+			MethodName: "GameGuesses",
+			Handler:    _Query_GameGuesses_Handler,
+		},
+		{
+			MethodName: "GuessAll",
+			Handler:    _Query_GuessAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

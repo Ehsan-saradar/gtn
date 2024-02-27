@@ -9212,15 +9212,23 @@ paths:
                     id:
                       type: string
                       format: uint64
-                    commitmentHash:
+                    commitment_hash:
                       type: string
+                      format: byte
+                    started_at_height:
+                      type: string
+                      format: int64
                     duration:
                       type: string
-                      format: uint64
+                      format: int64
                     entryFee:
                       type: string
-                      format: uint64
                     reward:
+                      type: string
+                    salt:
+                      type: string
+                      format: byte
+                    number:
                       type: string
                       format: uint64
                     creator:
@@ -9346,15 +9354,203 @@ paths:
                   id:
                     type: string
                     format: uint64
-                  commitmentHash:
+                  commitment_hash:
                     type: string
+                    format: byte
+                  started_at_height:
+                    type: string
+                    format: int64
                   duration:
                     type: string
-                    format: uint64
+                    format: int64
                   entryFee:
                     type: string
-                    format: uint64
                   reward:
+                    type: string
+                  salt:
+                    type: string
+                    format: byte
+                  number:
+                    type: string
+                    format: uint64
+                  creator:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
+  /gtn/gtn/guess:
+    get:
+      operationId: GtnGtnQuery_GuessAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Guess:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                    gameId:
+                      type: string
+                      format: uint64
+                    number:
+                      type: string
+                      format: uint64
+                    creator:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    description: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently. It will be empty if
+                      there are no more results.
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /gtn/gtn/guess/{id}:
+    get:
+      summary: Queries a list of Guess items.
+      operationId: GtnGtnQuery_Guess
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Guess:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uint64
+                  gameId:
+                    type: string
+                    format: uint64
+                  number:
                     type: string
                     format: uint64
                   creator:
@@ -9473,9 +9669,96 @@ paths:
                 format: uint64
       tags:
         - Msg
+  /gtn.gtn.Msg/CreateGuess:
+    post:
+      operationId: GtnGtnMsg_CreateGuess
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              gameId:
+                type: string
+                format: uint64
+              number:
+                type: string
+                format: uint64
+      tags:
+        - Msg
   /gtn.gtn.Msg/DeleteGame:
     post:
       operationId: GtnGtnMsg_DeleteGame
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              id:
+                type: string
+                format: uint64
+      tags:
+        - Msg
+  /gtn.gtn.Msg/DeleteGuess:
+    post:
+      operationId: GtnGtnMsg_DeleteGuess
       responses:
         '200':
           description: A successful response.
@@ -9560,6 +9843,52 @@ paths:
                 type: string
                 format: uint64
               reward:
+                type: string
+                format: uint64
+      tags:
+        - Msg
+  /gtn.gtn.Msg/UpdateGuess:
+    post:
+      operationId: GtnGtnMsg_UpdateGuess
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              id:
+                type: string
+                format: uint64
+              gameId:
+                type: string
+                format: uint64
+              number:
                 type: string
                 format: uint64
       tags:
@@ -23498,15 +23827,37 @@ definitions:
       id:
         type: string
         format: uint64
-      commitmentHash:
+      commitment_hash:
         type: string
+        format: byte
+      started_at_height:
+        type: string
+        format: int64
       duration:
         type: string
-        format: uint64
+        format: int64
       entryFee:
         type: string
-        format: uint64
       reward:
+        type: string
+      salt:
+        type: string
+        format: byte
+      number:
+        type: string
+        format: uint64
+      creator:
+        type: string
+  gtn.gtn.Guess:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      gameId:
+        type: string
+        format: uint64
+      number:
         type: string
         format: uint64
       creator:
@@ -23525,15 +23876,68 @@ definitions:
             id:
               type: string
               format: uint64
-            commitmentHash:
+            commitment_hash:
               type: string
+              format: byte
+            started_at_height:
+              type: string
+              format: int64
             duration:
               type: string
-              format: uint64
+              format: int64
             entryFee:
               type: string
-              format: uint64
             reward:
+              type: string
+            salt:
+              type: string
+              format: byte
+            number:
+              type: string
+              format: uint64
+            creator:
+              type: string
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            description: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently. It will be empty if
+              there are no more results.
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  gtn.gtn.QueryAllGuessResponse:
+    type: object
+    properties:
+      Guess:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+            gameId:
+              type: string
+              format: uint64
+            number:
               type: string
               format: uint64
             creator:
@@ -23573,15 +23977,40 @@ definitions:
           id:
             type: string
             format: uint64
-          commitmentHash:
+          commitment_hash:
             type: string
+            format: byte
+          started_at_height:
+            type: string
+            format: int64
           duration:
             type: string
-            format: uint64
+            format: int64
           entryFee:
             type: string
-            format: uint64
           reward:
+            type: string
+          salt:
+            type: string
+            format: byte
+          number:
+            type: string
+            format: uint64
+          creator:
+            type: string
+  gtn.gtn.QueryGetGuessResponse:
+    type: object
+    properties:
+      Guess:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          gameId:
+            type: string
+            format: uint64
+          number:
             type: string
             format: uint64
           creator:
@@ -23615,6 +24044,23 @@ definitions:
       id:
         type: string
         format: uint64
+  gtn.gtn.MsgCreateGuess:
+    type: object
+    properties:
+      creator:
+        type: string
+      gameId:
+        type: string
+        format: uint64
+      number:
+        type: string
+        format: uint64
+  gtn.gtn.MsgCreateGuessResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
   gtn.gtn.MsgDeleteGame:
     type: object
     properties:
@@ -23624,6 +24070,16 @@ definitions:
         type: string
         format: uint64
   gtn.gtn.MsgDeleteGameResponse:
+    type: object
+  gtn.gtn.MsgDeleteGuess:
+    type: object
+    properties:
+      creator:
+        type: string
+      id:
+        type: string
+        format: uint64
+  gtn.gtn.MsgDeleteGuessResponse:
     type: object
   gtn.gtn.MsgUpdateGame:
     type: object
@@ -23645,6 +24101,22 @@ definitions:
         type: string
         format: uint64
   gtn.gtn.MsgUpdateGameResponse:
+    type: object
+  gtn.gtn.MsgUpdateGuess:
+    type: object
+    properties:
+      creator:
+        type: string
+      id:
+        type: string
+        format: uint64
+      gameId:
+        type: string
+        format: uint64
+      number:
+        type: string
+        format: uint64
+  gtn.gtn.MsgUpdateGuessResponse:
     type: object
   gtn.gtn.MsgUpdateParams:
     type: object

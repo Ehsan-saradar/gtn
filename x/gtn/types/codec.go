@@ -10,8 +10,10 @@ import (
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateGame{},
-		&MsgUpdateGame{},
-		&MsgDeleteGame{},
+		&MsgRevealGame{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSubmitGuess{},
 	)
 	// this line is used by starport scaffolding # 3
 

@@ -37,7 +37,7 @@ func (k Keeper) GameAll(ctx context.Context, req *types.QueryAllGameRequest) (*t
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	return &types.QueryAllGameResponse{Game: games, Pagination: pageRes}, nil
+	return &types.QueryAllGameResponse{Games: games, Pagination: pageRes}, nil
 }
 
 func (k Keeper) Game(ctx context.Context, req *types.QueryGetGameRequest) (*types.QueryGetGameResponse, error) {

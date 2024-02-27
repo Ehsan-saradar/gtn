@@ -3,11 +3,18 @@ package gtn.gtn;
 
 option go_package = "gtn/x/gtn/types";
 
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
 message Game {
   uint64 id = 1;
-  string commitmentHash = 2; 
-  uint64 duration = 3; 
-  uint64 entryFee = 4; 
-  uint64 reward = 5; 
-  string creator = 6;
+  bytes commitment_hash = 2;
+  int64 started_at_height = 3;
+  int64 duration = 4; 
+  cosmos.base.v1beta1.Coin entry_fee = 5 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin reward = 6 [(gogoproto.nullable) = false];
+  uint64 participants_count = 7;
+  bytes salt = 8;
+  uint64 number = 9;
+  string creator = 10;
 }

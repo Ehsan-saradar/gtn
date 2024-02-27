@@ -8,7 +8,6 @@ package gtn
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -22,8 +21,8 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Msg_UpdateParams_FullMethodName = "/gtn.gtn.Msg/UpdateParams"
 	Msg_CreateGame_FullMethodName   = "/gtn.gtn.Msg/CreateGame"
-	Msg_UpdateGame_FullMethodName   = "/gtn.gtn.Msg/UpdateGame"
-	Msg_DeleteGame_FullMethodName   = "/gtn.gtn.Msg/DeleteGame"
+	Msg_RevealGame_FullMethodName   = "/gtn.gtn.Msg/RevealGame"
+	Msg_SubmitGuess_FullMethodName  = "/gtn.gtn.Msg/SubmitGuess"
 )
 
 // MsgClient is the client API for Msg service.
@@ -34,8 +33,8 @@ type MsgClient interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	CreateGame(ctx context.Context, in *MsgCreateGame, opts ...grpc.CallOption) (*MsgCreateGameResponse, error)
-	UpdateGame(ctx context.Context, in *MsgUpdateGame, opts ...grpc.CallOption) (*MsgUpdateGameResponse, error)
-	DeleteGame(ctx context.Context, in *MsgDeleteGame, opts ...grpc.CallOption) (*MsgDeleteGameResponse, error)
+	RevealGame(ctx context.Context, in *MsgRevealGame, opts ...grpc.CallOption) (*MsgRevealGameResponse, error)
+	SubmitGuess(ctx context.Context, in *MsgSubmitGuess, opts ...grpc.CallOption) (*MsgSubmitGuessResponse, error)
 }
 
 type msgClient struct {
@@ -64,18 +63,18 @@ func (c *msgClient) CreateGame(ctx context.Context, in *MsgCreateGame, opts ...g
 	return out, nil
 }
 
-func (c *msgClient) UpdateGame(ctx context.Context, in *MsgUpdateGame, opts ...grpc.CallOption) (*MsgUpdateGameResponse, error) {
-	out := new(MsgUpdateGameResponse)
-	err := c.cc.Invoke(ctx, Msg_UpdateGame_FullMethodName, in, out, opts...)
+func (c *msgClient) RevealGame(ctx context.Context, in *MsgRevealGame, opts ...grpc.CallOption) (*MsgRevealGameResponse, error) {
+	out := new(MsgRevealGameResponse)
+	err := c.cc.Invoke(ctx, Msg_RevealGame_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) DeleteGame(ctx context.Context, in *MsgDeleteGame, opts ...grpc.CallOption) (*MsgDeleteGameResponse, error) {
-	out := new(MsgDeleteGameResponse)
-	err := c.cc.Invoke(ctx, Msg_DeleteGame_FullMethodName, in, out, opts...)
+func (c *msgClient) SubmitGuess(ctx context.Context, in *MsgSubmitGuess, opts ...grpc.CallOption) (*MsgSubmitGuessResponse, error) {
+	out := new(MsgSubmitGuessResponse)
+	err := c.cc.Invoke(ctx, Msg_SubmitGuess_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -90,8 +89,8 @@ type MsgServer interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	CreateGame(context.Context, *MsgCreateGame) (*MsgCreateGameResponse, error)
-	UpdateGame(context.Context, *MsgUpdateGame) (*MsgUpdateGameResponse, error)
-	DeleteGame(context.Context, *MsgDeleteGame) (*MsgDeleteGameResponse, error)
+	RevealGame(context.Context, *MsgRevealGame) (*MsgRevealGameResponse, error)
+	SubmitGuess(context.Context, *MsgSubmitGuess) (*MsgSubmitGuessResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -105,11 +104,11 @@ func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*
 func (UnimplementedMsgServer) CreateGame(context.Context, *MsgCreateGame) (*MsgCreateGameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGame not implemented")
 }
-func (UnimplementedMsgServer) UpdateGame(context.Context, *MsgUpdateGame) (*MsgUpdateGameResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateGame not implemented")
+func (UnimplementedMsgServer) RevealGame(context.Context, *MsgRevealGame) (*MsgRevealGameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RevealGame not implemented")
 }
-func (UnimplementedMsgServer) DeleteGame(context.Context, *MsgDeleteGame) (*MsgDeleteGameResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteGame not implemented")
+func (UnimplementedMsgServer) SubmitGuess(context.Context, *MsgSubmitGuess) (*MsgSubmitGuessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitGuess not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -160,38 +159,38 @@ func _Msg_CreateGame_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_UpdateGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUpdateGame)
+func _Msg_RevealGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRevealGame)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).UpdateGame(ctx, in)
+		return srv.(MsgServer).RevealGame(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Msg_UpdateGame_FullMethodName,
+		FullMethod: Msg_RevealGame_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UpdateGame(ctx, req.(*MsgUpdateGame))
+		return srv.(MsgServer).RevealGame(ctx, req.(*MsgRevealGame))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_DeleteGame_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgDeleteGame)
+func _Msg_SubmitGuess_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSubmitGuess)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).DeleteGame(ctx, in)
+		return srv.(MsgServer).SubmitGuess(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Msg_DeleteGame_FullMethodName,
+		FullMethod: Msg_SubmitGuess_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).DeleteGame(ctx, req.(*MsgDeleteGame))
+		return srv.(MsgServer).SubmitGuess(ctx, req.(*MsgSubmitGuess))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -212,12 +211,12 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_CreateGame_Handler,
 		},
 		{
-			MethodName: "UpdateGame",
-			Handler:    _Msg_UpdateGame_Handler,
+			MethodName: "RevealGame",
+			Handler:    _Msg_RevealGame_Handler,
 		},
 		{
-			MethodName: "DeleteGame",
-			Handler:    _Msg_DeleteGame_Handler,
+			MethodName: "SubmitGuess",
+			Handler:    _Msg_SubmitGuess_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -35,6 +35,18 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgDeleteGame int = 100
 
+	opWeightMsgCreateGuess = "op_weight_msg_guess"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateGuess int = 100
+
+	opWeightMsgUpdateGuess = "op_weight_msg_guess"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateGuess int = 100
+
+	opWeightMsgDeleteGuess = "op_weight_msg_guess"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgDeleteGuess int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -57,6 +69,17 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 			},
 		},
 		GameCount: 2,
+		GuessList: []types.Guess{
+			{
+				Id:      0,
+				Creator: sample.AccAddress(),
+			},
+			{
+				Id:      1,
+				Creator: sample.AccAddress(),
+			},
+		},
+		GuessCount: 2,
 		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&gtnGenesis)
@@ -107,6 +130,39 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		gtnsimulation.SimulateMsgDeleteGame(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgCreateGuess int
+	simState.AppParams.GetOrGenerate(opWeightMsgCreateGuess, &weightMsgCreateGuess, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateGuess = defaultWeightMsgCreateGuess
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateGuess,
+		gtnsimulation.SimulateMsgCreateGuess(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateGuess int
+	simState.AppParams.GetOrGenerate(opWeightMsgUpdateGuess, &weightMsgUpdateGuess, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateGuess = defaultWeightMsgUpdateGuess
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateGuess,
+		gtnsimulation.SimulateMsgUpdateGuess(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgDeleteGuess int
+	simState.AppParams.GetOrGenerate(opWeightMsgDeleteGuess, &weightMsgDeleteGuess, nil,
+		func(_ *rand.Rand) {
+			weightMsgDeleteGuess = defaultWeightMsgDeleteGuess
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgDeleteGuess,
+		gtnsimulation.SimulateMsgDeleteGuess(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -136,6 +192,30 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgDeleteGame,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				gtnsimulation.SimulateMsgDeleteGame(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgCreateGuess,
+			defaultWeightMsgCreateGuess,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				gtnsimulation.SimulateMsgCreateGuess(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgUpdateGuess,
+			defaultWeightMsgUpdateGuess,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				gtnsimulation.SimulateMsgUpdateGuess(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgDeleteGuess,
+			defaultWeightMsgDeleteGuess,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				gtnsimulation.SimulateMsgDeleteGuess(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

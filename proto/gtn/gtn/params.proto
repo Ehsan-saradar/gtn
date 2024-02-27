@@ -11,5 +11,7 @@ message Params {
   option (amino.name) = "gtn/x/gtn/Params";
   option (gogoproto.equal) = true;
 
-  
+  uint64 max_players_per_game = 1;
+  uint64 min_distance_to_win = 2;
+  int64 game_expiration_duration = 3;
 }

@@ -18,7 +18,11 @@ func NewParams() Params {
 
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
-	return NewParams()
+	return Params{
+		MaxPlayersPerGame:      100,
+		MinDistanceToWin:       100,
+		GameExpirationDuration: 1000,
+	}
 }
 
 // ParamSetPairs get the params.ParamSet

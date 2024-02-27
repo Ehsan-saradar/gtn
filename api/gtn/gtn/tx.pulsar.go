@@ -2,19 +2,19 @@
 package gtn
 
 import (
-	fmt "fmt"
-	io "io"
-	reflect "reflect"
-	sync "sync"
-
 	_ "cosmossdk.io/api/amino"
+	v1beta1 "cosmossdk.io/api/cosmos/base/v1beta1"
 	_ "cosmossdk.io/api/cosmos/msg/v1"
+	fmt "fmt"
 	_ "github.com/cosmos/cosmos-proto"
 	runtime "github.com/cosmos/cosmos-proto/runtime"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoiface "google.golang.org/protobuf/runtime/protoiface"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	io "io"
+	reflect "reflect"
+	sync "sync"
 )
 
 var (
@@ -873,21 +873,21 @@ func (x *fastReflection_MsgUpdateParamsResponse) ProtoMethods() *protoiface.Meth
 }
 
 var (
-	md_MsgCreateGame                protoreflect.MessageDescriptor
-	fd_MsgCreateGame_creator        protoreflect.FieldDescriptor
-	fd_MsgCreateGame_commitmentHash protoreflect.FieldDescriptor
-	fd_MsgCreateGame_duration       protoreflect.FieldDescriptor
-	fd_MsgCreateGame_entryFee       protoreflect.FieldDescriptor
-	fd_MsgCreateGame_reward         protoreflect.FieldDescriptor
+	md_MsgCreateGame                 protoreflect.MessageDescriptor
+	fd_MsgCreateGame_creator         protoreflect.FieldDescriptor
+	fd_MsgCreateGame_commitment_hash protoreflect.FieldDescriptor
+	fd_MsgCreateGame_duration        protoreflect.FieldDescriptor
+	fd_MsgCreateGame_entry_fee       protoreflect.FieldDescriptor
+	fd_MsgCreateGame_reward          protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_gtn_gtn_tx_proto_init()
 	md_MsgCreateGame = File_gtn_gtn_tx_proto.Messages().ByName("MsgCreateGame")
 	fd_MsgCreateGame_creator = md_MsgCreateGame.Fields().ByName("creator")
-	fd_MsgCreateGame_commitmentHash = md_MsgCreateGame.Fields().ByName("commitmentHash")
+	fd_MsgCreateGame_commitment_hash = md_MsgCreateGame.Fields().ByName("commitment_hash")
 	fd_MsgCreateGame_duration = md_MsgCreateGame.Fields().ByName("duration")
-	fd_MsgCreateGame_entryFee = md_MsgCreateGame.Fields().ByName("entryFee")
+	fd_MsgCreateGame_entry_fee = md_MsgCreateGame.Fields().ByName("entry_fee")
 	fd_MsgCreateGame_reward = md_MsgCreateGame.Fields().ByName("reward")
 }
 
@@ -962,26 +962,26 @@ func (x *fastReflection_MsgCreateGame) Range(f func(protoreflect.FieldDescriptor
 			return
 		}
 	}
-	if x.CommitmentHash != "" {
-		value := protoreflect.ValueOfString(x.CommitmentHash)
-		if !f(fd_MsgCreateGame_commitmentHash, value) {
+	if len(x.CommitmentHash) != 0 {
+		value := protoreflect.ValueOfBytes(x.CommitmentHash)
+		if !f(fd_MsgCreateGame_commitment_hash, value) {
 			return
 		}
 	}
-	if x.Duration != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Duration)
+	if x.Duration != int64(0) {
+		value := protoreflect.ValueOfInt64(x.Duration)
 		if !f(fd_MsgCreateGame_duration, value) {
 			return
 		}
 	}
-	if x.EntryFee != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.EntryFee)
-		if !f(fd_MsgCreateGame_entryFee, value) {
+	if x.EntryFee != nil {
+		value := protoreflect.ValueOfMessage(x.EntryFee.ProtoReflect())
+		if !f(fd_MsgCreateGame_entry_fee, value) {
 			return
 		}
 	}
-	if x.Reward != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Reward)
+	if x.Reward != nil {
+		value := protoreflect.ValueOfMessage(x.Reward.ProtoReflect())
 		if !f(fd_MsgCreateGame_reward, value) {
 			return
 		}
@@ -1003,14 +1003,14 @@ func (x *fastReflection_MsgCreateGame) Has(fd protoreflect.FieldDescriptor) bool
 	switch fd.FullName() {
 	case "gtn.gtn.MsgCreateGame.creator":
 		return x.Creator != ""
-	case "gtn.gtn.MsgCreateGame.commitmentHash":
-		return x.CommitmentHash != ""
+	case "gtn.gtn.MsgCreateGame.commitment_hash":
+		return len(x.CommitmentHash) != 0
 	case "gtn.gtn.MsgCreateGame.duration":
-		return x.Duration != uint64(0)
-	case "gtn.gtn.MsgCreateGame.entryFee":
-		return x.EntryFee != uint64(0)
+		return x.Duration != int64(0)
+	case "gtn.gtn.MsgCreateGame.entry_fee":
+		return x.EntryFee != nil
 	case "gtn.gtn.MsgCreateGame.reward":
-		return x.Reward != uint64(0)
+		return x.Reward != nil
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgCreateGame"))
@@ -1029,14 +1029,14 @@ func (x *fastReflection_MsgCreateGame) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "gtn.gtn.MsgCreateGame.creator":
 		x.Creator = ""
-	case "gtn.gtn.MsgCreateGame.commitmentHash":
-		x.CommitmentHash = ""
+	case "gtn.gtn.MsgCreateGame.commitment_hash":
+		x.CommitmentHash = nil
 	case "gtn.gtn.MsgCreateGame.duration":
-		x.Duration = uint64(0)
-	case "gtn.gtn.MsgCreateGame.entryFee":
-		x.EntryFee = uint64(0)
+		x.Duration = int64(0)
+	case "gtn.gtn.MsgCreateGame.entry_fee":
+		x.EntryFee = nil
 	case "gtn.gtn.MsgCreateGame.reward":
-		x.Reward = uint64(0)
+		x.Reward = nil
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgCreateGame"))
@@ -1056,18 +1056,18 @@ func (x *fastReflection_MsgCreateGame) Get(descriptor protoreflect.FieldDescript
 	case "gtn.gtn.MsgCreateGame.creator":
 		value := x.Creator
 		return protoreflect.ValueOfString(value)
-	case "gtn.gtn.MsgCreateGame.commitmentHash":
+	case "gtn.gtn.MsgCreateGame.commitment_hash":
 		value := x.CommitmentHash
-		return protoreflect.ValueOfString(value)
+		return protoreflect.ValueOfBytes(value)
 	case "gtn.gtn.MsgCreateGame.duration":
 		value := x.Duration
-		return protoreflect.ValueOfUint64(value)
-	case "gtn.gtn.MsgCreateGame.entryFee":
+		return protoreflect.ValueOfInt64(value)
+	case "gtn.gtn.MsgCreateGame.entry_fee":
 		value := x.EntryFee
-		return protoreflect.ValueOfUint64(value)
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	case "gtn.gtn.MsgCreateGame.reward":
 		value := x.Reward
-		return protoreflect.ValueOfUint64(value)
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgCreateGame"))
@@ -1090,14 +1090,14 @@ func (x *fastReflection_MsgCreateGame) Set(fd protoreflect.FieldDescriptor, valu
 	switch fd.FullName() {
 	case "gtn.gtn.MsgCreateGame.creator":
 		x.Creator = value.Interface().(string)
-	case "gtn.gtn.MsgCreateGame.commitmentHash":
-		x.CommitmentHash = value.Interface().(string)
+	case "gtn.gtn.MsgCreateGame.commitment_hash":
+		x.CommitmentHash = value.Bytes()
 	case "gtn.gtn.MsgCreateGame.duration":
-		x.Duration = value.Uint()
-	case "gtn.gtn.MsgCreateGame.entryFee":
-		x.EntryFee = value.Uint()
+		x.Duration = value.Int()
+	case "gtn.gtn.MsgCreateGame.entry_fee":
+		x.EntryFee = value.Message().Interface().(*v1beta1.Coin)
 	case "gtn.gtn.MsgCreateGame.reward":
-		x.Reward = value.Uint()
+		x.Reward = value.Message().Interface().(*v1beta1.Coin)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgCreateGame"))
@@ -1118,16 +1118,22 @@ func (x *fastReflection_MsgCreateGame) Set(fd protoreflect.FieldDescriptor, valu
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgCreateGame) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
+	case "gtn.gtn.MsgCreateGame.entry_fee":
+		if x.EntryFee == nil {
+			x.EntryFee = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.EntryFee.ProtoReflect())
+	case "gtn.gtn.MsgCreateGame.reward":
+		if x.Reward == nil {
+			x.Reward = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.Reward.ProtoReflect())
 	case "gtn.gtn.MsgCreateGame.creator":
 		panic(fmt.Errorf("field creator of message gtn.gtn.MsgCreateGame is not mutable"))
-	case "gtn.gtn.MsgCreateGame.commitmentHash":
-		panic(fmt.Errorf("field commitmentHash of message gtn.gtn.MsgCreateGame is not mutable"))
+	case "gtn.gtn.MsgCreateGame.commitment_hash":
+		panic(fmt.Errorf("field commitment_hash of message gtn.gtn.MsgCreateGame is not mutable"))
 	case "gtn.gtn.MsgCreateGame.duration":
 		panic(fmt.Errorf("field duration of message gtn.gtn.MsgCreateGame is not mutable"))
-	case "gtn.gtn.MsgCreateGame.entryFee":
-		panic(fmt.Errorf("field entryFee of message gtn.gtn.MsgCreateGame is not mutable"))
-	case "gtn.gtn.MsgCreateGame.reward":
-		panic(fmt.Errorf("field reward of message gtn.gtn.MsgCreateGame is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgCreateGame"))
@@ -1143,14 +1149,16 @@ func (x *fastReflection_MsgCreateGame) NewField(fd protoreflect.FieldDescriptor)
 	switch fd.FullName() {
 	case "gtn.gtn.MsgCreateGame.creator":
 		return protoreflect.ValueOfString("")
-	case "gtn.gtn.MsgCreateGame.commitmentHash":
-		return protoreflect.ValueOfString("")
+	case "gtn.gtn.MsgCreateGame.commitment_hash":
+		return protoreflect.ValueOfBytes(nil)
 	case "gtn.gtn.MsgCreateGame.duration":
-		return protoreflect.ValueOfUint64(uint64(0))
-	case "gtn.gtn.MsgCreateGame.entryFee":
-		return protoreflect.ValueOfUint64(uint64(0))
+		return protoreflect.ValueOfInt64(int64(0))
+	case "gtn.gtn.MsgCreateGame.entry_fee":
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	case "gtn.gtn.MsgCreateGame.reward":
-		return protoreflect.ValueOfUint64(uint64(0))
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgCreateGame"))
@@ -1231,11 +1239,13 @@ func (x *fastReflection_MsgCreateGame) ProtoMethods() *protoiface.Methods {
 		if x.Duration != 0 {
 			n += 1 + runtime.Sov(uint64(x.Duration))
 		}
-		if x.EntryFee != 0 {
-			n += 1 + runtime.Sov(uint64(x.EntryFee))
+		if x.EntryFee != nil {
+			l = options.Size(x.EntryFee)
+			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		if x.Reward != 0 {
-			n += 1 + runtime.Sov(uint64(x.Reward))
+		if x.Reward != nil {
+			l = options.Size(x.Reward)
+			n += 1 + l + runtime.Sov(uint64(l))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -1266,15 +1276,33 @@ func (x *fastReflection_MsgCreateGame) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if x.Reward != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Reward))
+		if x.Reward != nil {
+			encoded, err := options.Marshal(x.Reward)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
 			i--
-			dAtA[i] = 0x28
+			dAtA[i] = 0x32
 		}
-		if x.EntryFee != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.EntryFee))
+		if x.EntryFee != nil {
+			encoded, err := options.Marshal(x.EntryFee)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
 			i--
-			dAtA[i] = 0x20
+			dAtA[i] = 0x2a
 		}
 		if x.Duration != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.Duration))
@@ -1380,7 +1408,7 @@ func (x *fastReflection_MsgCreateGame) ProtoMethods() *protoiface.Methods {
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field CommitmentHash", wireType)
 				}
-				var stringLen uint64
+				var byteLen int
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -1390,23 +1418,25 @@ func (x *fastReflection_MsgCreateGame) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
+					byteLen |= int(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
+				if byteLen < 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
 				}
-				postIndex := iNdEx + intStringLen
+				postIndex := iNdEx + byteLen
 				if postIndex < 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
 				}
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.CommitmentHash = string(dAtA[iNdEx:postIndex])
+				x.CommitmentHash = append(x.CommitmentHash[:0], dAtA[iNdEx:postIndex]...)
+				if x.CommitmentHash == nil {
+					x.CommitmentHash = []byte{}
+				}
 				iNdEx = postIndex
 			case 3:
 				if wireType != 0 {
@@ -1422,35 +1452,16 @@ func (x *fastReflection_MsgCreateGame) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.Duration |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-			case 4:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EntryFee", wireType)
-				}
-				x.EntryFee = 0
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					x.EntryFee |= uint64(b&0x7F) << shift
+					x.Duration |= int64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
 			case 5:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EntryFee", wireType)
 				}
-				x.Reward = 0
+				var msglen int
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -1460,11 +1471,64 @@ func (x *fastReflection_MsgCreateGame) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.Reward |= uint64(b&0x7F) << shift
+					msglen |= int(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.EntryFee == nil {
+					x.EntryFee = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.EntryFee); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 6:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.Reward == nil {
+					x.Reward = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Reward); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -1905,35 +1969,31 @@ func (x *fastReflection_MsgCreateGameResponse) ProtoMethods() *protoiface.Method
 }
 
 var (
-	md_MsgUpdateGame                protoreflect.MessageDescriptor
-	fd_MsgUpdateGame_creator        protoreflect.FieldDescriptor
-	fd_MsgUpdateGame_id             protoreflect.FieldDescriptor
-	fd_MsgUpdateGame_commitmentHash protoreflect.FieldDescriptor
-	fd_MsgUpdateGame_duration       protoreflect.FieldDescriptor
-	fd_MsgUpdateGame_entryFee       protoreflect.FieldDescriptor
-	fd_MsgUpdateGame_reward         protoreflect.FieldDescriptor
+	md_MsgRevealGame         protoreflect.MessageDescriptor
+	fd_MsgRevealGame_creator protoreflect.FieldDescriptor
+	fd_MsgRevealGame_game_id protoreflect.FieldDescriptor
+	fd_MsgRevealGame_salt    protoreflect.FieldDescriptor
+	fd_MsgRevealGame_number  protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_gtn_gtn_tx_proto_init()
-	md_MsgUpdateGame = File_gtn_gtn_tx_proto.Messages().ByName("MsgUpdateGame")
-	fd_MsgUpdateGame_creator = md_MsgUpdateGame.Fields().ByName("creator")
-	fd_MsgUpdateGame_id = md_MsgUpdateGame.Fields().ByName("id")
-	fd_MsgUpdateGame_commitmentHash = md_MsgUpdateGame.Fields().ByName("commitmentHash")
-	fd_MsgUpdateGame_duration = md_MsgUpdateGame.Fields().ByName("duration")
-	fd_MsgUpdateGame_entryFee = md_MsgUpdateGame.Fields().ByName("entryFee")
-	fd_MsgUpdateGame_reward = md_MsgUpdateGame.Fields().ByName("reward")
+	md_MsgRevealGame = File_gtn_gtn_tx_proto.Messages().ByName("MsgRevealGame")
+	fd_MsgRevealGame_creator = md_MsgRevealGame.Fields().ByName("creator")
+	fd_MsgRevealGame_game_id = md_MsgRevealGame.Fields().ByName("game_id")
+	fd_MsgRevealGame_salt = md_MsgRevealGame.Fields().ByName("salt")
+	fd_MsgRevealGame_number = md_MsgRevealGame.Fields().ByName("number")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgUpdateGame)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgRevealGame)(nil)
 
-type fastReflection_MsgUpdateGame MsgUpdateGame
+type fastReflection_MsgRevealGame MsgRevealGame
 
-func (x *MsgUpdateGame) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgUpdateGame)(x)
+func (x *MsgRevealGame) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgRevealGame)(x)
 }
 
-func (x *MsgUpdateGame) slowProtoReflect() protoreflect.Message {
+func (x *MsgRevealGame) slowProtoReflect() protoreflect.Message {
 	mi := &file_gtn_gtn_tx_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1945,43 +2005,43 @@ func (x *MsgUpdateGame) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgUpdateGame_messageType fastReflection_MsgUpdateGame_messageType
-var _ protoreflect.MessageType = fastReflection_MsgUpdateGame_messageType{}
+var _fastReflection_MsgRevealGame_messageType fastReflection_MsgRevealGame_messageType
+var _ protoreflect.MessageType = fastReflection_MsgRevealGame_messageType{}
 
-type fastReflection_MsgUpdateGame_messageType struct{}
+type fastReflection_MsgRevealGame_messageType struct{}
 
-func (x fastReflection_MsgUpdateGame_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgUpdateGame)(nil)
+func (x fastReflection_MsgRevealGame_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgRevealGame)(nil)
 }
-func (x fastReflection_MsgUpdateGame_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgUpdateGame)
+func (x fastReflection_MsgRevealGame_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgRevealGame)
 }
-func (x fastReflection_MsgUpdateGame_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgUpdateGame
+func (x fastReflection_MsgRevealGame_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgRevealGame
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgUpdateGame) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgUpdateGame
+func (x *fastReflection_MsgRevealGame) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgRevealGame
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgUpdateGame) Type() protoreflect.MessageType {
-	return _fastReflection_MsgUpdateGame_messageType
+func (x *fastReflection_MsgRevealGame) Type() protoreflect.MessageType {
+	return _fastReflection_MsgRevealGame_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgUpdateGame) New() protoreflect.Message {
-	return new(fastReflection_MsgUpdateGame)
+func (x *fastReflection_MsgRevealGame) New() protoreflect.Message {
+	return new(fastReflection_MsgRevealGame)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgUpdateGame) Interface() protoreflect.ProtoMessage {
-	return (*MsgUpdateGame)(x)
+func (x *fastReflection_MsgRevealGame) Interface() protoreflect.ProtoMessage {
+	return (*MsgRevealGame)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -1989,40 +2049,28 @@ func (x *fastReflection_MsgUpdateGame) Interface() protoreflect.ProtoMessage {
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgUpdateGame) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgRevealGame) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if x.Creator != "" {
 		value := protoreflect.ValueOfString(x.Creator)
-		if !f(fd_MsgUpdateGame_creator, value) {
+		if !f(fd_MsgRevealGame_creator, value) {
 			return
 		}
 	}
-	if x.Id != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Id)
-		if !f(fd_MsgUpdateGame_id, value) {
+	if x.GameId != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.GameId)
+		if !f(fd_MsgRevealGame_game_id, value) {
 			return
 		}
 	}
-	if x.CommitmentHash != "" {
-		value := protoreflect.ValueOfString(x.CommitmentHash)
-		if !f(fd_MsgUpdateGame_commitmentHash, value) {
+	if len(x.Salt) != 0 {
+		value := protoreflect.ValueOfBytes(x.Salt)
+		if !f(fd_MsgRevealGame_salt, value) {
 			return
 		}
 	}
-	if x.Duration != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Duration)
-		if !f(fd_MsgUpdateGame_duration, value) {
-			return
-		}
-	}
-	if x.EntryFee != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.EntryFee)
-		if !f(fd_MsgUpdateGame_entryFee, value) {
-			return
-		}
-	}
-	if x.Reward != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Reward)
-		if !f(fd_MsgUpdateGame_reward, value) {
+	if x.Number != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.Number)
+		if !f(fd_MsgRevealGame_number, value) {
 			return
 		}
 	}
@@ -2039,25 +2087,21 @@ func (x *fastReflection_MsgUpdateGame) Range(f func(protoreflect.FieldDescriptor
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgUpdateGame) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgRevealGame) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "gtn.gtn.MsgUpdateGame.creator":
+	case "gtn.gtn.MsgRevealGame.creator":
 		return x.Creator != ""
-	case "gtn.gtn.MsgUpdateGame.id":
-		return x.Id != uint64(0)
-	case "gtn.gtn.MsgUpdateGame.commitmentHash":
-		return x.CommitmentHash != ""
-	case "gtn.gtn.MsgUpdateGame.duration":
-		return x.Duration != uint64(0)
-	case "gtn.gtn.MsgUpdateGame.entryFee":
-		return x.EntryFee != uint64(0)
-	case "gtn.gtn.MsgUpdateGame.reward":
-		return x.Reward != uint64(0)
+	case "gtn.gtn.MsgRevealGame.game_id":
+		return x.GameId != uint64(0)
+	case "gtn.gtn.MsgRevealGame.salt":
+		return len(x.Salt) != 0
+	case "gtn.gtn.MsgRevealGame.number":
+		return x.Number != uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGame"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGame does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGame does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2067,25 +2111,21 @@ func (x *fastReflection_MsgUpdateGame) Has(fd protoreflect.FieldDescriptor) bool
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateGame) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgRevealGame) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "gtn.gtn.MsgUpdateGame.creator":
+	case "gtn.gtn.MsgRevealGame.creator":
 		x.Creator = ""
-	case "gtn.gtn.MsgUpdateGame.id":
-		x.Id = uint64(0)
-	case "gtn.gtn.MsgUpdateGame.commitmentHash":
-		x.CommitmentHash = ""
-	case "gtn.gtn.MsgUpdateGame.duration":
-		x.Duration = uint64(0)
-	case "gtn.gtn.MsgUpdateGame.entryFee":
-		x.EntryFee = uint64(0)
-	case "gtn.gtn.MsgUpdateGame.reward":
-		x.Reward = uint64(0)
+	case "gtn.gtn.MsgRevealGame.game_id":
+		x.GameId = uint64(0)
+	case "gtn.gtn.MsgRevealGame.salt":
+		x.Salt = nil
+	case "gtn.gtn.MsgRevealGame.number":
+		x.Number = uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGame"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGame does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGame does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2095,31 +2135,25 @@ func (x *fastReflection_MsgUpdateGame) Clear(fd protoreflect.FieldDescriptor) {
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgUpdateGame) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgRevealGame) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "gtn.gtn.MsgUpdateGame.creator":
+	case "gtn.gtn.MsgRevealGame.creator":
 		value := x.Creator
 		return protoreflect.ValueOfString(value)
-	case "gtn.gtn.MsgUpdateGame.id":
-		value := x.Id
+	case "gtn.gtn.MsgRevealGame.game_id":
+		value := x.GameId
 		return protoreflect.ValueOfUint64(value)
-	case "gtn.gtn.MsgUpdateGame.commitmentHash":
-		value := x.CommitmentHash
-		return protoreflect.ValueOfString(value)
-	case "gtn.gtn.MsgUpdateGame.duration":
-		value := x.Duration
-		return protoreflect.ValueOfUint64(value)
-	case "gtn.gtn.MsgUpdateGame.entryFee":
-		value := x.EntryFee
-		return protoreflect.ValueOfUint64(value)
-	case "gtn.gtn.MsgUpdateGame.reward":
-		value := x.Reward
+	case "gtn.gtn.MsgRevealGame.salt":
+		value := x.Salt
+		return protoreflect.ValueOfBytes(value)
+	case "gtn.gtn.MsgRevealGame.number":
+		value := x.Number
 		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGame"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGame does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGame does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2133,25 +2167,21 @@ func (x *fastReflection_MsgUpdateGame) Get(descriptor protoreflect.FieldDescript
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateGame) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgRevealGame) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "gtn.gtn.MsgUpdateGame.creator":
+	case "gtn.gtn.MsgRevealGame.creator":
 		x.Creator = value.Interface().(string)
-	case "gtn.gtn.MsgUpdateGame.id":
-		x.Id = value.Uint()
-	case "gtn.gtn.MsgUpdateGame.commitmentHash":
-		x.CommitmentHash = value.Interface().(string)
-	case "gtn.gtn.MsgUpdateGame.duration":
-		x.Duration = value.Uint()
-	case "gtn.gtn.MsgUpdateGame.entryFee":
-		x.EntryFee = value.Uint()
-	case "gtn.gtn.MsgUpdateGame.reward":
-		x.Reward = value.Uint()
+	case "gtn.gtn.MsgRevealGame.game_id":
+		x.GameId = value.Uint()
+	case "gtn.gtn.MsgRevealGame.salt":
+		x.Salt = value.Bytes()
+	case "gtn.gtn.MsgRevealGame.number":
+		x.Number = value.Uint()
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGame"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGame does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGame does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2165,60 +2195,52 @@ func (x *fastReflection_MsgUpdateGame) Set(fd protoreflect.FieldDescriptor, valu
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateGame) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgRevealGame) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "gtn.gtn.MsgUpdateGame.creator":
-		panic(fmt.Errorf("field creator of message gtn.gtn.MsgUpdateGame is not mutable"))
-	case "gtn.gtn.MsgUpdateGame.id":
-		panic(fmt.Errorf("field id of message gtn.gtn.MsgUpdateGame is not mutable"))
-	case "gtn.gtn.MsgUpdateGame.commitmentHash":
-		panic(fmt.Errorf("field commitmentHash of message gtn.gtn.MsgUpdateGame is not mutable"))
-	case "gtn.gtn.MsgUpdateGame.duration":
-		panic(fmt.Errorf("field duration of message gtn.gtn.MsgUpdateGame is not mutable"))
-	case "gtn.gtn.MsgUpdateGame.entryFee":
-		panic(fmt.Errorf("field entryFee of message gtn.gtn.MsgUpdateGame is not mutable"))
-	case "gtn.gtn.MsgUpdateGame.reward":
-		panic(fmt.Errorf("field reward of message gtn.gtn.MsgUpdateGame is not mutable"))
+	case "gtn.gtn.MsgRevealGame.creator":
+		panic(fmt.Errorf("field creator of message gtn.gtn.MsgRevealGame is not mutable"))
+	case "gtn.gtn.MsgRevealGame.game_id":
+		panic(fmt.Errorf("field game_id of message gtn.gtn.MsgRevealGame is not mutable"))
+	case "gtn.gtn.MsgRevealGame.salt":
+		panic(fmt.Errorf("field salt of message gtn.gtn.MsgRevealGame is not mutable"))
+	case "gtn.gtn.MsgRevealGame.number":
+		panic(fmt.Errorf("field number of message gtn.gtn.MsgRevealGame is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGame"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGame does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGame does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgUpdateGame) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgRevealGame) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "gtn.gtn.MsgUpdateGame.creator":
+	case "gtn.gtn.MsgRevealGame.creator":
 		return protoreflect.ValueOfString("")
-	case "gtn.gtn.MsgUpdateGame.id":
+	case "gtn.gtn.MsgRevealGame.game_id":
 		return protoreflect.ValueOfUint64(uint64(0))
-	case "gtn.gtn.MsgUpdateGame.commitmentHash":
-		return protoreflect.ValueOfString("")
-	case "gtn.gtn.MsgUpdateGame.duration":
-		return protoreflect.ValueOfUint64(uint64(0))
-	case "gtn.gtn.MsgUpdateGame.entryFee":
-		return protoreflect.ValueOfUint64(uint64(0))
-	case "gtn.gtn.MsgUpdateGame.reward":
+	case "gtn.gtn.MsgRevealGame.salt":
+		return protoreflect.ValueOfBytes(nil)
+	case "gtn.gtn.MsgRevealGame.number":
 		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGame"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGame does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGame does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgUpdateGame) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgRevealGame) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.MsgUpdateGame", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.MsgRevealGame", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -2226,7 +2248,7 @@ func (x *fastReflection_MsgUpdateGame) WhichOneof(d protoreflect.OneofDescriptor
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgUpdateGame) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgRevealGame) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -2237,7 +2259,7 @@ func (x *fastReflection_MsgUpdateGame) GetUnknown() protoreflect.RawFields {
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateGame) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgRevealGame) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -2249,7 +2271,7 @@ func (x *fastReflection_MsgUpdateGame) SetUnknown(fields protoreflect.RawFields)
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgUpdateGame) IsValid() bool {
+func (x *fastReflection_MsgRevealGame) IsValid() bool {
 	return x != nil
 }
 
@@ -2259,9 +2281,9 @@ func (x *fastReflection_MsgUpdateGame) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgRevealGame) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgUpdateGame)
+		x := input.Message.Interface().(*MsgRevealGame)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2277,21 +2299,15 @@ func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		if x.Id != 0 {
-			n += 1 + runtime.Sov(uint64(x.Id))
+		if x.GameId != 0 {
+			n += 1 + runtime.Sov(uint64(x.GameId))
 		}
-		l = len(x.CommitmentHash)
+		l = len(x.Salt)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		if x.Duration != 0 {
-			n += 1 + runtime.Sov(uint64(x.Duration))
-		}
-		if x.EntryFee != 0 {
-			n += 1 + runtime.Sov(uint64(x.EntryFee))
-		}
-		if x.Reward != 0 {
-			n += 1 + runtime.Sov(uint64(x.Reward))
+		if x.Number != 0 {
+			n += 1 + runtime.Sov(uint64(x.Number))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -2303,7 +2319,7 @@ func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgUpdateGame)
+		x := input.Message.Interface().(*MsgRevealGame)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2322,30 +2338,20 @@ func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if x.Reward != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Reward))
-			i--
-			dAtA[i] = 0x30
-		}
-		if x.EntryFee != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.EntryFee))
-			i--
-			dAtA[i] = 0x28
-		}
-		if x.Duration != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Duration))
+		if x.Number != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Number))
 			i--
 			dAtA[i] = 0x20
 		}
-		if len(x.CommitmentHash) > 0 {
-			i -= len(x.CommitmentHash)
-			copy(dAtA[i:], x.CommitmentHash)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.CommitmentHash)))
+		if len(x.Salt) > 0 {
+			i -= len(x.Salt)
+			copy(dAtA[i:], x.Salt)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Salt)))
 			i--
 			dAtA[i] = 0x1a
 		}
-		if x.Id != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Id))
+		if x.GameId != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.GameId))
 			i--
 			dAtA[i] = 0x10
 		}
@@ -2367,7 +2373,7 @@ func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgUpdateGame)
+		x := input.Message.Interface().(*MsgRevealGame)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2399,10 +2405,10 @@ func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateGame: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgRevealGame: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateGame: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgRevealGame: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
@@ -2439,9 +2445,9 @@ func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
 				iNdEx = postIndex
 			case 2:
 				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field GameId", wireType)
 				}
-				x.Id = 0
+				x.GameId = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -2451,16 +2457,16 @@ func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.Id |= uint64(b&0x7F) << shift
+					x.GameId |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
 			case 3:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field CommitmentHash", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Salt", wireType)
 				}
-				var stringLen uint64
+				var byteLen int
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -2470,29 +2476,31 @@ func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
+					byteLen |= int(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
+				if byteLen < 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
 				}
-				postIndex := iNdEx + intStringLen
+				postIndex := iNdEx + byteLen
 				if postIndex < 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
 				}
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.CommitmentHash = string(dAtA[iNdEx:postIndex])
+				x.Salt = append(x.Salt[:0], dAtA[iNdEx:postIndex]...)
+				if x.Salt == nil {
+					x.Salt = []byte{}
+				}
 				iNdEx = postIndex
 			case 4:
 				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Duration", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Number", wireType)
 				}
-				x.Duration = 0
+				x.Number = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -2502,45 +2510,7 @@ func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.Duration |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-			case 5:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field EntryFee", wireType)
-				}
-				x.EntryFee = 0
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					x.EntryFee |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-			case 6:
-				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
-				}
-				x.Reward = 0
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					x.Reward |= uint64(b&0x7F) << shift
+					x.Number |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
@@ -2581,23 +2551,23 @@ func (x *fastReflection_MsgUpdateGame) ProtoMethods() *protoiface.Methods {
 }
 
 var (
-	md_MsgUpdateGameResponse protoreflect.MessageDescriptor
+	md_MsgRevealGameResponse protoreflect.MessageDescriptor
 )
 
 func init() {
 	file_gtn_gtn_tx_proto_init()
-	md_MsgUpdateGameResponse = File_gtn_gtn_tx_proto.Messages().ByName("MsgUpdateGameResponse")
+	md_MsgRevealGameResponse = File_gtn_gtn_tx_proto.Messages().ByName("MsgRevealGameResponse")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgUpdateGameResponse)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgRevealGameResponse)(nil)
 
-type fastReflection_MsgUpdateGameResponse MsgUpdateGameResponse
+type fastReflection_MsgRevealGameResponse MsgRevealGameResponse
 
-func (x *MsgUpdateGameResponse) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgUpdateGameResponse)(x)
+func (x *MsgRevealGameResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgRevealGameResponse)(x)
 }
 
-func (x *MsgUpdateGameResponse) slowProtoReflect() protoreflect.Message {
+func (x *MsgRevealGameResponse) slowProtoReflect() protoreflect.Message {
 	mi := &file_gtn_gtn_tx_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2609,43 +2579,43 @@ func (x *MsgUpdateGameResponse) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgUpdateGameResponse_messageType fastReflection_MsgUpdateGameResponse_messageType
-var _ protoreflect.MessageType = fastReflection_MsgUpdateGameResponse_messageType{}
+var _fastReflection_MsgRevealGameResponse_messageType fastReflection_MsgRevealGameResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgRevealGameResponse_messageType{}
 
-type fastReflection_MsgUpdateGameResponse_messageType struct{}
+type fastReflection_MsgRevealGameResponse_messageType struct{}
 
-func (x fastReflection_MsgUpdateGameResponse_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgUpdateGameResponse)(nil)
+func (x fastReflection_MsgRevealGameResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgRevealGameResponse)(nil)
 }
-func (x fastReflection_MsgUpdateGameResponse_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgUpdateGameResponse)
+func (x fastReflection_MsgRevealGameResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgRevealGameResponse)
 }
-func (x fastReflection_MsgUpdateGameResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgUpdateGameResponse
+func (x fastReflection_MsgRevealGameResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgRevealGameResponse
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgUpdateGameResponse) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgUpdateGameResponse
+func (x *fastReflection_MsgRevealGameResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgRevealGameResponse
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgUpdateGameResponse) Type() protoreflect.MessageType {
-	return _fastReflection_MsgUpdateGameResponse_messageType
+func (x *fastReflection_MsgRevealGameResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgRevealGameResponse_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgUpdateGameResponse) New() protoreflect.Message {
-	return new(fastReflection_MsgUpdateGameResponse)
+func (x *fastReflection_MsgRevealGameResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgRevealGameResponse)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgUpdateGameResponse) Interface() protoreflect.ProtoMessage {
-	return (*MsgUpdateGameResponse)(x)
+func (x *fastReflection_MsgRevealGameResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgRevealGameResponse)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -2653,7 +2623,7 @@ func (x *fastReflection_MsgUpdateGameResponse) Interface() protoreflect.ProtoMes
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgUpdateGameResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgRevealGameResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 }
 
 // Has reports whether a field is populated.
@@ -2667,13 +2637,13 @@ func (x *fastReflection_MsgUpdateGameResponse) Range(f func(protoreflect.FieldDe
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgUpdateGameResponse) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgRevealGameResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGameResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGameResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGameResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2683,13 +2653,13 @@ func (x *fastReflection_MsgUpdateGameResponse) Has(fd protoreflect.FieldDescript
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateGameResponse) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgRevealGameResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGameResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGameResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGameResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2699,13 +2669,13 @@ func (x *fastReflection_MsgUpdateGameResponse) Clear(fd protoreflect.FieldDescri
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgUpdateGameResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgRevealGameResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGameResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGameResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGameResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -2719,13 +2689,13 @@ func (x *fastReflection_MsgUpdateGameResponse) Get(descriptor protoreflect.Field
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateGameResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgRevealGameResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGameResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGameResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGameResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -2739,36 +2709,36 @@ func (x *fastReflection_MsgUpdateGameResponse) Set(fd protoreflect.FieldDescript
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateGameResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgRevealGameResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGameResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGameResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGameResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgUpdateGameResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgRevealGameResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgUpdateGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgRevealGameResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgUpdateGameResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgRevealGameResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgUpdateGameResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgRevealGameResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.MsgUpdateGameResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.MsgRevealGameResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -2776,7 +2746,7 @@ func (x *fastReflection_MsgUpdateGameResponse) WhichOneof(d protoreflect.OneofDe
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgUpdateGameResponse) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgRevealGameResponse) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -2787,7 +2757,7 @@ func (x *fastReflection_MsgUpdateGameResponse) GetUnknown() protoreflect.RawFiel
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgUpdateGameResponse) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgRevealGameResponse) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -2799,7 +2769,7 @@ func (x *fastReflection_MsgUpdateGameResponse) SetUnknown(fields protoreflect.Ra
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgUpdateGameResponse) IsValid() bool {
+func (x *fastReflection_MsgRevealGameResponse) IsValid() bool {
 	return x != nil
 }
 
@@ -2809,9 +2779,9 @@ func (x *fastReflection_MsgUpdateGameResponse) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgUpdateGameResponse) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgRevealGameResponse) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgUpdateGameResponse)
+		x := input.Message.Interface().(*MsgRevealGameResponse)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2833,7 +2803,7 @@ func (x *fastReflection_MsgUpdateGameResponse) ProtoMethods() *protoiface.Method
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgUpdateGameResponse)
+		x := input.Message.Interface().(*MsgRevealGameResponse)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2863,7 +2833,7 @@ func (x *fastReflection_MsgUpdateGameResponse) ProtoMethods() *protoiface.Method
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgUpdateGameResponse)
+		x := input.Message.Interface().(*MsgRevealGameResponse)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -2895,10 +2865,10 @@ func (x *fastReflection_MsgUpdateGameResponse) ProtoMethods() *protoiface.Method
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateGameResponse: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgRevealGameResponse: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgUpdateGameResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgRevealGameResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			default:
@@ -2937,27 +2907,29 @@ func (x *fastReflection_MsgUpdateGameResponse) ProtoMethods() *protoiface.Method
 }
 
 var (
-	md_MsgDeleteGame         protoreflect.MessageDescriptor
-	fd_MsgDeleteGame_creator protoreflect.FieldDescriptor
-	fd_MsgDeleteGame_id      protoreflect.FieldDescriptor
+	md_MsgSubmitGuess             protoreflect.MessageDescriptor
+	fd_MsgSubmitGuess_participant protoreflect.FieldDescriptor
+	fd_MsgSubmitGuess_game_id     protoreflect.FieldDescriptor
+	fd_MsgSubmitGuess_number      protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_gtn_gtn_tx_proto_init()
-	md_MsgDeleteGame = File_gtn_gtn_tx_proto.Messages().ByName("MsgDeleteGame")
-	fd_MsgDeleteGame_creator = md_MsgDeleteGame.Fields().ByName("creator")
-	fd_MsgDeleteGame_id = md_MsgDeleteGame.Fields().ByName("id")
+	md_MsgSubmitGuess = File_gtn_gtn_tx_proto.Messages().ByName("MsgSubmitGuess")
+	fd_MsgSubmitGuess_participant = md_MsgSubmitGuess.Fields().ByName("participant")
+	fd_MsgSubmitGuess_game_id = md_MsgSubmitGuess.Fields().ByName("game_id")
+	fd_MsgSubmitGuess_number = md_MsgSubmitGuess.Fields().ByName("number")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgDeleteGame)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgSubmitGuess)(nil)
 
-type fastReflection_MsgDeleteGame MsgDeleteGame
+type fastReflection_MsgSubmitGuess MsgSubmitGuess
 
-func (x *MsgDeleteGame) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgDeleteGame)(x)
+func (x *MsgSubmitGuess) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgSubmitGuess)(x)
 }
 
-func (x *MsgDeleteGame) slowProtoReflect() protoreflect.Message {
+func (x *MsgSubmitGuess) slowProtoReflect() protoreflect.Message {
 	mi := &file_gtn_gtn_tx_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -2969,43 +2941,43 @@ func (x *MsgDeleteGame) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgDeleteGame_messageType fastReflection_MsgDeleteGame_messageType
-var _ protoreflect.MessageType = fastReflection_MsgDeleteGame_messageType{}
+var _fastReflection_MsgSubmitGuess_messageType fastReflection_MsgSubmitGuess_messageType
+var _ protoreflect.MessageType = fastReflection_MsgSubmitGuess_messageType{}
 
-type fastReflection_MsgDeleteGame_messageType struct{}
+type fastReflection_MsgSubmitGuess_messageType struct{}
 
-func (x fastReflection_MsgDeleteGame_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgDeleteGame)(nil)
+func (x fastReflection_MsgSubmitGuess_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgSubmitGuess)(nil)
 }
-func (x fastReflection_MsgDeleteGame_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgDeleteGame)
+func (x fastReflection_MsgSubmitGuess_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgSubmitGuess)
 }
-func (x fastReflection_MsgDeleteGame_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgDeleteGame
+func (x fastReflection_MsgSubmitGuess_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgSubmitGuess
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgDeleteGame) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgDeleteGame
+func (x *fastReflection_MsgSubmitGuess) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgSubmitGuess
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgDeleteGame) Type() protoreflect.MessageType {
-	return _fastReflection_MsgDeleteGame_messageType
+func (x *fastReflection_MsgSubmitGuess) Type() protoreflect.MessageType {
+	return _fastReflection_MsgSubmitGuess_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgDeleteGame) New() protoreflect.Message {
-	return new(fastReflection_MsgDeleteGame)
+func (x *fastReflection_MsgSubmitGuess) New() protoreflect.Message {
+	return new(fastReflection_MsgSubmitGuess)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgDeleteGame) Interface() protoreflect.ProtoMessage {
-	return (*MsgDeleteGame)(x)
+func (x *fastReflection_MsgSubmitGuess) Interface() protoreflect.ProtoMessage {
+	return (*MsgSubmitGuess)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -3013,16 +2985,22 @@ func (x *fastReflection_MsgDeleteGame) Interface() protoreflect.ProtoMessage {
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgDeleteGame) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.Creator != "" {
-		value := protoreflect.ValueOfString(x.Creator)
-		if !f(fd_MsgDeleteGame_creator, value) {
+func (x *fastReflection_MsgSubmitGuess) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Participant != "" {
+		value := protoreflect.ValueOfString(x.Participant)
+		if !f(fd_MsgSubmitGuess_participant, value) {
 			return
 		}
 	}
-	if x.Id != uint64(0) {
-		value := protoreflect.ValueOfUint64(x.Id)
-		if !f(fd_MsgDeleteGame_id, value) {
+	if x.GameId != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.GameId)
+		if !f(fd_MsgSubmitGuess_game_id, value) {
+			return
+		}
+	}
+	if x.Number != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.Number)
+		if !f(fd_MsgSubmitGuess_number, value) {
 			return
 		}
 	}
@@ -3039,17 +3017,19 @@ func (x *fastReflection_MsgDeleteGame) Range(f func(protoreflect.FieldDescriptor
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgDeleteGame) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgSubmitGuess) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "gtn.gtn.MsgDeleteGame.creator":
-		return x.Creator != ""
-	case "gtn.gtn.MsgDeleteGame.id":
-		return x.Id != uint64(0)
+	case "gtn.gtn.MsgSubmitGuess.participant":
+		return x.Participant != ""
+	case "gtn.gtn.MsgSubmitGuess.game_id":
+		return x.GameId != uint64(0)
+	case "gtn.gtn.MsgSubmitGuess.number":
+		return x.Number != uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuess"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGame does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuess does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3059,17 +3039,19 @@ func (x *fastReflection_MsgDeleteGame) Has(fd protoreflect.FieldDescriptor) bool
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgDeleteGame) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgSubmitGuess) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "gtn.gtn.MsgDeleteGame.creator":
-		x.Creator = ""
-	case "gtn.gtn.MsgDeleteGame.id":
-		x.Id = uint64(0)
+	case "gtn.gtn.MsgSubmitGuess.participant":
+		x.Participant = ""
+	case "gtn.gtn.MsgSubmitGuess.game_id":
+		x.GameId = uint64(0)
+	case "gtn.gtn.MsgSubmitGuess.number":
+		x.Number = uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuess"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGame does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuess does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3079,19 +3061,22 @@ func (x *fastReflection_MsgDeleteGame) Clear(fd protoreflect.FieldDescriptor) {
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgDeleteGame) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgSubmitGuess) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "gtn.gtn.MsgDeleteGame.creator":
-		value := x.Creator
+	case "gtn.gtn.MsgSubmitGuess.participant":
+		value := x.Participant
 		return protoreflect.ValueOfString(value)
-	case "gtn.gtn.MsgDeleteGame.id":
-		value := x.Id
+	case "gtn.gtn.MsgSubmitGuess.game_id":
+		value := x.GameId
+		return protoreflect.ValueOfUint64(value)
+	case "gtn.gtn.MsgSubmitGuess.number":
+		value := x.Number
 		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuess"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGame does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuess does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -3105,17 +3090,19 @@ func (x *fastReflection_MsgDeleteGame) Get(descriptor protoreflect.FieldDescript
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgDeleteGame) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgSubmitGuess) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "gtn.gtn.MsgDeleteGame.creator":
-		x.Creator = value.Interface().(string)
-	case "gtn.gtn.MsgDeleteGame.id":
-		x.Id = value.Uint()
+	case "gtn.gtn.MsgSubmitGuess.participant":
+		x.Participant = value.Interface().(string)
+	case "gtn.gtn.MsgSubmitGuess.game_id":
+		x.GameId = value.Uint()
+	case "gtn.gtn.MsgSubmitGuess.number":
+		x.Number = value.Uint()
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuess"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGame does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuess does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3129,44 +3116,48 @@ func (x *fastReflection_MsgDeleteGame) Set(fd protoreflect.FieldDescriptor, valu
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgDeleteGame) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgSubmitGuess) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "gtn.gtn.MsgDeleteGame.creator":
-		panic(fmt.Errorf("field creator of message gtn.gtn.MsgDeleteGame is not mutable"))
-	case "gtn.gtn.MsgDeleteGame.id":
-		panic(fmt.Errorf("field id of message gtn.gtn.MsgDeleteGame is not mutable"))
+	case "gtn.gtn.MsgSubmitGuess.participant":
+		panic(fmt.Errorf("field participant of message gtn.gtn.MsgSubmitGuess is not mutable"))
+	case "gtn.gtn.MsgSubmitGuess.game_id":
+		panic(fmt.Errorf("field game_id of message gtn.gtn.MsgSubmitGuess is not mutable"))
+	case "gtn.gtn.MsgSubmitGuess.number":
+		panic(fmt.Errorf("field number of message gtn.gtn.MsgSubmitGuess is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuess"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGame does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuess does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgDeleteGame) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgSubmitGuess) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "gtn.gtn.MsgDeleteGame.creator":
+	case "gtn.gtn.MsgSubmitGuess.participant":
 		return protoreflect.ValueOfString("")
-	case "gtn.gtn.MsgDeleteGame.id":
+	case "gtn.gtn.MsgSubmitGuess.game_id":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "gtn.gtn.MsgSubmitGuess.number":
 		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGame"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuess"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGame does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuess does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgDeleteGame) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgSubmitGuess) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.MsgDeleteGame", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.MsgSubmitGuess", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3174,7 +3165,7 @@ func (x *fastReflection_MsgDeleteGame) WhichOneof(d protoreflect.OneofDescriptor
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgDeleteGame) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgSubmitGuess) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -3185,7 +3176,7 @@ func (x *fastReflection_MsgDeleteGame) GetUnknown() protoreflect.RawFields {
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgDeleteGame) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgSubmitGuess) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -3197,7 +3188,7 @@ func (x *fastReflection_MsgDeleteGame) SetUnknown(fields protoreflect.RawFields)
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgDeleteGame) IsValid() bool {
+func (x *fastReflection_MsgSubmitGuess) IsValid() bool {
 	return x != nil
 }
 
@@ -3207,9 +3198,9 @@ func (x *fastReflection_MsgDeleteGame) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgDeleteGame) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgSubmitGuess) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgDeleteGame)
+		x := input.Message.Interface().(*MsgSubmitGuess)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3221,12 +3212,15 @@ func (x *fastReflection_MsgDeleteGame) ProtoMethods() *protoiface.Methods {
 		var n int
 		var l int
 		_ = l
-		l = len(x.Creator)
+		l = len(x.Participant)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		if x.Id != 0 {
-			n += 1 + runtime.Sov(uint64(x.Id))
+		if x.GameId != 0 {
+			n += 1 + runtime.Sov(uint64(x.GameId))
+		}
+		if x.Number != 0 {
+			n += 1 + runtime.Sov(uint64(x.Number))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -3238,7 +3232,7 @@ func (x *fastReflection_MsgDeleteGame) ProtoMethods() *protoiface.Methods {
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgDeleteGame)
+		x := input.Message.Interface().(*MsgSubmitGuess)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3257,15 +3251,20 @@ func (x *fastReflection_MsgDeleteGame) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if x.Id != 0 {
-			i = runtime.EncodeVarint(dAtA, i, uint64(x.Id))
+		if x.Number != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Number))
+			i--
+			dAtA[i] = 0x18
+		}
+		if x.GameId != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.GameId))
 			i--
 			dAtA[i] = 0x10
 		}
-		if len(x.Creator) > 0 {
-			i -= len(x.Creator)
-			copy(dAtA[i:], x.Creator)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Creator)))
+		if len(x.Participant) > 0 {
+			i -= len(x.Participant)
+			copy(dAtA[i:], x.Participant)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Participant)))
 			i--
 			dAtA[i] = 0xa
 		}
@@ -3280,7 +3279,7 @@ func (x *fastReflection_MsgDeleteGame) ProtoMethods() *protoiface.Methods {
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgDeleteGame)
+		x := input.Message.Interface().(*MsgSubmitGuess)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3312,15 +3311,15 @@ func (x *fastReflection_MsgDeleteGame) ProtoMethods() *protoiface.Methods {
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgDeleteGame: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSubmitGuess: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgDeleteGame: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSubmitGuess: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Participant", wireType)
 				}
 				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
@@ -3348,13 +3347,13 @@ func (x *fastReflection_MsgDeleteGame) ProtoMethods() *protoiface.Methods {
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.Creator = string(dAtA[iNdEx:postIndex])
+				x.Participant = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			case 2:
 				if wireType != 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field GameId", wireType)
 				}
-				x.Id = 0
+				x.GameId = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -3364,7 +3363,26 @@ func (x *fastReflection_MsgDeleteGame) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					x.Id |= uint64(b&0x7F) << shift
+					x.GameId |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 3:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Number", wireType)
+				}
+				x.Number = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.Number |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
@@ -3405,23 +3423,23 @@ func (x *fastReflection_MsgDeleteGame) ProtoMethods() *protoiface.Methods {
 }
 
 var (
-	md_MsgDeleteGameResponse protoreflect.MessageDescriptor
+	md_MsgSubmitGuessResponse protoreflect.MessageDescriptor
 )
 
 func init() {
 	file_gtn_gtn_tx_proto_init()
-	md_MsgDeleteGameResponse = File_gtn_gtn_tx_proto.Messages().ByName("MsgDeleteGameResponse")
+	md_MsgSubmitGuessResponse = File_gtn_gtn_tx_proto.Messages().ByName("MsgSubmitGuessResponse")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgDeleteGameResponse)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgSubmitGuessResponse)(nil)
 
-type fastReflection_MsgDeleteGameResponse MsgDeleteGameResponse
+type fastReflection_MsgSubmitGuessResponse MsgSubmitGuessResponse
 
-func (x *MsgDeleteGameResponse) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgDeleteGameResponse)(x)
+func (x *MsgSubmitGuessResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgSubmitGuessResponse)(x)
 }
 
-func (x *MsgDeleteGameResponse) slowProtoReflect() protoreflect.Message {
+func (x *MsgSubmitGuessResponse) slowProtoReflect() protoreflect.Message {
 	mi := &file_gtn_gtn_tx_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3433,43 +3451,43 @@ func (x *MsgDeleteGameResponse) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgDeleteGameResponse_messageType fastReflection_MsgDeleteGameResponse_messageType
-var _ protoreflect.MessageType = fastReflection_MsgDeleteGameResponse_messageType{}
+var _fastReflection_MsgSubmitGuessResponse_messageType fastReflection_MsgSubmitGuessResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgSubmitGuessResponse_messageType{}
 
-type fastReflection_MsgDeleteGameResponse_messageType struct{}
+type fastReflection_MsgSubmitGuessResponse_messageType struct{}
 
-func (x fastReflection_MsgDeleteGameResponse_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgDeleteGameResponse)(nil)
+func (x fastReflection_MsgSubmitGuessResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgSubmitGuessResponse)(nil)
 }
-func (x fastReflection_MsgDeleteGameResponse_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgDeleteGameResponse)
+func (x fastReflection_MsgSubmitGuessResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgSubmitGuessResponse)
 }
-func (x fastReflection_MsgDeleteGameResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgDeleteGameResponse
+func (x fastReflection_MsgSubmitGuessResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgSubmitGuessResponse
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgDeleteGameResponse) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgDeleteGameResponse
+func (x *fastReflection_MsgSubmitGuessResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgSubmitGuessResponse
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgDeleteGameResponse) Type() protoreflect.MessageType {
-	return _fastReflection_MsgDeleteGameResponse_messageType
+func (x *fastReflection_MsgSubmitGuessResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgSubmitGuessResponse_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgDeleteGameResponse) New() protoreflect.Message {
-	return new(fastReflection_MsgDeleteGameResponse)
+func (x *fastReflection_MsgSubmitGuessResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgSubmitGuessResponse)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgDeleteGameResponse) Interface() protoreflect.ProtoMessage {
-	return (*MsgDeleteGameResponse)(x)
+func (x *fastReflection_MsgSubmitGuessResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgSubmitGuessResponse)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -3477,7 +3495,7 @@ func (x *fastReflection_MsgDeleteGameResponse) Interface() protoreflect.ProtoMes
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgDeleteGameResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgSubmitGuessResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 }
 
 // Has reports whether a field is populated.
@@ -3491,13 +3509,13 @@ func (x *fastReflection_MsgDeleteGameResponse) Range(f func(protoreflect.FieldDe
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgDeleteGameResponse) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgSubmitGuessResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuessResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGameResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuessResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3507,13 +3525,13 @@ func (x *fastReflection_MsgDeleteGameResponse) Has(fd protoreflect.FieldDescript
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgDeleteGameResponse) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgSubmitGuessResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuessResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGameResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuessResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3523,13 +3541,13 @@ func (x *fastReflection_MsgDeleteGameResponse) Clear(fd protoreflect.FieldDescri
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgDeleteGameResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgSubmitGuessResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuessResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGameResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuessResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -3543,13 +3561,13 @@ func (x *fastReflection_MsgDeleteGameResponse) Get(descriptor protoreflect.Field
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgDeleteGameResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgSubmitGuessResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuessResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGameResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuessResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -3563,36 +3581,36 @@ func (x *fastReflection_MsgDeleteGameResponse) Set(fd protoreflect.FieldDescript
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgDeleteGameResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgSubmitGuessResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuessResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGameResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuessResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgDeleteGameResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgSubmitGuessResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgDeleteGameResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: gtn.gtn.MsgSubmitGuessResponse"))
 		}
-		panic(fmt.Errorf("message gtn.gtn.MsgDeleteGameResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message gtn.gtn.MsgSubmitGuessResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgDeleteGameResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgSubmitGuessResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.MsgDeleteGameResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in gtn.gtn.MsgSubmitGuessResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -3600,7 +3618,7 @@ func (x *fastReflection_MsgDeleteGameResponse) WhichOneof(d protoreflect.OneofDe
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgDeleteGameResponse) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgSubmitGuessResponse) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -3611,7 +3629,7 @@ func (x *fastReflection_MsgDeleteGameResponse) GetUnknown() protoreflect.RawFiel
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgDeleteGameResponse) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgSubmitGuessResponse) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -3623,7 +3641,7 @@ func (x *fastReflection_MsgDeleteGameResponse) SetUnknown(fields protoreflect.Ra
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgDeleteGameResponse) IsValid() bool {
+func (x *fastReflection_MsgSubmitGuessResponse) IsValid() bool {
 	return x != nil
 }
 
@@ -3633,9 +3651,9 @@ func (x *fastReflection_MsgDeleteGameResponse) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgDeleteGameResponse) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgSubmitGuessResponse) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgDeleteGameResponse)
+		x := input.Message.Interface().(*MsgSubmitGuessResponse)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3657,7 +3675,7 @@ func (x *fastReflection_MsgDeleteGameResponse) ProtoMethods() *protoiface.Method
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgDeleteGameResponse)
+		x := input.Message.Interface().(*MsgSubmitGuessResponse)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3687,7 +3705,7 @@ func (x *fastReflection_MsgDeleteGameResponse) ProtoMethods() *protoiface.Method
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgDeleteGameResponse)
+		x := input.Message.Interface().(*MsgSubmitGuessResponse)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -3719,10 +3737,10 @@ func (x *fastReflection_MsgDeleteGameResponse) ProtoMethods() *protoiface.Method
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgDeleteGameResponse: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSubmitGuessResponse: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgDeleteGameResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSubmitGuessResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			default:
@@ -3852,11 +3870,11 @@ type MsgCreateGame struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Creator        string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CommitmentHash string `protobuf:"bytes,2,opt,name=commitmentHash,proto3" json:"commitmentHash,omitempty"`
-	Duration       uint64 `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
-	EntryFee       uint64 `protobuf:"varint,4,opt,name=entryFee,proto3" json:"entryFee,omitempty"`
-	Reward         uint64 `protobuf:"varint,5,opt,name=reward,proto3" json:"reward,omitempty"`
+	Creator        string        `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	CommitmentHash []byte        `protobuf:"bytes,2,opt,name=commitment_hash,json=commitmentHash,proto3" json:"commitment_hash,omitempty"`
+	Duration       int64         `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
+	EntryFee       *v1beta1.Coin `protobuf:"bytes,5,opt,name=entry_fee,json=entryFee,proto3" json:"entry_fee,omitempty"`
+	Reward         *v1beta1.Coin `protobuf:"bytes,6,opt,name=reward,proto3" json:"reward,omitempty"`
 }
 
 func (x *MsgCreateGame) Reset() {
@@ -3886,32 +3904,32 @@ func (x *MsgCreateGame) GetCreator() string {
 	return ""
 }
 
-func (x *MsgCreateGame) GetCommitmentHash() string {
+func (x *MsgCreateGame) GetCommitmentHash() []byte {
 	if x != nil {
 		return x.CommitmentHash
 	}
-	return ""
+	return nil
 }
 
-func (x *MsgCreateGame) GetDuration() uint64 {
+func (x *MsgCreateGame) GetDuration() int64 {
 	if x != nil {
 		return x.Duration
 	}
 	return 0
 }
 
-func (x *MsgCreateGame) GetEntryFee() uint64 {
+func (x *MsgCreateGame) GetEntryFee() *v1beta1.Coin {
 	if x != nil {
 		return x.EntryFee
 	}
-	return 0
+	return nil
 }
 
-func (x *MsgCreateGame) GetReward() uint64 {
+func (x *MsgCreateGame) GetReward() *v1beta1.Coin {
 	if x != nil {
 		return x.Reward
 	}
-	return 0
+	return nil
 }
 
 type MsgCreateGameResponse struct {
@@ -3949,21 +3967,19 @@ func (x *MsgCreateGameResponse) GetId() uint64 {
 	return 0
 }
 
-type MsgUpdateGame struct {
+type MsgRevealGame struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Creator        string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id             uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
-	CommitmentHash string `protobuf:"bytes,3,opt,name=commitmentHash,proto3" json:"commitmentHash,omitempty"`
-	Duration       uint64 `protobuf:"varint,4,opt,name=duration,proto3" json:"duration,omitempty"`
-	EntryFee       uint64 `protobuf:"varint,5,opt,name=entryFee,proto3" json:"entryFee,omitempty"`
-	Reward         uint64 `protobuf:"varint,6,opt,name=reward,proto3" json:"reward,omitempty"`
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	GameId  uint64 `protobuf:"varint,2,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+	Salt    []byte `protobuf:"bytes,3,opt,name=salt,proto3" json:"salt,omitempty"`
+	Number  uint64 `protobuf:"varint,4,opt,name=number,proto3" json:"number,omitempty"`
 }
 
-func (x *MsgUpdateGame) Reset() {
-	*x = MsgUpdateGame{}
+func (x *MsgRevealGame) Reset() {
+	*x = MsgRevealGame{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_gtn_gtn_tx_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -3971,67 +3987,53 @@ func (x *MsgUpdateGame) Reset() {
 	}
 }
 
-func (x *MsgUpdateGame) String() string {
+func (x *MsgRevealGame) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgUpdateGame) ProtoMessage() {}
+func (*MsgRevealGame) ProtoMessage() {}
 
-// Deprecated: Use MsgUpdateGame.ProtoReflect.Descriptor instead.
-func (*MsgUpdateGame) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgRevealGame.ProtoReflect.Descriptor instead.
+func (*MsgRevealGame) Descriptor() ([]byte, []int) {
 	return file_gtn_gtn_tx_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *MsgUpdateGame) GetCreator() string {
+func (x *MsgRevealGame) GetCreator() string {
 	if x != nil {
 		return x.Creator
 	}
 	return ""
 }
 
-func (x *MsgUpdateGame) GetId() uint64 {
+func (x *MsgRevealGame) GetGameId() uint64 {
 	if x != nil {
-		return x.Id
+		return x.GameId
 	}
 	return 0
 }
 
-func (x *MsgUpdateGame) GetCommitmentHash() string {
+func (x *MsgRevealGame) GetSalt() []byte {
 	if x != nil {
-		return x.CommitmentHash
+		return x.Salt
 	}
-	return ""
+	return nil
 }
 
-func (x *MsgUpdateGame) GetDuration() uint64 {
+func (x *MsgRevealGame) GetNumber() uint64 {
 	if x != nil {
-		return x.Duration
-	}
-	return 0
-}
-
-func (x *MsgUpdateGame) GetEntryFee() uint64 {
-	if x != nil {
-		return x.EntryFee
+		return x.Number
 	}
 	return 0
 }
 
-func (x *MsgUpdateGame) GetReward() uint64 {
-	if x != nil {
-		return x.Reward
-	}
-	return 0
-}
-
-type MsgUpdateGameResponse struct {
+type MsgRevealGameResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *MsgUpdateGameResponse) Reset() {
-	*x = MsgUpdateGameResponse{}
+func (x *MsgRevealGameResponse) Reset() {
+	*x = MsgRevealGameResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_gtn_gtn_tx_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -4039,28 +4041,29 @@ func (x *MsgUpdateGameResponse) Reset() {
 	}
 }
 
-func (x *MsgUpdateGameResponse) String() string {
+func (x *MsgRevealGameResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgUpdateGameResponse) ProtoMessage() {}
+func (*MsgRevealGameResponse) ProtoMessage() {}
 
-// Deprecated: Use MsgUpdateGameResponse.ProtoReflect.Descriptor instead.
-func (*MsgUpdateGameResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgRevealGameResponse.ProtoReflect.Descriptor instead.
+func (*MsgRevealGameResponse) Descriptor() ([]byte, []int) {
 	return file_gtn_gtn_tx_proto_rawDescGZIP(), []int{5}
 }
 
-type MsgDeleteGame struct {
+type MsgSubmitGuess struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	Participant string `protobuf:"bytes,1,opt,name=participant,proto3" json:"participant,omitempty"`
+	GameId      uint64 `protobuf:"varint,2,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+	Number      uint64 `protobuf:"varint,3,opt,name=number,proto3" json:"number,omitempty"`
 }
 
-func (x *MsgDeleteGame) Reset() {
-	*x = MsgDeleteGame{}
+func (x *MsgSubmitGuess) Reset() {
+	*x = MsgSubmitGuess{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_gtn_gtn_tx_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -4068,39 +4071,46 @@ func (x *MsgDeleteGame) Reset() {
 	}
 }
 
-func (x *MsgDeleteGame) String() string {
+func (x *MsgSubmitGuess) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgDeleteGame) ProtoMessage() {}
+func (*MsgSubmitGuess) ProtoMessage() {}
 
-// Deprecated: Use MsgDeleteGame.ProtoReflect.Descriptor instead.
-func (*MsgDeleteGame) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgSubmitGuess.ProtoReflect.Descriptor instead.
+func (*MsgSubmitGuess) Descriptor() ([]byte, []int) {
 	return file_gtn_gtn_tx_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *MsgDeleteGame) GetCreator() string {
+func (x *MsgSubmitGuess) GetParticipant() string {
 	if x != nil {
-		return x.Creator
+		return x.Participant
 	}
 	return ""
 }
 
-func (x *MsgDeleteGame) GetId() uint64 {
+func (x *MsgSubmitGuess) GetGameId() uint64 {
 	if x != nil {
-		return x.Id
+		return x.GameId
 	}
 	return 0
 }
 
-type MsgDeleteGameResponse struct {
+func (x *MsgSubmitGuess) GetNumber() uint64 {
+	if x != nil {
+		return x.Number
+	}
+	return 0
+}
+
+type MsgSubmitGuessResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *MsgDeleteGameResponse) Reset() {
-	*x = MsgDeleteGameResponse{}
+func (x *MsgSubmitGuessResponse) Reset() {
+	*x = MsgSubmitGuessResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_gtn_gtn_tx_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -4108,14 +4118,14 @@ func (x *MsgDeleteGameResponse) Reset() {
 	}
 }
 
-func (x *MsgDeleteGameResponse) String() string {
+func (x *MsgSubmitGuessResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgDeleteGameResponse) ProtoMessage() {}
+func (*MsgSubmitGuessResponse) ProtoMessage() {}
 
-// Deprecated: Use MsgDeleteGameResponse.ProtoReflect.Descriptor instead.
-func (*MsgDeleteGameResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgSubmitGuessResponse.ProtoReflect.Descriptor instead.
+func (*MsgSubmitGuessResponse) Descriptor() ([]byte, []int) {
 	return file_gtn_gtn_tx_proto_rawDescGZIP(), []int{7}
 }
 
@@ -4128,83 +4138,89 @@ var file_gtn_gtn_tx_proto_rawDesc = []byte{
 	0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x6d, 0x73, 0x67, 0x2f, 0x76, 0x31, 0x2f, 0x6d, 0x73,
 	0x67, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x19, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x5f,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x1a, 0x1e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x62, 0x61, 0x73, 0x65, 0x2f,
+	0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2f, 0x63, 0x6f, 0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f,
 	0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x14, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74,
 	0x6e, 0x2f, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x12,
 	0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x61, 0x6d, 0x65, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x22, 0xab, 0x01, 0x0a, 0x0f, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x36, 0x0a, 0x09, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72,
-	0x69, 0x74, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x18, 0xd2, 0xb4, 0x2d, 0x14, 0x63,
-	0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x53, 0x74, 0x72,
-	0x69, 0x6e, 0x67, 0x52, 0x09, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x69, 0x74, 0x79, 0x12, 0x32,
-	0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f,
-	0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42,
-	0x09, 0xc8, 0xde, 0x1f, 0x00, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61,
-	0x6d, 0x73, 0x3a, 0x2c, 0x82, 0xe7, 0xb0, 0x2a, 0x09, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x69,
-	0x74, 0x79, 0x8a, 0xe7, 0xb0, 0x2a, 0x19, 0x67, 0x74, 0x6e, 0x2f, 0x78, 0x2f, 0x67, 0x74, 0x6e,
-	0x2f, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73,
-	0x22, 0x19, 0x0a, 0x17, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72,
-	0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0xaf, 0x01, 0x0a, 0x0d,
-	0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x12, 0x18, 0x0a,
-	0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07,
-	0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6d, 0x6d, 0x69,
-	0x74, 0x6d, 0x65, 0x6e, 0x74, 0x48, 0x61, 0x73, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x0e, 0x63, 0x6f, 0x6d, 0x6d, 0x69, 0x74, 0x6d, 0x65, 0x6e, 0x74, 0x48, 0x61, 0x73, 0x68, 0x12,
-	0x1a, 0x0a, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28,
-	0x04, 0x52, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x65,
-	0x6e, 0x74, 0x72, 0x79, 0x46, 0x65, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x65,
-	0x6e, 0x74, 0x72, 0x79, 0x46, 0x65, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x77, 0x61, 0x72,
-	0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x3a,
-	0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x27, 0x0a,
-	0x15, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22, 0xbf, 0x01, 0x0a, 0x0d, 0x4d, 0x73, 0x67, 0x55, 0x70,
-	0x64, 0x61, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61,
-	0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74,
-	0x6f, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02,
-	0x69, 0x64, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6d, 0x6d, 0x69, 0x74, 0x6d, 0x65, 0x6e, 0x74,
-	0x48, 0x61, 0x73, 0x68, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6f, 0x6d, 0x6d,
-	0x69, 0x74, 0x6d, 0x65, 0x6e, 0x74, 0x48, 0x61, 0x73, 0x68, 0x12, 0x1a, 0x0a, 0x08, 0x64, 0x75,
-	0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x64, 0x75,
-	0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x6e, 0x74, 0x72, 0x79, 0x46,
-	0x65, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x08, 0x65, 0x6e, 0x74, 0x72, 0x79, 0x46,
-	0x65, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x18, 0x06, 0x20, 0x01,
-	0x28, 0x04, 0x52, 0x06, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a,
-	0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x17, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x55,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x22, 0x47, 0x0a, 0x0d, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x47, 0x61,
+	0x74, 0x6f, 0x1a, 0x13, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x75, 0x65, 0x73,
+	0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xab, 0x01, 0x0a, 0x0f, 0x4d, 0x73, 0x67, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x36, 0x0a, 0x09, 0x61,
+	0x75, 0x74, 0x68, 0x6f, 0x72, 0x69, 0x74, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x18,
+	0xd2, 0xb4, 0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72, 0x65,
+	0x73, 0x73, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x09, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72,
+	0x69, 0x74, 0x79, 0x12, 0x32, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x50, 0x61,
+	0x72, 0x61, 0x6d, 0x73, 0x42, 0x09, 0xc8, 0xde, 0x1f, 0x00, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52,
+	0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x3a, 0x2c, 0x82, 0xe7, 0xb0, 0x2a, 0x09, 0x61, 0x75,
+	0x74, 0x68, 0x6f, 0x72, 0x69, 0x74, 0x79, 0x8a, 0xe7, 0xb0, 0x2a, 0x19, 0x67, 0x74, 0x6e, 0x2f,
+	0x78, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50,
+	0x61, 0x72, 0x61, 0x6d, 0x73, 0x22, 0x19, 0x0a, 0x17, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0xf3, 0x01, 0x0a, 0x0d, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x61,
 	0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x0e, 0x0a, 0x02,
-	0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x3a, 0x0c, 0x82, 0xe7,
-	0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x17, 0x0a, 0x15, 0x4d, 0x73,
-	0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x32, 0xaa, 0x02, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x4a, 0x0a, 0x0c, 0x55,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x18, 0x2e, 0x67, 0x74,
-	0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50,
-	0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x20, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e,
-	0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x44, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x47, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e,
-	0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x1a, 0x1e, 0x2e,
-	0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x44, 0x0a,
-	0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x2e, 0x67, 0x74,
-	0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x47,
-	0x61, 0x6d, 0x65, 0x1a, 0x1e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73,
-	0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x44, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x47, 0x61, 0x6d,
-	0x65, 0x12, 0x16, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x44,
-	0x65, 0x6c, 0x65, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x1a, 0x1e, 0x2e, 0x67, 0x74, 0x6e, 0x2e,
-	0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x47, 0x61, 0x6d,
-	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01,
-	0x42, 0x6d, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x42,
-	0x07, 0x54, 0x78, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x18, 0x63, 0x6f, 0x73, 0x6d,
-	0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x67, 0x74, 0x6e,
-	0x2f, 0x67, 0x74, 0x6e, 0xa2, 0x02, 0x03, 0x47, 0x47, 0x58, 0xaa, 0x02, 0x07, 0x47, 0x74, 0x6e,
-	0x2e, 0x47, 0x74, 0x6e, 0xca, 0x02, 0x07, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e, 0xe2, 0x02,
-	0x13, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61,
-	0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x08, 0x47, 0x74, 0x6e, 0x3a, 0x3a, 0x47, 0x74, 0x6e, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x27, 0x0a, 0x0f,
+	0x63, 0x6f, 0x6d, 0x6d, 0x69, 0x74, 0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x68, 0x61, 0x73, 0x68, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x0e, 0x63, 0x6f, 0x6d, 0x6d, 0x69, 0x74, 0x6d, 0x65, 0x6e,
+	0x74, 0x48, 0x61, 0x73, 0x68, 0x12, 0x1a, 0x0a, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x12, 0x3c, 0x0a, 0x09, 0x65, 0x6e, 0x74, 0x72, 0x79, 0x5f, 0x66, 0x65, 0x65, 0x18, 0x05,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61,
+	0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42,
+	0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x08, 0x65, 0x6e, 0x74, 0x72, 0x79, 0x46, 0x65, 0x65, 0x12,
+	0x37, 0x0a, 0x06, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31,
+	0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00,
+	0x52, 0x06, 0x72, 0x65, 0x77, 0x61, 0x72, 0x64, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63,
+	0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x27, 0x0a, 0x15, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x22,
+	0x7c, 0x0a, 0x0d, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x76, 0x65, 0x61, 0x6c, 0x47, 0x61, 0x6d, 0x65,
+	0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x17, 0x0a, 0x07, 0x67, 0x61,
+	0x6d, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x67, 0x61, 0x6d,
+	0x65, 0x49, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x61, 0x6c, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x0c, 0x52, 0x04, 0x73, 0x61, 0x6c, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65,
+	0x72, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x3a,
+	0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x17, 0x0a,
+	0x15, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x76, 0x65, 0x61, 0x6c, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x75, 0x0a, 0x0e, 0x4d, 0x73, 0x67, 0x53, 0x75, 0x62,
+	0x6d, 0x69, 0x74, 0x47, 0x75, 0x65, 0x73, 0x73, 0x12, 0x20, 0x0a, 0x0b, 0x70, 0x61, 0x72, 0x74,
+	0x69, 0x63, 0x69, 0x70, 0x61, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x70,
+	0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x6e, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x67, 0x61,
+	0x6d, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x67, 0x61, 0x6d,
+	0x65, 0x49, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x3a, 0x10, 0x82, 0xe7, 0xb0,
+	0x2a, 0x0b, 0x70, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x6e, 0x74, 0x22, 0x18, 0x0a,
+	0x16, 0x4d, 0x73, 0x67, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x47, 0x75, 0x65, 0x73, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xad, 0x02, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12,
+	0x4a, 0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12,
+	0x18, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x20, 0x2e, 0x67, 0x74, 0x6e, 0x2e,
+	0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72,
+	0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x44, 0x0a, 0x0a, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x2e, 0x67, 0x74, 0x6e, 0x2e,
+	0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x61, 0x6d,
+	0x65, 0x1a, 0x1e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x44, 0x0a, 0x0a, 0x52, 0x65, 0x76, 0x65, 0x61, 0x6c, 0x47, 0x61, 0x6d, 0x65, 0x12,
+	0x16, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x76,
+	0x65, 0x61, 0x6c, 0x47, 0x61, 0x6d, 0x65, 0x1a, 0x1e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74,
+	0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x76, 0x65, 0x61, 0x6c, 0x47, 0x61, 0x6d, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x47, 0x0a, 0x0b, 0x53, 0x75, 0x62, 0x6d, 0x69,
+	0x74, 0x47, 0x75, 0x65, 0x73, 0x73, 0x12, 0x17, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e,
+	0x2e, 0x4d, 0x73, 0x67, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x47, 0x75, 0x65, 0x73, 0x73, 0x1a,
+	0x1f, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x75, 0x62,
+	0x6d, 0x69, 0x74, 0x47, 0x75, 0x65, 0x73, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0x6d, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x2e, 0x67,
+	0x74, 0x6e, 0x2e, 0x67, 0x74, 0x6e, 0x42, 0x07, 0x54, 0x78, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50,
+	0x01, 0x5a, 0x18, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f,
+	0x61, 0x70, 0x69, 0x2f, 0x67, 0x74, 0x6e, 0x2f, 0x67, 0x74, 0x6e, 0xa2, 0x02, 0x03, 0x47, 0x47,
+	0x58, 0xaa, 0x02, 0x07, 0x47, 0x74, 0x6e, 0x2e, 0x47, 0x74, 0x6e, 0xca, 0x02, 0x07, 0x47, 0x74,
+	0x6e, 0x5c, 0x47, 0x74, 0x6e, 0xe2, 0x02, 0x13, 0x47, 0x74, 0x6e, 0x5c, 0x47, 0x74, 0x6e, 0x5c,
+	0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x08, 0x47, 0x74,
+	0x6e, 0x3a, 0x3a, 0x47, 0x74, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -4225,27 +4241,30 @@ var file_gtn_gtn_tx_proto_goTypes = []interface{}{
 	(*MsgUpdateParamsResponse)(nil), // 1: gtn.gtn.MsgUpdateParamsResponse
 	(*MsgCreateGame)(nil),           // 2: gtn.gtn.MsgCreateGame
 	(*MsgCreateGameResponse)(nil),   // 3: gtn.gtn.MsgCreateGameResponse
-	(*MsgUpdateGame)(nil),           // 4: gtn.gtn.MsgUpdateGame
-	(*MsgUpdateGameResponse)(nil),   // 5: gtn.gtn.MsgUpdateGameResponse
-	(*MsgDeleteGame)(nil),           // 6: gtn.gtn.MsgDeleteGame
-	(*MsgDeleteGameResponse)(nil),   // 7: gtn.gtn.MsgDeleteGameResponse
+	(*MsgRevealGame)(nil),           // 4: gtn.gtn.MsgRevealGame
+	(*MsgRevealGameResponse)(nil),   // 5: gtn.gtn.MsgRevealGameResponse
+	(*MsgSubmitGuess)(nil),          // 6: gtn.gtn.MsgSubmitGuess
+	(*MsgSubmitGuessResponse)(nil),  // 7: gtn.gtn.MsgSubmitGuessResponse
 	(*Params)(nil),                  // 8: gtn.gtn.Params
+	(*v1beta1.Coin)(nil),            // 9: cosmos.base.v1beta1.Coin
 }
 var file_gtn_gtn_tx_proto_depIdxs = []int32{
 	8, // 0: gtn.gtn.MsgUpdateParams.params:type_name -> gtn.gtn.Params
-	0, // 1: gtn.gtn.Msg.UpdateParams:input_type -> gtn.gtn.MsgUpdateParams
-	2, // 2: gtn.gtn.Msg.CreateGame:input_type -> gtn.gtn.MsgCreateGame
-	4, // 3: gtn.gtn.Msg.UpdateGame:input_type -> gtn.gtn.MsgUpdateGame
-	6, // 4: gtn.gtn.Msg.DeleteGame:input_type -> gtn.gtn.MsgDeleteGame
-	1, // 5: gtn.gtn.Msg.UpdateParams:output_type -> gtn.gtn.MsgUpdateParamsResponse
-	3, // 6: gtn.gtn.Msg.CreateGame:output_type -> gtn.gtn.MsgCreateGameResponse
-	5, // 7: gtn.gtn.Msg.UpdateGame:output_type -> gtn.gtn.MsgUpdateGameResponse
-	7, // 8: gtn.gtn.Msg.DeleteGame:output_type -> gtn.gtn.MsgDeleteGameResponse
-	5, // [5:9] is the sub-list for method output_type
-	1, // [1:5] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	9, // 1: gtn.gtn.MsgCreateGame.entry_fee:type_name -> cosmos.base.v1beta1.Coin
+	9, // 2: gtn.gtn.MsgCreateGame.reward:type_name -> cosmos.base.v1beta1.Coin
+	0, // 3: gtn.gtn.Msg.UpdateParams:input_type -> gtn.gtn.MsgUpdateParams
+	2, // 4: gtn.gtn.Msg.CreateGame:input_type -> gtn.gtn.MsgCreateGame
+	4, // 5: gtn.gtn.Msg.RevealGame:input_type -> gtn.gtn.MsgRevealGame
+	6, // 6: gtn.gtn.Msg.SubmitGuess:input_type -> gtn.gtn.MsgSubmitGuess
+	1, // 7: gtn.gtn.Msg.UpdateParams:output_type -> gtn.gtn.MsgUpdateParamsResponse
+	3, // 8: gtn.gtn.Msg.CreateGame:output_type -> gtn.gtn.MsgCreateGameResponse
+	5, // 9: gtn.gtn.Msg.RevealGame:output_type -> gtn.gtn.MsgRevealGameResponse
+	7, // 10: gtn.gtn.Msg.SubmitGuess:output_type -> gtn.gtn.MsgSubmitGuessResponse
+	7, // [7:11] is the sub-list for method output_type
+	3, // [3:7] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_gtn_gtn_tx_proto_init() }
@@ -4255,6 +4274,7 @@ func file_gtn_gtn_tx_proto_init() {
 	}
 	file_gtn_gtn_params_proto_init()
 	file_gtn_gtn_game_proto_init()
+	file_gtn_gtn_guess_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_gtn_gtn_tx_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MsgUpdateParams); i {
@@ -4305,7 +4325,7 @@ func file_gtn_gtn_tx_proto_init() {
 			}
 		}
 		file_gtn_gtn_tx_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgUpdateGame); i {
+			switch v := v.(*MsgRevealGame); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4317,7 +4337,7 @@ func file_gtn_gtn_tx_proto_init() {
 			}
 		}
 		file_gtn_gtn_tx_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgUpdateGameResponse); i {
+			switch v := v.(*MsgRevealGameResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4329,7 +4349,7 @@ func file_gtn_gtn_tx_proto_init() {
 			}
 		}
 		file_gtn_gtn_tx_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgDeleteGame); i {
+			switch v := v.(*MsgSubmitGuess); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4341,7 +4361,7 @@ func file_gtn_gtn_tx_proto_init() {
 			}
 		}
 		file_gtn_gtn_tx_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgDeleteGameResponse); i {
+			switch v := v.(*MsgSubmitGuessResponse); i {
 			case 0:
 				return &v.state
 			case 1:

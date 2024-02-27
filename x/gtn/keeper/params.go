@@ -31,3 +31,33 @@ func (k Keeper) SetParams(ctx context.Context, params types.Params) error {
 
 	return nil
 }
+
+func (k Keeper) GetMaxPlayersPerGame(ctx context.Context) uint64 {
+	return k.GetParams(ctx).MaxPlayersPerGame
+}
+
+func (k Keeper) SetMaxPlayersPerGame(ctx context.Context, maxPlayersPerGame uint64) {
+	params := k.GetParams(ctx)
+	params.MaxPlayersPerGame = maxPlayersPerGame
+	k.SetParams(ctx, params)
+}
+
+func (k Keeper) GetMinDistanceToWin(ctx context.Context) uint64 {
+	return k.GetParams(ctx).MinDistanceToWin
+}
+
+func (k Keeper) SetMinDistanceToWin(ctx context.Context, minDistanceToWin uint64) {
+	params := k.GetParams(ctx)
+	params.MinDistanceToWin = minDistanceToWin
+	k.SetParams(ctx, params)
+}
+
+func (k Keeper) GetGameExpirationDuration(ctx context.Context) int64 {
+	return k.GetParams(ctx).GameExpirationDuration
+}
+
+func (k Keeper) SetGameExpirationDuration(ctx context.Context, gameExpirationDuration int64) {
+	params := k.GetParams(ctx)
+	params.GameExpirationDuration = gameExpirationDuration
+	k.SetParams(ctx, params)
+}
