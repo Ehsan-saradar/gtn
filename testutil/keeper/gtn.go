@@ -15,6 +15,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/stretchr/testify/require"
+	gomock "go.uber.org/mock/gomock"
 
 	"gtn/x/gtn/keeper"
 	"gtn/x/gtn/types"
@@ -36,7 +37,7 @@ func GtnKeeper(t testing.TB) (keeper.Keeper, sdk.Context) {
 		cdc,
 		runtime.NewKVStoreService(storeKey),
 		authority.String(),
-		nil,
+		getBankKeeper(t),
 		log.NewNopLogger(),
 	)
 
@@ -46,4 +47,13 @@ func GtnKeeper(t testing.TB) (keeper.Keeper, sdk.Context) {
 	k.SetParams(ctx, types.DefaultParams())
 
 	return k, ctx
+}
+
+func getBankKeeper(t testing.TB) *MockBankKeeper {
+	ctrl := gomock.NewController(t)
+	bk := NewMockBankKeeper(ctrl)
+
+	bk.EXPECT().SendCoinsFromAccountToModule(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil).AnyTimes()
+	bk.EXPECT().SendCoinsFromModuleToAccount(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).Return(nil).AnyTimes()
+	return bk
 }

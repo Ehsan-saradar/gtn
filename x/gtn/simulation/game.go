@@ -43,7 +43,7 @@ func SimulateMsgCreateGame(
 	}
 }
 
-func SimulateMsgUpdateGame(
+func SimulateMsgRevealGame(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
@@ -53,7 +53,7 @@ func SimulateMsgUpdateGame(
 		var (
 			simAccount = simtypes.Account{}
 			game       = types.Game{}
-			msg        = &types.MsgUpdateGame{}
+			msg        = &types.MsgRevealGame{}
 			allGame    = k.GetAllGame(ctx)
 			found      = false
 		)
@@ -68,51 +68,7 @@ func SimulateMsgUpdateGame(
 			return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "game creator not found"), nil, nil
 		}
 		msg.Creator = simAccount.Address.String()
-		msg.Id = game.Id
-
-		txCtx := simulation.OperationInput{
-			R:               r,
-			App:             app,
-			TxGen:           moduletestutil.MakeTestEncodingConfig().TxConfig,
-			Cdc:             nil,
-			Msg:             msg,
-			Context:         ctx,
-			SimAccount:      simAccount,
-			ModuleName:      types.ModuleName,
-			CoinsSpentInMsg: sdk.NewCoins(),
-			AccountKeeper:   ak,
-			Bankkeeper:      bk,
-		}
-		return simulation.GenAndDeliverTxWithRandFees(txCtx)
-	}
-}
-
-func SimulateMsgDeleteGame(
-	ak types.AccountKeeper,
-	bk types.BankKeeper,
-	k keeper.Keeper,
-) simtypes.Operation {
-	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
-	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
-		var (
-			simAccount = simtypes.Account{}
-			game       = types.Game{}
-			msg        = &types.MsgUpdateGame{}
-			allGame    = k.GetAllGame(ctx)
-			found      = false
-		)
-		for _, obj := range allGame {
-			simAccount, found = FindAccount(accs, obj.Creator)
-			if found {
-				game = obj
-				break
-			}
-		}
-		if !found {
-			return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "game creator not found"), nil, nil
-		}
-		msg.Creator = simAccount.Address.String()
-		msg.Id = game.Id
+		msg.GameId = game.Id
 
 		txCtx := simulation.OperationInput{
 			R:               r,

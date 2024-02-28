@@ -9,7 +9,6 @@ import (
 // x/gtn module sentinel errors
 var (
 	ErrInvalidSigner       = sdkerrors.Register(ModuleName, 1100, "expected gov account as only signer for proposal message")
-	ErrUnauthorized        = sdkerrors.Register(ModuleName, 1101, "unauthorized")
 	ErrGameNotFound        = sdkerrors.Register(ModuleName, 1102, "game not found")
 	ErrInvalidCommitment   = sdkerrors.Register(ModuleName, 1103, "invalid commitment")
 	ErrGameAlreadyRevealed = sdkerrors.Register(ModuleName, 1104, "game already revealed")

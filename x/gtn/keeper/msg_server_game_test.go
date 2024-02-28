@@ -7,6 +7,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
 
+	"gtn/testutil/sample"
 	"gtn/x/gtn/types"
 )
 
@@ -14,16 +15,17 @@ func TestGameMsgServerCreate(t *testing.T) {
 	_, srv, ctx := setupMsgServer(t)
 	wctx := sdk.UnwrapSDKContext(ctx)
 
-	creator := "A"
+	creator := sample.AccAddress()
+	reward := sample.Coin()
 	for i := 0; i < 5; i++ {
-		resp, err := srv.CreateGame(wctx, &types.MsgCreateGame{Creator: creator})
+		resp, err := srv.CreateGame(wctx, &types.MsgCreateGame{Creator: creator, Reward: reward})
 		require.NoError(t, err)
 		require.Equal(t, i, int(resp.Id))
 	}
 }
 
 func TestGameMsgServerReveal(t *testing.T) {
-	creator := "A"
+	creator := sample.AccAddress()
 
 	tests := []struct {
 		desc    string
@@ -31,8 +33,10 @@ func TestGameMsgServerReveal(t *testing.T) {
 		err     error
 	}{
 		{
-			desc:    "Completed",
-			request: &types.MsgRevealGame{Creator: creator},
+			desc: "Completed",
+			request: &types.MsgRevealGame{
+				Creator: creator,
+			},
 		},
 		{
 			desc:    "Unauthorized",
@@ -42,7 +46,7 @@ func TestGameMsgServerReveal(t *testing.T) {
 		{
 			desc:    "Unauthorized",
 			request: &types.MsgRevealGame{Creator: creator, GameId: 10},
-			err:     sdkerrors.ErrKeyNotFound,
+			err:     types.ErrGameNotFound,
 		},
 	}
 	for _, tc := range tests {
@@ -50,7 +54,13 @@ func TestGameMsgServerReveal(t *testing.T) {
 			_, srv, ctx := setupMsgServer(t)
 			wctx := sdk.UnwrapSDKContext(ctx)
 
-			_, err := srv.CreateGame(wctx, &types.MsgCreateGame{Creator: creator})
+			_, err := srv.CreateGame(wctx, &types.MsgCreateGame{
+				Creator:        creator,
+				CommitmentHash: sample.CommitmentHash(),
+				Duration:       10,
+				EntryFee:       sample.Coin(),
+				Reward:         sample.Coin(),
+			})
 			require.NoError(t, err)
 
 			_, err = srv.RevealGame(wctx, tc.request)

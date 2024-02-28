@@ -3,7 +3,6 @@ package keeper_test
 import (
 	"testing"
 
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
@@ -14,29 +13,29 @@ import (
 	"gtn/x/gtn/types"
 )
 
-func TestGuessQuerySingle(t *testing.T) {
+func TestGamesGuessesQuery(t *testing.T) {
 	keeper, ctx := keepertest.GtnKeeper(t)
 	msgs := createNGuess(keeper, ctx, 2)
 	tests := []struct {
 		desc     string
-		request  *types.QueryGetGuessRequest
-		response *types.QueryGetGuessResponse
+		request  *types.QueryGetGameGuessesRequest
+		response *types.QueryGetGameGuessesResponse
 		err      error
 	}{
 		{
 			desc:     "First",
-			request:  &types.QueryGetGuessRequest{Id: msgs[0].Id},
-			response: &types.QueryGetGuessResponse{Guess: msgs[0]},
+			request:  &types.QueryGetGameGuessesRequest{GameId: msgs[0].GameId},
+			response: &types.QueryGetGameGuessesResponse{Guesses: []types.Guess{msgs[0]}},
 		},
 		{
 			desc:     "Second",
-			request:  &types.QueryGetGuessRequest{Id: msgs[1].Id},
-			response: &types.QueryGetGuessResponse{Guess: msgs[1]},
+			request:  &types.QueryGetGameGuessesRequest{GameId: msgs[1].GameId},
+			response: &types.QueryGetGameGuessesResponse{Guesses: []types.Guess{msgs[1]}},
 		},
 		{
-			desc:    "KeyNotFound",
-			request: &types.QueryGetGuessRequest{Id: uint64(len(msgs))},
-			err:     sdkerrors.ErrKeyNotFound,
+			desc:     "NoGuessFound",
+			request:  &types.QueryGetGameGuessesRequest{GameId: uint64(len(msgs) + 1)},
+			response: &types.QueryGetGameGuessesResponse{Guesses: []types.Guess{}},
 		},
 		{
 			desc: "InvalidRequest",
@@ -45,7 +44,7 @@ func TestGuessQuerySingle(t *testing.T) {
 	}
 	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.Guess(ctx, tc.request)
+			response, err := keeper.GameGuesses(ctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {
@@ -78,10 +77,10 @@ func TestGuessQueryPaginated(t *testing.T) {
 		for i := 0; i < len(msgs); i += step {
 			resp, err := keeper.GuessAll(ctx, request(nil, uint64(i), uint64(step), false))
 			require.NoError(t, err)
-			require.LessOrEqual(t, len(resp.Guess), step)
+			require.LessOrEqual(t, len(resp.Guesses), step)
 			require.Subset(t,
 				nullify.Fill(msgs),
-				nullify.Fill(resp.Guess),
+				nullify.Fill(resp.Guesses),
 			)
 		}
 	})
@@ -91,10 +90,10 @@ func TestGuessQueryPaginated(t *testing.T) {
 		for i := 0; i < len(msgs); i += step {
 			resp, err := keeper.GuessAll(ctx, request(next, 0, uint64(step), false))
 			require.NoError(t, err)
-			require.LessOrEqual(t, len(resp.Guess), step)
+			require.LessOrEqual(t, len(resp.Guesses), step)
 			require.Subset(t,
 				nullify.Fill(msgs),
-				nullify.Fill(resp.Guess),
+				nullify.Fill(resp.Guesses),
 			)
 			next = resp.Pagination.NextKey
 		}
@@ -105,7 +104,7 @@ func TestGuessQueryPaginated(t *testing.T) {
 		require.Equal(t, len(msgs), int(resp.Pagination.Total))
 		require.ElementsMatch(t,
 			nullify.Fill(msgs),
-			nullify.Fill(resp.Guess),
+			nullify.Fill(resp.Guesses),
 		)
 	})
 	t.Run("InvalidRequest", func(t *testing.T) {

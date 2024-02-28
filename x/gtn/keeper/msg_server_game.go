@@ -7,6 +7,7 @@ import (
 	"gtn/x/gtn/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -65,10 +66,10 @@ func (k msgServer) RevealGame(goCtx context.Context, msg *types.MsgRevealGame) (
 	}
 
 	if game.Creator != msg.Creator {
-		return nil, types.ErrUnauthorized
+		return nil, sdkerrors.ErrUnauthorized
 	}
 
-	if game.Salt != nil {
+	if game.IsReveald() {
 		return nil, types.ErrGameAlreadyRevealed
 	}
 
@@ -77,7 +78,7 @@ func (k msgServer) RevealGame(goCtx context.Context, msg *types.MsgRevealGame) (
 	}
 
 	expDur := k.GetGameExpirationDuration(ctx)
-	if game.StartedAtHeight+game.Duration+expDur > ctx.BlockHeight() {
+	if game.StartedAtHeight+game.Duration+expDur < ctx.BlockHeight() {
 		return nil, types.ErrGameExpired
 	}
 
