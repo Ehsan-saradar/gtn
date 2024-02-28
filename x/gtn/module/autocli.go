@@ -58,9 +58,9 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod:      "RevealGame",
-					Use:            "reveal-game [id] [salt] [number]",
+					Use:            "reveal-game [game-id] [salt] [number]",
 					Short:          "Reveal game",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "salt"}, {ProtoField: "number"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "game_id"}, {ProtoField: "salt"}, {ProtoField: "number"}},
 				},
 				{
 					RpcMethod:      "SubmitGuess",
