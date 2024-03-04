@@ -73,7 +73,7 @@ func (k msgServer) RevealGame(goCtx context.Context, msg *types.MsgRevealGame) (
 		return nil, types.ErrGameAlreadyRevealed
 	}
 
-	if game.StartedAtHeight+game.Duration < ctx.BlockHeight() {
+	if game.StartedAtHeight+game.Duration > ctx.BlockHeight() {
 		return nil, types.ErrGameStillRunning
 	}
 

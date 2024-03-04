@@ -9195,235 +9195,6 @@ paths:
               Since: cosmos-sdk 0.47
       tags:
         - Msg
-  /gtn.gtn.Msg/CreateGame:
-    post:
-      operationId: GtnGtnMsg_CreateGame
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uint64
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              creator:
-                type: string
-              commitment_hash:
-                type: string
-                format: byte
-              duration:
-                type: string
-                format: int64
-              entry_fee:
-                type: object
-                properties:
-                  denom:
-                    type: string
-                  amount:
-                    type: string
-                description: >-
-                  Coin defines a token with a denomination and an amount.
-
-
-                  NOTE: The amount field is an Int which implements the custom
-                  method
-
-                  signatures required by gogoproto.
-              reward:
-                type: object
-                properties:
-                  denom:
-                    type: string
-                  amount:
-                    type: string
-                description: >-
-                  Coin defines a token with a denomination and an amount.
-
-
-                  NOTE: The amount field is an Int which implements the custom
-                  method
-
-                  signatures required by gogoproto.
-      tags:
-        - Msg
-  /gtn.gtn.Msg/RevealGame:
-    post:
-      operationId: GtnGtnMsg_RevealGame
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              creator:
-                type: string
-              game_id:
-                type: string
-                format: uint64
-              salt:
-                type: string
-                format: byte
-              number:
-                type: string
-                format: uint64
-      tags:
-        - Msg
-  /gtn.gtn.Msg/SubmitGuess:
-    post:
-      operationId: GtnGtnMsg_SubmitGuess
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              participant:
-                type: string
-              game_id:
-                type: string
-                format: uint64
-              number:
-                type: string
-                format: uint64
-      tags:
-        - Msg
-  /gtn.gtn.Msg/UpdateParams:
-    post:
-      summary: |-
-        UpdateParams defines a (governance) operation for updating the module
-        parameters. The authority defaults to the x/gov module account.
-      operationId: GtnGtnMsg_UpdateParams
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            description: >-
-              MsgUpdateParamsResponse defines the response structure for
-              executing a
-
-              MsgUpdateParams message.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          description: MsgUpdateParams is the Msg/UpdateParams request type.
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              authority:
-                type: string
-                description: >-
-                  authority is the address that controls the module (defaults to
-                  x/gov unless overwritten).
-              params:
-                description: 'NOTE: All parameters must be supplied.'
-                type: object
-                properties:
-                  max_players_per_game:
-                    type: string
-                    format: uint64
-                  min_distance_to_win:
-                    type: string
-                    format: uint64
-                  game_expiration_duration:
-                    type: string
-                    format: int64
-            description: MsgUpdateParams is the Msg/UpdateParams request type.
-      tags:
-        - Msg
   /gtn/gtn/game:
     get:
       operationId: GtnGtnQuery_GameAll
@@ -9910,6 +9681,235 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
+  /gtn.gtn.Msg/CreateGame:
+    post:
+      operationId: GtnGtnMsg_CreateGame
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              commitment_hash:
+                type: string
+                format: byte
+              duration:
+                type: string
+                format: int64
+              entry_fee:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
+
+
+                  NOTE: The amount field is an Int which implements the custom
+                  method
+
+                  signatures required by gogoproto.
+              reward:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
+
+
+                  NOTE: The amount field is an Int which implements the custom
+                  method
+
+                  signatures required by gogoproto.
+      tags:
+        - Msg
+  /gtn.gtn.Msg/RevealGame:
+    post:
+      operationId: GtnGtnMsg_RevealGame
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              game_id:
+                type: string
+                format: uint64
+              salt:
+                type: string
+                format: byte
+              number:
+                type: string
+                format: uint64
+      tags:
+        - Msg
+  /gtn.gtn.Msg/SubmitGuess:
+    post:
+      operationId: GtnGtnMsg_SubmitGuess
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              participant:
+                type: string
+              game_id:
+                type: string
+                format: uint64
+              number:
+                type: string
+                format: uint64
+      tags:
+        - Msg
+  /gtn.gtn.Msg/UpdateParams:
+    post:
+      summary: |-
+        UpdateParams defines a (governance) operation for updating the module
+        parameters. The authority defaults to the x/gov module account.
+      operationId: GtnGtnMsg_UpdateParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            description: >-
+              MsgUpdateParamsResponse defines the response structure for
+              executing a
+
+              MsgUpdateParams message.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          description: MsgUpdateParams is the Msg/UpdateParams request type.
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              authority:
+                type: string
+                description: >-
+                  authority is the address that controls the module (defaults to
+                  x/gov unless overwritten).
+              params:
+                description: 'NOTE: All parameters must be supplied.'
+                type: object
+                properties:
+                  max_players_per_game:
+                    type: string
+                    format: uint64
+                  min_distance_to_win:
+                    type: string
+                    format: uint64
+                  game_expiration_duration:
+                    type: string
+                    format: int64
+            description: MsgUpdateParams is the Msg/UpdateParams request type.
+      tags:
+        - Msg
   /ibc.applications.fee.v1.Msg/PayPacketFee:
     post:
       summary: >-
@@ -23708,116 +23708,6 @@ definitions:
           min_commission_rate is the chain-wide minimum commission rate that a
           validator can charge their delegators
     description: Params defines the parameters for the x/staking module.
-  gtn.gtn.MsgCreateGame:
-    type: object
-    properties:
-      creator:
-        type: string
-      commitment_hash:
-        type: string
-        format: byte
-      duration:
-        type: string
-        format: int64
-      entry_fee:
-        type: object
-        properties:
-          denom:
-            type: string
-          amount:
-            type: string
-        description: |-
-          Coin defines a token with a denomination and an amount.
-
-          NOTE: The amount field is an Int which implements the custom method
-          signatures required by gogoproto.
-      reward:
-        type: object
-        properties:
-          denom:
-            type: string
-          amount:
-            type: string
-        description: |-
-          Coin defines a token with a denomination and an amount.
-
-          NOTE: The amount field is an Int which implements the custom method
-          signatures required by gogoproto.
-  gtn.gtn.MsgCreateGameResponse:
-    type: object
-    properties:
-      id:
-        type: string
-        format: uint64
-  gtn.gtn.MsgRevealGame:
-    type: object
-    properties:
-      creator:
-        type: string
-      game_id:
-        type: string
-        format: uint64
-      salt:
-        type: string
-        format: byte
-      number:
-        type: string
-        format: uint64
-  gtn.gtn.MsgRevealGameResponse:
-    type: object
-  gtn.gtn.MsgSubmitGuess:
-    type: object
-    properties:
-      participant:
-        type: string
-      game_id:
-        type: string
-        format: uint64
-      number:
-        type: string
-        format: uint64
-  gtn.gtn.MsgSubmitGuessResponse:
-    type: object
-  gtn.gtn.MsgUpdateParams:
-    type: object
-    properties:
-      authority:
-        type: string
-        description: >-
-          authority is the address that controls the module (defaults to x/gov
-          unless overwritten).
-      params:
-        description: 'NOTE: All parameters must be supplied.'
-        type: object
-        properties:
-          max_players_per_game:
-            type: string
-            format: uint64
-          min_distance_to_win:
-            type: string
-            format: uint64
-          game_expiration_duration:
-            type: string
-            format: int64
-    description: MsgUpdateParams is the Msg/UpdateParams request type.
-  gtn.gtn.MsgUpdateParamsResponse:
-    type: object
-    description: |-
-      MsgUpdateParamsResponse defines the response structure for executing a
-      MsgUpdateParams message.
-  gtn.gtn.Params:
-    type: object
-    properties:
-      max_players_per_game:
-        type: string
-        format: uint64
-      min_distance_to_win:
-        type: string
-        format: uint64
-      game_expiration_duration:
-        type: string
-        format: int64
-    description: Params defines the parameters for the module.
   cosmos.base.query.v1beta1.PageRequest:
     type: object
     properties:
@@ -23956,6 +23846,19 @@ definitions:
       number:
         type: string
         format: uint64
+  gtn.gtn.Params:
+    type: object
+    properties:
+      max_players_per_game:
+        type: string
+        format: uint64
+      min_distance_to_win:
+        type: string
+        format: uint64
+      game_expiration_duration:
+        type: string
+        format: int64
+    description: Params defines the parameters for the module.
   gtn.gtn.QueryAllGameResponse:
     type: object
     properties:
@@ -24177,6 +24080,103 @@ definitions:
             type: string
             format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  gtn.gtn.MsgCreateGame:
+    type: object
+    properties:
+      creator:
+        type: string
+      commitment_hash:
+        type: string
+        format: byte
+      duration:
+        type: string
+        format: int64
+      entry_fee:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+      reward:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+  gtn.gtn.MsgCreateGameResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+  gtn.gtn.MsgRevealGame:
+    type: object
+    properties:
+      creator:
+        type: string
+      game_id:
+        type: string
+        format: uint64
+      salt:
+        type: string
+        format: byte
+      number:
+        type: string
+        format: uint64
+  gtn.gtn.MsgRevealGameResponse:
+    type: object
+  gtn.gtn.MsgSubmitGuess:
+    type: object
+    properties:
+      participant:
+        type: string
+      game_id:
+        type: string
+        format: uint64
+      number:
+        type: string
+        format: uint64
+  gtn.gtn.MsgSubmitGuessResponse:
+    type: object
+  gtn.gtn.MsgUpdateParams:
+    type: object
+    properties:
+      authority:
+        type: string
+        description: >-
+          authority is the address that controls the module (defaults to x/gov
+          unless overwritten).
+      params:
+        description: 'NOTE: All parameters must be supplied.'
+        type: object
+        properties:
+          max_players_per_game:
+            type: string
+            format: uint64
+          min_distance_to_win:
+            type: string
+            format: uint64
+          game_expiration_duration:
+            type: string
+            format: int64
+    description: MsgUpdateParams is the Msg/UpdateParams request type.
+  gtn.gtn.MsgUpdateParamsResponse:
+    type: object
+    description: |-
+      MsgUpdateParamsResponse defines the response structure for executing a
+      MsgUpdateParams message.
   ibc.applications.fee.v1.Fee:
     type: object
     properties:

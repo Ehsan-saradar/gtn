@@ -51,10 +51,8 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Skip:      true, // skipped because authority gated
 				},
 				{
-					RpcMethod:      "CreateGame",
-					Use:            "create-game [commitment-hash] [duration] [entry-fee] [reward]",
-					Short:          "Create game",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "commitment_hash"}, {ProtoField: "duration"}, {ProtoField: "entry_fee"}, {ProtoField: "reward"}},
+					RpcMethod: "CreateGame",
+					Skip:      true, // skipped because it's a custom command
 				},
 				{
 					RpcMethod:      "RevealGame",

@@ -16,8 +16,8 @@ func (k msgServer) SubmitGuess(goCtx context.Context, msg *types.MsgSubmitGuess)
 		return nil, types.ErrGameNotFound
 	}
 
-	if game.StartedAtHeight+game.Duration > ctx.BlockHeight() {
-		return nil, types.ErrGameExpired
+	if game.StartedAtHeight+game.Duration <= ctx.BlockHeight() {
+		return nil, types.ErrGameClosed
 	}
 
 	if game.Number != 0 {

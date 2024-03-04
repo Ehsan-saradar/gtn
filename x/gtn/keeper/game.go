@@ -113,5 +113,5 @@ func GetGameIDBytes(id uint64) []byte {
 }
 
 func (k Keeper) IsGameExpired(ctx sdk.Context, game types.Game) bool {
-	return game.StartedAtHeight+game.Duration+k.GetGameExpirationDuration(ctx) >= ctx.BlockHeight()
+	return game.StartedAtHeight+game.Duration+k.GetGameExpirationDuration(ctx) <= ctx.BlockHeight()
 }

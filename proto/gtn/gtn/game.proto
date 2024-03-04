@@ -5,15 +5,16 @@ option go_package = "gtn/x/gtn/types";
 
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
+import "amino/amino.proto";
 
 message Game {
-  uint64 id = 1;
+  uint64 id = 1 [(amino.dont_omitempty) = true];
   bytes commitment_hash = 2;
   int64 started_at_height = 3;
   int64 duration = 4; 
   cosmos.base.v1beta1.Coin entry_fee = 5 [(gogoproto.nullable) = false];
   cosmos.base.v1beta1.Coin reward = 6 [(gogoproto.nullable) = false];
-  uint64 participants_count = 7;
+  uint64 participants_count = 7 [(amino.dont_omitempty) = true];
   bytes salt = 8;
   uint64 number = 9;
   string creator = 10;

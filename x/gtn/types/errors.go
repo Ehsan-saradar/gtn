@@ -15,4 +15,5 @@ var (
 	ErrGameExpired         = sdkerrors.Register(ModuleName, 1105, "game expired")
 	ErrGameFull            = sdkerrors.Register(ModuleName, 1106, "game full")
 	ErrGameStillRunning    = sdkerrors.Register(ModuleName, 1107, "game still running")
+	ErrGameClosed          = sdkerrors.Register(ModuleName, 1108, "game closed")
 )
